@@ -1,0 +1,42 @@
+name: mdbook to Pages
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+env:
+  BOOK_FOLDER: "book"
+  BUILD_FOLDER: "book/output"
+
+jobs:
+  build:
+    name: Build, Test and Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # To push a branch
+      pull-requests: write # To create a PR from that branch
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Install mdbook binary via cargo
+        run: (test -x ${HOME}/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
+
+      - name: Build and test book
+        run: mdbook build ${{ env.BOOK_FOLDER }} && mdbook test ${{ env.BOOK_FOLDER }}
+
+      - name: Deploy to pages
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: ${{ env.BUILD_FOLDER }}
