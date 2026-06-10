@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="580.8014 526.85576 302.77344 102.08984" width="302.77344" height="102.08984">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="06__Anonymous_Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>06. Anonymous Nodes</title>
+    <g id="06__Anonymous_Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_63">
+        <rect x="581.3014" y="555.9007" width="88" height="44" fill="white"/>
+        <rect x="581.3014" y="555.9007" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(586.3014 568.6767)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Graphic_62">
+        <rect x="722.1881" y="567.9007" width="20" height="20" fill="white"/>
+        <rect x="722.1881" y="567.9007" width="20" height="20" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(728.942 571.96474)" fill="black">
+          <tspan font-family="Apple Symbols" font-size="16" fill="black" x="0" y="11" xml:space="preserve">∪</tspan>
+        </text>
+      </g>
+      <g id="Line_61">
+        <line x1="669.3014" y1="563.234" x2="704.4895" y2="568.5568" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_67">
+        <rect x="722.1881" y="538.0335" width="20" height="20" fill="white"/>
+        <rect x="722.1881" y="538.0335" width="20" height="20" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(728.542 542.09755)" fill="black">
+          <tspan font-family="Apple Symbols" font-size="16" fill="black" x="0" y="11" xml:space="preserve">∩</tspan>
+        </text>
+      </g>
+      <g id="Group_73">
+        <g id="Graphic_69">
+          <rect x="795.07485" y="527.35576" width="88" height="44" fill="white"/>
+          <rect x="795.07485" y="527.35576" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(800.07485 540.13176)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="13.968" y="15" xml:space="preserve">ClassA</tspan>
+          </text>
+        </g>
+        <g id="Graphic_70">
+          <rect x="795.07485" y="584.4456" width="88" height="44" fill="white"/>
+          <rect x="795.07485" y="584.4456" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(800.07485 597.2216)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="13.672" y="15" xml:space="preserve">ClassB</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_71">
+        <line x1="742.1881" y1="574.56735" x2="795.07485" y2="560.8053" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_72">
+        <line x1="742.1881" y1="581.234" x2="795.07485" y2="594.99604" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_80">
+        <rect x="722.1881" y="597.7679" width="20" height="20" fill="white"/>
+        <rect x="722.1881" y="597.7679" width="20" height="20" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(729.4342 601.8319)" fill="black">
+          <tspan font-family="Apple Symbols" font-size="16" fill="black" x="0" y="11" xml:space="preserve">∁</tspan>
+        </text>
+      </g>
+      <g id="Line_92">
+        <line x1="669.3014" y1="592.56735" x2="705.8737" y2="587.0352" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

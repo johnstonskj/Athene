@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="239.25723 162.03212 274.74248 53.60872" width="274.74248" height="53.60872">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Ontologies" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>08. Ontologies</title>
+    <g id="Ontologies_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_103">
+        <g id="Graphic_105">
+          <rect x="239.75723" y="171.14085" width="88" height="44" fill="white"/>
+          <rect x="239.75723" y="171.14085" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(243.75723 183.91685)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.4" y="15" xml:space="preserve">Ontology</tspan>
+          </text>
+        </g>
+        <g id="Graphic_104">
+          <path d="M 262.2036 162.53212 L 267.8152 171.14085 L 239.75723 171.14085 L 239.75723 162.53212 Z" fill="white"/>
+          <path d="M 262.2036 162.53212 L 267.8152 171.14085 L 239.75723 171.14085 L 239.75723 162.53212 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Group_97">
+        <g id="Graphic_99">
+          <rect x="425.4997" y="171.14085" width="88" height="44" fill="white"/>
+          <rect x="425.4997" y="171.14085" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(429.4997 183.91685)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="14.8" y="15" xml:space="preserve">Onto-2</tspan>
+          </text>
+        </g>
+        <g id="Graphic_98">
+          <path d="M 447.9461 162.53212 L 453.5577 171.14085 L 425.4997 171.14085 L 425.4997 162.53212 Z" fill="white"/>
+          <path d="M 447.9461 162.53212 L 453.5577 171.14085 L 425.4997 171.14085 L 425.4997 162.53212 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Line_95">
+        <line x1="327.75723" y1="193.14085" x2="407.5997" y2="193.14085" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+      </g>
+      <g id="Graphic_94">
+        <text transform="translate(366.96247 174.32247)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">xsd</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

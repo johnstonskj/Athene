@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="580.8014 663.5823 302.77344 103.41211" width="302.77344" height="103.41211">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="06__Anonymous_Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>06. Anonymous Nodes</title>
+    <g id="06__Anonymous_Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_81">
+        <rect x="722.1881" y="705.2884" width="20" height="20" fill="white"/>
+        <rect x="722.1881" y="705.2884" width="20" height="20" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(729.003 709.3524)" fill="black">
+          <tspan font-family="Apple Symbols" font-size="16" fill="black" x="0" y="11" xml:space="preserve">1</tspan>
+        </text>
+      </g>
+      <g id="Graphic_83">
+        <rect x="581.3014" y="693.2884" width="88" height="44" fill="white"/>
+        <rect x="581.3014" y="693.2884" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(586.3014 706.0644)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Line_82">
+        <line x1="669.3014" y1="700.6217" x2="704.4895" y2="705.9445" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_86">
+        <g id="Graphic_84">
+          <ellipse cx="839.0749" cy="744.4944" rx="44.0000703076834" ry="22.0000351538418" fill="white"/>
+          <ellipse cx="839.0749" cy="744.4944" rx="44.0000703076834" ry="22.0000351538418" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(808.87485 736.2984)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Graphic_85">
+          <ellipse cx="839.0749" cy="686.0823" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="839.0749" cy="686.0823" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(808.87485 677.8863)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_87">
+        <line x1="742.1881" y1="718.6217" x2="800.2531" y2="734.1274" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_88">
+        <line x1="742.1881" y1="711.955" x2="800.2531" y2="696.4493" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_93">
+        <line x1="669.3014" y1="729.955" x2="705.8737" y2="724.4229" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

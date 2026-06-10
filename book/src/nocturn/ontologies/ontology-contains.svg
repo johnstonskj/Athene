@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="239.25723 279.66016 274.74248 53.60872" width="274.74248" height="53.60872">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -6 14 12" markerWidth="14" markerHeight="12" color="#666">
+      <g>
+        <path d="M 12 0 L 0 0 M 0 -4.5 L 12 0 L 0 4.5" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBox_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#666">
+      <g>
+        <rect x="-6" y="-3" width="6" height="6" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Ontologies" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>08. Ontologies</title>
+    <g id="Ontologies_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_93">
+        <rect x="425.4997" y="288.76888" width="88" height="44" fill="white"/>
+        <rect x="425.4997" y="288.76888" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(430.4997 301.54488)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Group_90">
+        <g id="Graphic_92">
+          <rect x="239.75723" y="288.76888" width="88" height="44" fill="white"/>
+          <rect x="239.75723" y="288.76888" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(243.75723 301.54488)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.4" y="15" xml:space="preserve">Ontology</tspan>
+          </text>
+        </g>
+        <g id="Graphic_91">
+          <path d="M 262.2036 280.16016 L 267.8152 288.76888 L 239.75723 288.76888 L 239.75723 280.16016 Z" fill="white"/>
+          <path d="M 262.2036 280.16016 L 267.8152 288.76888 L 239.75723 288.76888 L 239.75723 280.16016 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Line_89">
+        <line x1="334.25723" y1="310.76888" x2="411.5997" y2="310.76888" marker-end="url(#StickArrow_Marker)" marker-start="url(#FilledBox_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

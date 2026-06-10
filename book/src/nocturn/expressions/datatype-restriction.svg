@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="1087.4644 502.53516 302.77344 103.41211" width="302.77344" height="103.41211">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="06__Anonymous_Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>06. Anonymous Nodes</title>
+    <g id="06__Anonymous_Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_107">
+        <rect x="1087.9644" y="532.2412" width="88" height="44" fill="white"/>
+        <path d="M 1087.9644 532.2412 L 1175.9644 532.2412 L 1175.9644 576.2412 L 1087.9644 576.2412 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(1092.9644 545.0172)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.584" y="15" xml:space="preserve">datatype</tspan>
+        </text>
+      </g>
+      <g id="Graphic_108">
+        <rect x="1228.8511" y="544.2412" width="20" height="20" fill="white"/>
+        <path d="M 1228.8511 544.2412 L 1248.8511 544.2412 L 1248.8511 564.2412 L 1228.8511 564.2412 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(1234.644 547.07325)" fill="black">
+          <tspan font-family="Apple Symbols" font-size="16" fill="black" x="0" y="11" xml:space="preserve">∃</tspan>
+        </text>
+      </g>
+      <g id="Line_109">
+        <line x1="1175.9644" y1="554.2412" x2="1212.3511" y2="554.2412" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_111">
+        <g id="Graphic_106">
+          <ellipse cx="1345.7378" cy="525.03516" rx="44.0000703076835" ry="22.0000351538417" fill="white"/>
+          <path d="M 1376.8505 509.47883 C 1394.0336 518.07036 1394.0336 531.99997 1376.8505 540.5915 C 1359.6674 549.1831 1331.8082 549.1831 1314.6251 540.5915 C 1297.442 531.99997 1297.442 518.07036 1314.6251 509.47883 C 1331.8082 500.88726 1359.6674 500.88726 1376.8505 509.47883" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(1315.5378 516.83916)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="13.344" y="13" xml:space="preserve">Value</tspan>
+          </text>
+        </g>
+        <g id="Graphic_110">
+          <ellipse cx="1345.7378" cy="583.4473" rx="44.0000703076835" ry="22.0000351538418" fill="white"/>
+          <path d="M 1376.8505 567.89094 C 1394.0336 576.4825 1394.0336 590.4121 1376.8505 599.0036 C 1359.6674 607.5952 1331.8082 607.5952 1314.6251 599.0036 C 1297.442 590.4121 1297.442 576.4825 1314.6251 567.89094 C 1331.8082 559.2994 1359.6674 559.2994 1376.8505 567.89094" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(1315.5378 575.2513)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="13.344" y="13" xml:space="preserve">Value</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_112">
+        <line x1="1248.8511" y1="551.5088" x2="1307.1171" y2="535.588" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_113">
+        <line x1="1248.8511" y1="556.97365" x2="1307.1171" y2="572.89443" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_114">
+        <rect x="1228.8511" y="576.0134" width="20" height="20" fill="white"/>
+        <path d="M 1228.8511 576.0134 L 1248.8511 576.0134 L 1248.8511 596.0134 L 1228.8511 596.0134 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(1233.8081 578.8454)" fill="black">
+          <tspan font-family="Apple Symbols" font-size="16" fill="black" x="0" y="11" xml:space="preserve">∀</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

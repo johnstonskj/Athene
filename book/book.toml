@@ -1,0 +1,26 @@
+[book]
+title = "Athene - OWL Tools"
+authors = ["Simon Johnston <johnstonskj@gmail.com>"]
+language = "en"
+src = "src"
+
+[build]
+build-dir = "output"
+create-missing = true
+
+[output.html]
+site-url = "https://simonkjohnston.life/Athene"
+git-repository-url = "https://github.com/johnstonskj/Athene"
+additional-css = ["src/athene.css"]
+additional-js = ["src/sparql.js", "src/turtle.js", "src/custom.js"]
+mathjax-support = false
+
+[output.html.fold] 
+enable = true
+level = 2
+
+[output.html.playpen]
+line-numbers = true
+
+[output.html.search]
+use-boolean-and = true

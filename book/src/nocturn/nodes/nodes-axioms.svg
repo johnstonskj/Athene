@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="424.9997 241.41455 89 45" width="89" height="45">
+  <defs/>
+  <g id="Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>01. Nodes</title>
+    <g id="Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_77">
+        <path d="M 513.4997 254.93415 C 513.4997 250.76603 512.3821 250.25035 504.21835 246.12535 L 504.1321 246.08267 C 495.9252 241.91455 495.83987 241.91455 487.4174 241.91455 C 476.20267 241.91455 425.4997 241.91455 425.4997 241.91455 L 425.4997 285.91455 L 513.4997 285.91455 L 513.4997 254.93415 Z" fill="white"/>
+        <path d="M 513.4997 254.93415 C 513.4997 250.76603 512.3821 250.25035 504.21835 246.12535 L 504.1321 246.08267 C 495.9252 241.91455 495.83987 241.91455 487.4174 241.91455 C 476.20267 241.91455 425.4997 241.91455 425.4997 241.91455 L 425.4997 285.91455 L 513.4997 285.91455 L 513.4997 254.93415 Z M 513.4997 254.71943 C 513.4997 250.76603 513.41347 250.76603 495.83987 250.76603 L 495.83987 250.76603 C 495.83987 241.95767 495.83987 241.91455 487.93307 241.91455" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(430.4997 256.74655)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">axioms</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
