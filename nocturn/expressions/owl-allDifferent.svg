@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="1087.4644 346.5283 302.77344 103.41211" width="302.77344" height="103.41211">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -5 12 10" markerWidth="12" markerHeight="10" color="#666">
+      <g>
+        <path d="M 10 0 L 0 0 M 0 -3.75 L 10 0 L 0 3.75" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="06__Anonymous_Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>06. Anonymous Nodes</title>
+    <g id="06__Anonymous_Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_97">
+        <ellipse cx="1131.9644" cy="398.23438" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+        <ellipse cx="1131.9644" cy="398.23438" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1101.7644 390.03838)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+        </text>
+      </g>
+      <g id="Line_95">
+        <line x1="1175.9644" y1="398.23438" x2="1216.9511" y2="398.23438" marker-end="url(#StickArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_102">
+        <g id="Graphic_96">
+          <ellipse cx="1345.7378" cy="369.0283" rx="44.0000703076835" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="1345.7378" cy="369.0283" rx="44.0000703076835" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(1315.5378 360.8323)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Graphic_98">
+          <ellipse cx="1345.7378" cy="427.44043" rx="44.0000703076835" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="1345.7378" cy="427.44043" rx="44.0000703076835" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(1315.5378 419.24443)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Graphic_99">
+        <circle cx="1238.8511" cy="398.23438" r="10.000015979019" fill="white"/>
+        <circle cx="1238.8511" cy="398.23438" r="10.000015979019" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1233.4503 389.76638)" fill="black">
+          <tspan font-family="Lucida Grande" font-size="12" fill="black" x="33484326e-20" y="12" xml:space="preserve">○</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" y="12" xml:space="preserve">|</tspan>
+        </text>
+      </g>
+      <g id="Line_103">
+        <line x1="1248.4991" y1="395.5981" x2="1307.1171" y2="379.58116" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_104">
+        <line x1="1248.4991" y1="400.87063" x2="1307.1171" y2="416.8876" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

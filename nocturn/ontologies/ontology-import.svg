@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="239.25723 44.40409 274.74248 53.60872" width="274.74248" height="53.60872">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Ontologies" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>08. Ontologies</title>
+    <g id="Ontologies_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_69">
+        <g id="Graphic_65">
+          <rect x="239.75723" y="53.51281" width="88" height="44" fill="white"/>
+          <rect x="239.75723" y="53.51281" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(243.75723 66.28881)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.4" y="15" xml:space="preserve">Ontology</tspan>
+          </text>
+        </g>
+        <g id="Graphic_67">
+          <path d="M 262.2036 44.90409 L 267.8152 53.51281 L 239.75723 53.51281 L 239.75723 44.90409 Z" fill="white"/>
+          <path d="M 262.2036 44.90409 L 267.8152 53.51281 L 239.75723 53.51281 L 239.75723 44.90409 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Group_74">
+        <g id="Graphic_76">
+          <rect x="425.4997" y="53.51281" width="88" height="44" fill="white"/>
+          <rect x="425.4997" y="53.51281" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(429.4997 66.28881)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="14.8" y="15" xml:space="preserve">Onto-1</tspan>
+          </text>
+        </g>
+        <g id="Graphic_75">
+          <path d="M 447.9461 44.90409 L 453.5577 53.51281 L 425.4997 53.51281 L 425.4997 44.90409 Z" fill="white"/>
+          <path d="M 447.9461 44.90409 L 453.5577 53.51281 L 425.4997 53.51281 L 425.4997 44.90409 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Line_80">
+        <line x1="327.75723" y1="75.51281" x2="407.5997" y2="75.51281" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="640.0757 530.75565 257.91797 45" width="257.91797" height="45">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledDoubleArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 30 14" markerWidth="30" markerHeight="14" color="#666">
+      <g>
+        <path d="M 14 -5.25 L 14 0 L 0 -5.25 L 0 5.25 L 14 0 L 14 5.25 L 28 0 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledDoubleArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-29 -7 30 14" markerWidth="30" markerHeight="14" color="#666">
+      <g>
+        <path d="M -14 5.25 L -14 0 L 0 5.25 L 0 -5.25 L -14 0 L -14 -5.25 L -28 0 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="03__Object_Properties" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>03. Object Properties</title>
+    <g id="03__Object_Properties_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_12">
+        <rect x="640.5757" y="531.25565" width="88" height="44" fill="white"/>
+        <rect x="640.5757" y="531.25565" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(645.5757 544.03165)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Graphic_11">
+        <rect x="809.4937" y="531.25565" width="88" height="44" fill="white"/>
+        <rect x="809.4937" y="531.25565" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(814.4937 544.03165)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Line_10">
+        <line x1="758.4757" y1="553.25565" x2="779.5937" y2="553.25565" marker-end="url(#FilledDoubleArrow_Marker)" marker-start="url(#FilledDoubleArrow_Marker_2)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_61">
+        <text transform="translate(754.1367 536.25565)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

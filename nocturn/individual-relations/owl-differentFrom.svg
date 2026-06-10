@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="353.03234 279.01842 242.71375 45" width="242.71375" height="45">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="BarBall_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -6 25 12" markerWidth="25" markerHeight="12" color="#666">
+      <g>
+        <path d="M 22.5 0 L 7.5 0 M 11.25 5 L 11.25 -5 M 1.09835 2.65165 C -.3661125 1.1871838 -.3661125 -1.1871838 1.09835 -2.65165 C 2.5628125 -4.1161125 4.9371875 -4.1161125 6.40165 -2.65165 C 7.866116 -1.1871838 7.866116 1.1871838 6.40165 2.65165 C 4.9371875 4.1161125 2.5628125 4.1161125 1.09835 2.65165" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="05__Individual_Properties" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>05. Individual Properties</title>
+    <g id="05__Individual_Properties_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_85">
+        <ellipse cx="397.53234" cy="301.51842" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+        <ellipse cx="397.53234" cy="301.51842" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(367.33234 293.32242)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+        </text>
+      </g>
+      <g id="Graphic_84">
+        <ellipse cx="551.2461" cy="301.51842" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+        <ellipse cx="551.2461" cy="301.51842" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(521.0461 293.32242)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+        </text>
+      </g>
+      <g id="Line_83">
+        <line x1="441.53237" y1="301.51842" x2="484.2461" y2="301.51842" marker-end="url(#BarBall_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

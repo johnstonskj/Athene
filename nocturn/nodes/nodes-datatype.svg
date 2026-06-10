@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="420.96354 355.5 89 45" width="89" height="45">
+  <defs/>
+  <g id="Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>Nodes</title>
+    <g id="Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_83">
+        <rect x="421.46354" y="356" width="88" height="44" fill="white"/>
+        <path d="M 421.46354 356 L 509.46354 356 L 509.46354 400 L 421.46354 400 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(426.46354 368.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.584" y="15" xml:space="preserve">datatype</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
