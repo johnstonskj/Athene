@@ -1,0 +1,12 @@
+strict digraph {
+    rankdir="LR"
+
+    node [fontname="Helvetica", fontcolor="black", color="#808080"];
+    edge [fontname="Helvetica", fontcolor="black", color="#808080"];
+    
+    ClassA [shape="oval"];
+    ClassB [shape="oval"];
+
+    ClassB -> ClassA [dir="both", minlen="2", arrowtail="noneteetee", arrowhead="normal"];
+    ClassC -> ClassD [dir="both", minlen="2", arrowtail="noneteeodot", arrowhead="normal"];
+}

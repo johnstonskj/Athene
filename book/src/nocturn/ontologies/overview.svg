@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="263.10532 379.20707 323.3947 152.01235" width="323.3947" height="152.01235">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Cheat_Sheet" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>Cheat Sheet</title>
+    <g id="Cheat_Sheet_Background_Groups">
+      <title>Background Groups</title>
+      <g id="Group_272">
+        <g id="Graphic_274">
+          <rect x="263.60532" y="379.70707" width="322.3947" height="151.01235" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_273">
+          <text transform="translate(268.60532 384.7888)" fill="black">
+            <tspan font-family="Helvetica Neue" font-weight="bold" font-size="16" fill="black" x="0" y="16" xml:space="preserve">Ontologies</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g id="Cheat_Sheet_Foreground">
+      <title>Foreground</title>
+      <g id="Group_240">
+        <g id="Line_208">
+          <line x1="370.10326" y1="496.87085" x2="461.46206" y2="496.87085" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        </g>
+        <g id="Graphic_207">
+          <text transform="translate(375.10326 482.4546)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="27.38845" y="11" xml:space="preserve">dcterms</tspan>
+          </text>
+        </g>
+        <g id="Group_222">
+          <g id="Graphic_224">
+            <rect x="479.36206" y="482.1498" width="88" height="29.442085" fill="white"/>
+            <rect x="479.36206" y="482.1498" width="88" height="29.442085" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            <text transform="translate(483.36206 488.67485)" fill="black">
+              <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.475" y="13" xml:space="preserve">Ontology</tspan>
+            </text>
+          </g>
+          <g id="Graphic_223">
+            <path d="M 501.80844 476.3894 L 507.42 482.1498 L 479.36206 482.1498 L 479.36206 476.3894 Z" fill="white"/>
+            <path d="M 501.80844 476.3894 L 507.42 482.1498 L 479.36206 482.1498 L 479.36206 476.3894 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+        </g>
+        <g id="Group_225">
+          <g id="Graphic_227">
+            <rect x="282.10326" y="482.1498" width="88" height="29.442085" fill="white"/>
+            <rect x="282.10326" y="482.1498" width="88" height="29.442085" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            <text transform="translate(286.10326 488.67485)" fill="black">
+              <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.475" y="13" xml:space="preserve">Ontology</tspan>
+            </text>
+          </g>
+          <g id="Graphic_226">
+            <path d="M 304.54963 476.3894 L 310.16123 482.1498 L 282.10326 482.1498 L 282.10326 476.3894 Z" fill="white"/>
+            <path d="M 304.54963 476.3894 L 310.16123 482.1498 L 282.10326 482.1498 L 282.10326 476.3894 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+        </g>
+      </g>
+      <g id="Group_239">
+        <g id="Line_215">
+          <line x1="370.10326" y1="440.8318" x2="461.46206" y2="440.8318" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Group_231">
+          <g id="Graphic_233">
+            <rect x="479.36206" y="426.11077" width="88" height="29.442085" fill="white"/>
+            <rect x="479.36206" y="426.11077" width="88" height="29.442085" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            <text transform="translate(483.36206 432.6358)" fill="black">
+              <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.475" y="13" xml:space="preserve">Ontology</tspan>
+            </text>
+          </g>
+          <g id="Graphic_232">
+            <path d="M 501.80844 420.35034 L 507.42 426.11077 L 479.36206 426.11077 L 479.36206 420.35034 Z" fill="white"/>
+            <path d="M 501.80844 420.35034 L 507.42 426.11077 L 479.36206 426.11077 L 479.36206 420.35034 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+        </g>
+        <g id="Group_228">
+          <g id="Graphic_230">
+            <rect x="282.10326" y="426.11077" width="88" height="29.442085" fill="white"/>
+            <rect x="282.10326" y="426.11077" width="88" height="29.442085" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            <text transform="translate(286.10326 432.6358)" fill="black">
+              <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.475" y="13" xml:space="preserve">Ontology</tspan>
+            </text>
+          </g>
+          <g id="Graphic_229">
+            <path d="M 304.54963 420.35034 L 310.16123 426.11077 L 282.10326 426.11077 L 282.10326 420.35034 Z" fill="white"/>
+            <path d="M 304.54963 420.35034 L 310.16123 426.11077 L 282.10326 426.11077 L 282.10326 420.35034 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

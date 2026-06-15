@@ -1,0 +1,18 @@
+strict digraph {
+    rankdir="BT"
+
+    node [fontname="Helvetica", fontcolor="black", color="#808080"];
+    edge [fontname="Helvetica", fontcolor="black", color="#808080"];
+    
+    Class [shape="rect"];
+    Individual [shape="oval"];
+
+    Individual -> Class [style="dotted", arrowhead="empty"];
+
+    
+    Datatype [shape="rect", style="dotted"];
+    Literal [shape="oval", style="dotted"];
+
+    Literal -> Datatype [style="dotted", arrowhead="empty"];
+    
+}

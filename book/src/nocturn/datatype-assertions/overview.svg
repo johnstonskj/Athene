@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="263.03532 836.9124 323.3947 190.58757" width="323.3947" height="190.58757">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="#666">
+      <g>
+        <path d="M 8 0 L 0 0 M 0 -3 L 8 0 L 0 3" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Cheat_Sheet" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>Cheat Sheet</title>
+    <g id="Cheat_Sheet_Background_Groups">
+      <title>Background Groups</title>
+      <g id="Group_514">
+        <g id="Graphic_413">
+          <rect x="263.53532" y="837.4124" width="322.3947" height="189.58757" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_412">
+          <text transform="translate(268.53532 844.5326)" fill="black">
+            <tspan font-family="Helvetica Neue" font-weight="bold" font-size="16" fill="black" x="0" y="16" xml:space="preserve">Datatype Assertions</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g id="Cheat_Sheet_Foreground">
+      <title>Foreground</title>
+      <g id="Group_405">
+        <g id="Graphic_77">
+          <rect x="480.551" y="885.1904" width="88" height="29.46411" fill="white"/>
+          <rect x="480.551" y="885.1904" width="88" height="29.46411" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(485.551 891.7265)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="10.734" y="13" xml:space="preserve">Datatype</tspan>
+          </text>
+        </g>
+        <g id="Graphic_76">
+          <rect x="280.91434" y="885.1759" width="88" height="29.46411" fill="white"/>
+          <path d="M 280.91434 885.1759 L 368.91434 885.1759 L 368.91434 914.64 L 280.91434 914.64 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(285.91434 891.712)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.511" y="13" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Line_75">
+          <line x1="368.91434" y1="899.9112" x2="464.051" y2="899.9181" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        </g>
+        <g id="Graphic_55">
+          <text transform="translate(373.78525 885.1904)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="34.39554" y="10" xml:space="preserve">rdf:type</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_501">
+        <g id="Graphic_260">
+          <rect x="478.17314" y="938.7287" width="88" height="29.46411" fill="white"/>
+          <path d="M 478.17314 938.7287 L 566.17314 938.7287 L 566.17314 968.1928 L 478.17314 968.1928 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(483.17314 945.2647)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.511" y="13" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Graphic_259">
+          <rect x="280.91434" y="938.7287" width="88" height="29.46411" fill="white"/>
+          <path d="M 280.91434 938.7287 L 368.91434 938.7287 L 368.91434 968.1928 L 280.91434 968.1928 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(285.91434 945.2647)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.511" y="13" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Line_258">
+          <line x1="368.91434" y1="953.4607" x2="461.67314" y2="953.4607" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_244">
+          <text transform="translate(388.92434 938.7287)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="0" y="10" xml:space="preserve">owl:Restriction</tspan>
+          </text>
+        </g>
+        <g id="Graphic_417">
+          <title>Note</title>
+          <path d="M 489.2015 988.8947 C 489.2015 986.1035 487.5012 985.7582 475.0812 982.996 L 474.95 982.9674 C 462.4644 980.1762 462.3345 980.1762 449.5209 980.1762 C 432.4593 980.1762 355.3219 980.1762 355.3219 980.1762 L 355.3219 1009.6404 L 489.2015 1009.6404 L 489.2015 988.8947 Z" fill="white"/>
+          <path d="M 489.2015 988.8947 C 489.2015 986.1035 487.5012 985.7582 475.0812 982.996 L 474.95 982.9674 C 462.4644 980.1762 462.3345 980.1762 449.5209 980.1762 C 432.4593 980.1762 355.3219 980.1762 355.3219 980.1762 L 355.3219 1009.6404 L 489.2015 1009.6404 L 489.2015 988.8947 Z M 489.2015 988.7509 C 489.2015 986.1035 489.07027 986.1035 462.3345 986.1035 L 462.3345 986.1035 C 462.3345 980.2051 462.3345 980.1762 450.30545 980.1762" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(358.3219 980.5723)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">minLength=2</tspan>
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="25.336" xml:space="preserve">maxLength=12</tspan>
+          </text>
+        </g>
+        <g id="Line_418">
+          <line x1="422.55916" y1="953.4607" x2="422.43847" y2="970.2765" marker-end="url(#StickArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

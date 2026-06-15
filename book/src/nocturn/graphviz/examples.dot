@@ -1,0 +1,38 @@
+strict digraph {
+
+    node [fontname="Helvetica", fontcolor="black", color="#808080"];
+    edge [fontname="Helvetica", fontcolor="black", color="#808080"];
+    
+    Class [shape="rect"];
+    
+    Datatype [shape="rect", style="dotted"];
+    
+    Individual [shape="ellipse"];
+
+    Literal [shape="ellipse", style="dotted"];
+
+    Simon [shape="ellipse", style="dotted", label=<
+        <TABLE BORDER="0" CELLBORDER="0" CELLPADDING="0" CELLSPACING="0">
+            <TR>
+                <TD>Simon</TD>
+            </TR>
+            <HR/>
+            <TR>
+                <TD>@en</TD>
+            </TR>
+        </TABLE>
+    >];
+
+
+    Simone [shape="ellipse", style="dotted", label=<<U>Simone</U><BR/>@en>];
+
+    OProperty  [shape="polygon", sides=3, orientation=270];
+    
+    DProperty  [shape="polygon", sides=3, orientation=270, style="dotted"];
+
+    AProperty [shape="house", orientation=270];
+    
+    Ontology [ shape="tab"];
+
+    axiom [ shape="note", label="classA and classB"];
+}

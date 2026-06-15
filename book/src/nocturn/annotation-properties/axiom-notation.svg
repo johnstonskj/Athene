@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="1731.5 1788.85 334.8356 62" width="334.8356" height="62">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Box_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#666">
+      <g>
+        <rect x="-6" y="-3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="08__Annotation_Properties" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>08. Annotation Properties</title>
+    <g id="08__Annotation_Properties_Layer_1">
+      <title>Layer 1</title>
+      <g id="Line_25">
+        <line x1="1826.5" y1="1820.683" x2="1932.3872" y2="1820.1972" marker-end="url(#FilledArrow_Marker)" marker-start="url(#Box_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_24">
+        <path d="M 2065.8356 1807.3998 C 2065.8356 1801.6213 2064.368 1800.9064 2053.6487 1795.1876 L 2053.5354 1795.1284 C 2042.7594 1789.35 2042.6473 1789.35 2031.5881 1789.35 C 2016.8626 1789.35 1950.287 1789.35 1950.287 1789.35 L 1950.287 1850.35 L 2065.8356 1850.35 L 2065.8356 1807.3998 Z" fill="white"/>
+        <path d="M 2065.8356 1807.3998 C 2065.8356 1801.6213 2064.368 1800.9064 2053.6487 1795.1876 L 2053.5354 1795.1284 C 2042.7594 1789.35 2042.6473 1789.35 2031.5881 1789.35 C 2016.8626 1789.35 1950.287 1789.35 1950.287 1789.35 L 1950.287 1850.35 L 2065.8356 1850.35 L 2065.8356 1807.3998 Z M 2065.8356 1807.1021 C 2065.8356 1801.6213 2065.7223 1801.6213 2042.6473 1801.6213 L 2042.6473 1801.6213 C 2042.6473 1789.4097 2042.6473 1789.35 2032.2653 1789.35" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1953.287 1798.346)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">label=…</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="25.336" xml:space="preserve">comment=…</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="39.671997" xml:space="preserve">description=…</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <rect x="1732" y="1798.9148" width="88" height="44" fill="white"/>
+        <rect x="1732" y="1798.9148" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1737 1811.6908)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Graphic_43">
+        <text transform="translate(1832.7285 1789.35)" fill="#235e00">
+          <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="8668621e-19" y="10" xml:space="preserve">owl:AnnotationProperty</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

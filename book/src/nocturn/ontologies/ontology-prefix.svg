@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="239.25723 162.03212 274.74248 53.60872" width="274.74248" height="53.60872">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="239.25723 162.03212 274.74248 53.60872" width="274.74248" height="53.60872">
   <defs>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
       <g>
@@ -8,9 +8,9 @@
       </g>
     </marker>
   </defs>
-  <g id="Ontologies" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
-    <title>08. Ontologies</title>
-    <g id="Ontologies_Layer_1">
+  <g id="01__Ontologies" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>01. Ontologies</title>
+    <g id="01__Ontologies_Layer_1">
       <title>Layer 1</title>
       <g id="Group_103">
         <g id="Graphic_105">
@@ -42,8 +42,8 @@
         <line x1="327.75723" y1="193.14085" x2="407.5997" y2="193.14085" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
       </g>
       <g id="Graphic_94">
-        <text transform="translate(366.96247 174.32247)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">xsd</tspan>
+        <text transform="translate(354.62047 174.78732)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">dcterms</tspan>
         </text>
       </g>
     </g>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="281.2589 272.30187 376.4816 45" width="376.4816" height="45">
+  <defs/>
+  <g id="01__Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>01. Nodes</title>
+    <g id="01__Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_99">
+        <path d="M 281.7589 272.80187 L 369.7589 294.80187 L 281.7589 316.80187 Z" fill="white"/>
+        <path d="M 281.7589 272.80187 L 369.7589 294.80187 L 281.7589 316.80187 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(286.7589 286.60587)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="0" y="13" xml:space="preserve">Property</tspan>
+        </text>
+      </g>
+      <g id="Graphic_100">
+        <path d="M 425.4997 272.80187 L 513.4997 294.80187 L 425.4997 316.80187 Z" fill="white"/>
+        <path d="M 425.4997 272.80187 L 513.4997 294.80187 L 425.4997 316.80187 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(430.4997 286.60587)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="0" y="13" xml:space="preserve">Property</tspan>
+        </text>
+      </g>
+      <g id="Group_101">
+        <g id="Graphic_103">
+          <path d="M 569.2405 272.80187 L 627.9365 272.80187 L 657.2405 294.80187 L 627.9365 316.80187 L 569.2405 316.80187 Z" fill="white"/>
+          <path d="M 569.2405 272.80187 L 627.9365 272.80187 L 657.2405 294.80187 L 627.9365 316.80187 L 569.2405 316.80187 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_102">
+          <text transform="translate(574.2405 286.60587)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="0" y="13" xml:space="preserve">Property</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

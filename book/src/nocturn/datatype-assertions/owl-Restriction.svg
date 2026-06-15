@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="328.5413 484.5773 307.287 93.93228" width="307.287" height="93.93228">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 0 M 0 -6 L 16 0 L 0 6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="06__Datatype_Assertions" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>06. Datatype Assertions</title>
+    <g id="06__Datatype_Assertions_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_63">
+        <g id="Graphic_42">
+          <rect x="547.3283" y="485.0773" width="88" height="44" fill="white"/>
+          <path d="M 547.3283 485.0773 L 635.3283 485.0773 L 635.3283 529.0773 L 547.3283 529.0773 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(552.3283 497.8533)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.584" y="15" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Graphic_41">
+          <rect x="329.0413" y="485.0773" width="88" height="44" fill="white"/>
+          <path d="M 329.0413 485.0773 L 417.0413 485.0773 L 417.0413 529.0773 L 329.0413 529.0773 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(334.0413 497.8533)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.584" y="15" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Line_40">
+          <line x1="417.0413" y1="507.0773" x2="530.8283" y2="507.0773" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_53">
+          <text transform="translate(449.1348 485.0773)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="0" y="10" xml:space="preserve">owl:Restriction</tspan>
+          </text>
+        </g>
+        <g id="Graphic_60">
+          <title>Note</title>
+          <path d="M 548.6344 557.2639 C 548.6344 554.4728 546.9341 554.12746 534.5141 551.3652 L 534.3829 551.3366 C 521.8973 548.5455 521.76745 548.5455 508.95384 548.5455 C 491.8922 548.5455 414.75485 548.5455 414.75485 548.5455 L 414.75485 578.0096 L 548.6344 578.0096 L 548.6344 557.2639 Z" fill="white"/>
+          <path d="M 548.6344 557.2639 C 548.6344 554.4728 546.9341 554.12746 534.5141 551.3652 L 534.3829 551.3366 C 521.8973 548.5455 521.76745 548.5455 508.95384 548.5455 C 491.8922 548.5455 414.75485 548.5455 414.75485 548.5455 L 414.75485 578.0096 L 548.6344 578.0096 L 548.6344 557.2639 Z M 548.6344 557.1201 C 548.6344 554.4728 548.5032 554.4728 521.76745 554.4728 L 521.76745 554.4728 C 521.76745 548.57436 521.76745 548.5455 509.7384 548.5455" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(417.75485 548.94154)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">minLength=2</tspan>
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="25.336" xml:space="preserve">maxLength=12</tspan>
+          </text>
+        </g>
+        <g id="Line_61">
+          <line x1="481.8004" y1="507.0773" x2="481.75603" y2="530.6455" marker-end="url(#StickArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

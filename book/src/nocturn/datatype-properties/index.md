@@ -1,17 +1,26 @@
+<!-- markdownlint-disable-file MD033 -->
 # Datatype Properties
 
-## Datatype Property Notation
+![Datatype Properties](./overview.svg)
+
+<span class="figure caption">Datatype Properties</span>
+
+## owl:DatatypeProperty
 
 ![Class Notation](./owl-DatatypeProperty.svg)
 
-### Datatype Property Rules
+<span class="figure caption">An OWL *DatatypeProperty* Edge</span>
+
+### owl:DatatypeProperty Rules
 
 TBD
 
-## Datatype Restriction Notation
+## owl:disjointWith
 
-![Class Notation](./owl-Restriction.svg)
+![Class Notation](./owl-disjointWith.svg)
 
-### Datatype Restriction Rules
+<span class="figure caption">An OWL *disjointWith* Edge</span>
+
+### owl:disjointWith Rules
 
 TBD

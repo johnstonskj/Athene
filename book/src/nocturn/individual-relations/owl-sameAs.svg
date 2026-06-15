@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="353.03234 195.07702 242.71375 45" width="242.71375" height="45">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="29.71875 159.68138 307.287 45" width="307.287" height="45">
   <defs>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="DoubleBar_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -6 20 12" markerWidth="20" markerHeight="12" color="#666">
       <g>
         <path d="M 17.5 0 L 0 0 M 6.25 5 L 6.25 -5 M 0 5 L 0 -5" fill="none" stroke="currentColor" stroke-width="1"/>
       </g>
     </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-17 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M -16 0 L 0 6 L 0 -6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
   </defs>
   <g id="05__Individual_Properties" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
-    <title>05. Individual Properties</title>
+    <title>09. Individual Properties</title>
     <g id="05__Individual_Properties_Layer_1">
       <title>Layer 1</title>
-      <g id="Graphic_59">
-        <ellipse cx="397.53234" cy="217.57702" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
-        <ellipse cx="397.53234" cy="217.57702" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(367.33234 209.38102)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
-        </text>
-      </g>
-      <g id="Graphic_78">
-        <ellipse cx="551.2461" cy="217.57702" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
-        <ellipse cx="551.2461" cy="217.57702" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(521.0461 209.38102)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
-        </text>
-      </g>
-      <g id="Line_79">
-        <line x1="441.53237" y1="217.57702" x2="489.2461" y2="217.57702" marker-end="url(#DoubleBar_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <g id="Group_103">
+        <g id="Graphic_59">
+          <ellipse cx="74.21875" cy="182.18138" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="74.21875" cy="182.18138" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(44.01875 173.98538)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Graphic_78">
+          <ellipse cx="292.50576" cy="182.18138" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="292.50576" cy="182.18138" rx="44.0000703076834" ry="22.0000351538417" stroke="#8f8f8f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(262.30576 173.98538)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Line_79">
+          <line x1="230.60574" y1="182.18138" x2="136.21877" y2="182.18138" marker-end="url(#DoubleBar_Marker)" marker-start="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_94">
+          <text transform="translate(161.41726 160.18138)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="0" y="10" xml:space="preserve">owl:Same</tspan>
+          </text>
+        </g>
       </g>
     </g>
   </g>

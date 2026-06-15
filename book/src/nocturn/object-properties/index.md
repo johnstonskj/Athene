@@ -1,6 +1,12 @@
+<!-- markdownlint-disable-file MD033 -->
 # Object Properties
 
 Object Properties, in general, are shown as directed edges between class nodes.
+
+![Object Properties](./overview.svg)
+
+<span class="figure caption">Object Properties</span>
+
 The following sections outline the notation for common property types, and
 patterns.
 
@@ -8,15 +14,19 @@ patterns.
 
 ![owl:ObjectProperty](./owl-ObjectProperty.svg)
 
+<span class="figure caption">An OWL *ObjectProperty* Edge</span>
+
 ### owl:ObjectProperty Rules
 
 TBD
 
-## owl:equivalentClass
+## rdfs:subPropertyOf
 
-![owl:equivalentClass](./owl-equivalentClass.svg)
+![rdfs:subPropertyOf](./rdfs-subPropertyOf.svg)
 
-### owl:equivalentClass Rules
+<span class="figure caption">An RDF Schema *subPropertyOf* Edge</span>
+
+### rdfs:subPropertyOf Rules
 
 TBD
 
@@ -24,21 +34,17 @@ TBD
 
 ![owl:inverseOf](./owl-inverseOf.svg)
 
+<span class="figure caption">An OWL *inverseOf* Edge</span>
+
 ### owl:inverseOf Rules
-
-TBD
-
-## owl:disjointWith
-
-![owl:disjointWith](./owl-disjointWith.svg)
-
-### owl:disjointWith Rules
 
 TBD
 
 ## owl:SymmetricProperty
 
 ![owl:SymmetricProperty](./owl-SymmetricProperty.svg)
+
+<span class="figure caption">A OWL *SymmetricProperty* Edge</span>
 
 ### owl:SymmetricProperty Rules
 
@@ -48,12 +54,16 @@ TBD
 
 ![owl:TransitiveProperty](./owl-TransitiveProperty.svg)
 
+<span class="figure caption">A OWL *TransitiveProperty* Edge</span>
+
 ### owl:TransitiveProperty Rules
 
 ## owl:SymmetricProperty *and* owl:TransitiveProperty
 
 ![owl:SymmetricProperty and owl:TransitiveProperty](./owl-SymmetricTransitiveProperty.svg)
 
-## owl:Symmetric/TransitiveProperty Rules
+<span class="figure caption">An OWL *SymmetricProperty* and OWL *TransitiveProperty* Combined Edge</span>
+
+### owl:Symmetric/TransitiveProperty Rules
 
 TBD

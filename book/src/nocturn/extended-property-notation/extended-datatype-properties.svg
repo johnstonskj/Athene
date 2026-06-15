@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="640.64545 907.7954 531.4453 125.81253" width="531.4453" height="125.81253">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="09ish__Extended_Property_Notation" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>09ish. Extended Property Notation</title>
+    <g id="09ish__Extended_Property_Notation_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_207">
+        <g id="Graphic_187">
+          <path d="M 862.3681 989.108 L 950.3681 1011.108 L 862.3681 1033.108 Z" fill="white"/>
+          <path d="M 862.3681 989.108 L 950.3681 1011.108 L 862.3681 1033.108 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(867.3681 1002.912)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="6.795" y="13" xml:space="preserve">Property</tspan>
+          </text>
+        </g>
+        <g id="Graphic_186">
+          <rect x="834.6435" y="908.2954" width="143.44922" height="44" fill="white"/>
+          <rect x="834.6435" y="908.2954" width="143.44922" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(839.6435 921.0714)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="3.9006094" y="15" xml:space="preserve">DatatypeProperty</tspan>
+          </text>
+        </g>
+        <g id="Line_185">
+          <line x1="906.3681" y1="1000.108" x2="906.3681" y2="968.7954" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        </g>
+        <g id="Graphic_184">
+          <path d="M 1083.5908 908.2954 L 1171.5908 930.2954 L 1083.5908 952.2954 Z" fill="white"/>
+          <path d="M 1083.5908 908.2954 L 1171.5908 930.2954 L 1083.5908 952.2954 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(1088.5908 922.0994)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="6.795" y="13" xml:space="preserve">Property</tspan>
+          </text>
+        </g>
+        <g id="Line_183">
+          <path d="M 919 1003.266 L 1036.5136 930.3121 L 1067.0908 930.3013" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Line_182">
+          <line x1="729.14545" y1="1011.108" x2="844.4681" y2="1011.108" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_181">
+          <rect x="641.14545" y="989.108" width="88" height="44" fill="white"/>
+          <rect x="641.14545" y="989.108" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(646.14545 1001.884)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+          </text>
+        </g>
+        <g id="Graphic_180">
+          <rect x="1083.5908" y="989.108" width="88" height="44" fill="white"/>
+          <path d="M 1083.5908 989.108 L 1171.5908 989.108 L 1171.5908 1033.108 L 1083.5908 1033.108 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(1088.5908 1001.884)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="7.584" y="15" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Line_179">
+          <line x1="950.3681" y1="1011.108" x2="1065.6908" y2="1011.108" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_178">
+          <text transform="translate(767.9826 989.108)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="4369838e-19" y="10" xml:space="preserve">rdfs:domain</tspan>
+          </text>
+        </g>
+        <g id="Graphic_177">
+          <text transform="translate(994.5694 1020.828)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="0" y="10" xml:space="preserve">rdfs:range</tspan>
+          </text>
+        </g>
+        <g id="Graphic_176">
+          <text transform="translate(911.2881 970.4141)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="0" y="10" xml:space="preserve">rdf:type</tspan>
+          </text>
+        </g>
+        <g id="Graphic_175">
+          <text transform="translate(988.6217 908.2954)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="0" y="10" xml:space="preserve">rdfs:subPropertyOf</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

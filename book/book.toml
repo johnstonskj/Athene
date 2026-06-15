@@ -12,10 +12,10 @@ create-missing = true
 site-url = "https://simonkjohnston.life/Athene"
 git-repository-url = "https://github.com/johnstonskj/Athene"
 additional-css = ["src/athene.css"]
-additional-js = ["src/sparql.js", "src/turtle.js", "src/custom.js"]
 mathjax-support = false
+theme = "src/theme"
 
-[output.html.fold] 
+[output.html.fold]
 enable = true
 level = 2
 

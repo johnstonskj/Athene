@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="648pt" height="234pt" viewBox="0.00 0.00 648.00 234.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 229.6)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-229.6 644,-229.6 644,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_01</title>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_02</title>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_03</title>
+</g>
+<!-- Class -->
+<g id="node1" class="node">
+<title>Class</title>
+<polygon fill="none" stroke="#808080" points="309,-209.6 255,-209.6 255,-173.6 309,-173.6 309,-209.6"/>
+<text xml:space="preserve" text-anchor="middle" x="282" y="-187.4" font-family="Helvetica,sans-Serif" font-size="14.00">Class</text>
+</g>
+<!-- Ontology -->
+<g id="node2" class="node">
+<title>Ontology</title>
+<polygon fill="none" stroke="#808080" points="399.02,-209.6 338.98,-209.6 338.98,-213.6 326.98,-213.6 326.98,-173.6 399.02,-173.6 399.02,-209.6"/>
+<polyline fill="none" stroke="#808080" points="326.98,-209.6 338.98,-209.6"/>
+<text xml:space="preserve" text-anchor="middle" x="363" y="-187.4" font-family="Helvetica,sans-Serif" font-size="14.00">Ontology</text>
+</g>
+<!-- Datatype -->
+<g id="node3" class="node">
+<title>Datatype</title>
+<polygon fill="none" stroke="#808080" stroke-dasharray="1,5" points="489.02,-209.6 416.98,-209.6 416.98,-173.6 489.02,-173.6 489.02,-209.6"/>
+<text xml:space="preserve" text-anchor="middle" x="453" y="-187.4" font-family="Helvetica,sans-Serif" font-size="14.00">Datatype</text>
+</g>
+<!-- Individual -->
+<g id="node4" class="node">
+<title>Individual</title>
+<ellipse fill="none" stroke="#808080" cx="263" cy="-119.6" rx="51.84" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="263" y="-115.4" font-family="Helvetica,sans-Serif" font-size="14.00">Individual</text>
+</g>
+<!-- axioms -->
+<g id="node5" class="node">
+<title>axioms</title>
+<polygon fill="none" stroke="#808080" points="387.17,-137.6 332.83,-137.6 332.83,-101.6 393.17,-101.6 393.17,-131.6 387.17,-137.6"/>
+<polyline fill="none" stroke="#808080" points="387.17,-137.6 387.17,-131.6"/>
+<polyline fill="none" stroke="#808080" points="393.17,-131.6 387.17,-131.6"/>
+<text xml:space="preserve" text-anchor="middle" x="363" y="-115.4" font-family="Helvetica,sans-Serif" font-size="14.00">axioms</text>
+</g>
+<!-- axioms&#45;&gt;Ontology -->
+<g id="edge1" class="edge">
+<title>axioms-&gt;Ontology</title>
+</g>
+<!-- Literal -->
+<g id="node6" class="node">
+<title>Literal</title>
+<ellipse fill="none" stroke="#808080" stroke-dasharray="1,5" cx="449" cy="-119.6" rx="37.34" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="449" y="-115.4" font-family="Helvetica,sans-Serif" font-size="14.00">Literal</text>
+</g>
+<!-- OProperty -->
+<g id="node7" class="node">
+<title>OProperty</title>
+<polygon fill="none" stroke="#808080" points="236.09,-40.8 70.96,-65.6 70.96,-16 236.09,-40.8"/>
+<text xml:space="preserve" text-anchor="middle" x="126" y="-36.6" font-family="Helvetica,sans-Serif" font-size="14.00">OProperty</text>
+</g>
+<!-- DProperty -->
+<g id="node8" class="node">
+<title>DProperty</title>
+<polygon fill="none" stroke="#808080" stroke-dasharray="1,5" points="472.01,-40.8 308.49,-65.6 308.49,-16 472.01,-40.8"/>
+<text xml:space="preserve" text-anchor="middle" x="363" y="-36.6" font-family="Helvetica,sans-Serif" font-size="14.00">DProperty</text>
+</g>
+<!-- DProperty&#45;&gt;axioms -->
+<g id="edge2" class="edge">
+<title>DProperty-&gt;axioms</title>
+</g>
+<!-- AProperty -->
+<g id="node9" class="node">
+<title>AProperty</title>
+<polygon fill="none" stroke="#808080" points="577.62,-22.8 623.72,-40.8 577.62,-58.8 503.03,-58.78 503.03,-22.82 577.62,-22.8"/>
+<text xml:space="preserve" text-anchor="middle" x="557" y="-36.6" font-family="Helvetica,sans-Serif" font-size="14.00">AProperty</text>
+</g>
+</g>
+</svg>
