@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="281.2589 375.0966 292.9325 83.66122" width="292.9325" height="83.66122">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="#666">
+      <g>
+        <path d="M 8 0 L 0 0 M 0 -3 L 8 0 L 0 3" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="07__General_Axioms" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>11. General Axioms</title>
+    <g id="07__General_Axioms_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_13">
+        <rect x="485.6914" y="375.5966" width="88" height="44" fill="white"/>
+        <rect x="485.6914" y="375.5966" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(490.6914 388.3726)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Graphic_12">
+        <rect x="281.7589" y="375.5966" width="88" height="44" fill="white"/>
+        <rect x="281.7589" y="375.5966" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(286.7589 388.3726)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Line_14">
+        <line x1="369.7589" y1="397.5966" x2="467.7914" y2="397.5966" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_15">
+        <path d="M 505.72516 436.868 C 505.72516 433.99023 504.60756 433.6342 496.4438 430.78617 L 496.35756 430.7567 C 488.1507 427.8789 488.0653 427.8789 479.64284 427.8789 C 468.4281 427.8789 417.72516 427.8789 417.72516 427.8789 L 417.72516 458.2578 L 505.72516 458.2578 L 505.72516 436.868 Z" fill="white"/>
+        <path d="M 505.72516 436.868 C 505.72516 433.99023 504.60756 433.6342 496.4438 430.78617 L 496.35756 430.7567 C 488.1507 427.8789 488.0653 427.8789 479.64284 427.8789 C 468.4281 427.8789 417.72516 427.8789 417.72516 427.8789 L 417.72516 458.2578 L 505.72516 458.2578 L 505.72516 436.868 Z M 505.72516 436.7198 C 505.72516 433.99023 505.6389 433.99023 488.0653 433.99023 L 488.0653 433.99023 C 488.0653 427.9087 488.0653 427.8789 480.1585 427.8789" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(422.72516 435.90036)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">axioms</tspan>
+        </text>
+      </g>
+      <g id="Line_16">
+        <line x1="424" y1="397.5966" x2="442.8022" y2="420.2597" marker-end="url(#StickArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

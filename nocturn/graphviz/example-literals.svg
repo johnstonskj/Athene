@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="332pt" height="67pt" viewBox="0.00 0.00 332.00 67.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62.83)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-62.83 328.22,-62.83 328.22,4 -4,4"/>
+<!-- Literal -->
+<g id="node1" class="node">
+<title>Literal</title>
+<ellipse fill="none" stroke="#808080" stroke-dasharray="1,5" cx="27" cy="-29.42" rx="27" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-25.22" font-family="Helvetica,sans-Serif" font-size="14.00">?</text>
+</g>
+<!-- LanguageString -->
+<g id="node2" class="node">
+<title>LanguageString</title>
+<ellipse fill="none" stroke="#808080" stroke-dasharray="1,5" cx="129.37" cy="-29.42" rx="39.37" ry="29.42"/>
+<text xml:space="preserve" text-anchor="start" x="109.53" y="-33.62" font-family="Helvetica,sans-Serif" font-size="14.00">Simon</text>
+<text xml:space="preserve" text-anchor="start" x="114.48" y="-16.82" font-family="Helvetica,sans-Serif" font-size="14.00">@en</text>
+<polygon fill="#808080" stroke="#808080" points="109.53,-29.42 109.53,-29.42 149.21,-29.42 149.21,-29.42 109.53,-29.42"/>
+</g>
+<!-- Literal&#45;&gt;LanguageString -->
+<g id="edge1" class="edge">
+<title>Literal-&gt;LanguageString</title>
+</g>
+<!-- TypedLiteral -->
+<g id="node3" class="node">
+<title>TypedLiteral</title>
+<ellipse fill="none" stroke="#808080" stroke-dasharray="1,5" cx="264.49" cy="-29.42" rx="59.74" ry="29.42"/>
+<text xml:space="preserve" text-anchor="start" x="256.7" y="-33.62" font-family="Helvetica,sans-Serif" font-size="14.00">21</text>
+<text xml:space="preserve" text-anchor="start" x="230.24" y="-16.82" font-family="Helvetica,sans-Serif" font-size="14.00">xsd:integer</text>
+<polygon fill="#808080" stroke="#808080" points="230.24,-29.42 230.24,-29.42 298.73,-29.42 298.73,-29.42 230.24,-29.42"/>
+</g>
+<!-- LanguageString&#45;&gt;TypedLiteral -->
+<g id="edge2" class="edge">
+<title>LanguageString-&gt;TypedLiteral</title>
+</g>
+</g>
+</svg>

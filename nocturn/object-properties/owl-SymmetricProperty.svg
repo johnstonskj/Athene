@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="640.0757 424.07987 257.91797 45" width="257.91797" height="45">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="333.69043 372.567 307.287 45" width="307.287" height="45">
   <defs>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
       <g>
@@ -13,31 +13,38 @@
       </g>
     </marker>
   </defs>
-  <g id="More_Object_Properties" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
-    <title>Object Properties</title>
-    <g id="More_Object_Properties_Layer_1">
+  <g id="03__Object_Properties" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>03. Object Properties</title>
+    <g id="03__Object_Properties_Layer_1">
       <title>Layer 1</title>
-      <g id="Graphic_16">
-        <rect x="640.5757" y="424.57987" width="88" height="44" fill="white"/>
-        <rect x="640.5757" y="424.57987" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(645.5757 437.35587)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
-        </text>
-      </g>
-      <g id="Graphic_15">
-        <rect x="809.4937" y="424.57987" width="88" height="44" fill="white"/>
-        <rect x="809.4937" y="424.57987" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(814.4937 437.35587)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
-        </text>
-      </g>
-      <g id="Line_14">
-        <line x1="746.4757" y1="446.57987" x2="791.5937" y2="446.57987" marker-end="url(#FilledArrow_Marker)" marker-start="url(#FilledArrow_Marker_2)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      </g>
-      <g id="Graphic_62">
-        <text transform="translate(754.1367 429.57987)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
-        </text>
+      <g id="Group_108">
+        <g id="Graphic_16">
+          <rect x="334.19043" y="373.067" width="88" height="44" fill="white"/>
+          <rect x="334.19043" y="373.067" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(339.19043 385.843)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+          </text>
+        </g>
+        <g id="Graphic_15">
+          <rect x="552.47744" y="373.067" width="88" height="44" fill="white"/>
+          <rect x="552.47744" y="373.067" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(557.47744 385.843)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+          </text>
+        </g>
+        <g id="Line_14">
+          <line x1="440.09043" y1="395.067" x2="534.57744" y2="395.067" marker-end="url(#FilledArrow_Marker)" marker-start="url(#FilledArrow_Marker_2)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_62">
+          <text transform="translate(472.43593 402.731)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
+          </text>
+        </g>
+        <g id="Graphic_98">
+          <text transform="translate(435.30393 373.067)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="6536993e-19" y="10" xml:space="preserve">owl:SymmetricProperty</tspan>
+          </text>
+        </g>
       </g>
     </g>
   </g>

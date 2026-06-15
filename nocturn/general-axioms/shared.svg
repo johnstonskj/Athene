@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="281.2589 296.11828 292.9325 45" width="292.9325" height="45">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="#666">
+      <g>
+        <path d="M 8 0 L 0 0 M 0 -3 L 8 0 L 0 3" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="07__General_Axioms" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>11. General Axioms</title>
+    <g id="07__General_Axioms_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_5">
+        <rect x="485.6914" y="296.61828" width="88" height="44" fill="white"/>
+        <rect x="485.6914" y="296.61828" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(490.6914 309.3943)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Graphic_6">
+        <rect x="281.7589" y="296.61828" width="88" height="44" fill="white"/>
+        <rect x="281.7589" y="296.61828" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(286.7589 309.3943)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+        </text>
+      </g>
+      <g id="Graphic_8">
+        <path d="M 437.72516 314.53628 C 437.72516 312.64168 437.47116 312.40728 435.61576 310.53228 L 435.59616 310.51288 C 433.73096 308.61828 433.71156 308.61828 431.79736 308.61828 C 429.24856 308.61828 417.72516 308.61828 417.72516 308.61828 L 417.72516 328.6183 L 437.72516 328.6183 L 437.72516 314.53628 Z" fill="#ebebeb"/>
+        <path d="M 437.72516 314.53628 C 437.72516 312.64168 437.47116 312.40728 435.61576 310.53228 L 435.59616 310.51288 C 433.73096 308.61828 433.71156 308.61828 431.79736 308.61828 C 429.24856 308.61828 417.72516 308.61828 417.72516 308.61828 L 417.72516 328.6183 L 437.72516 328.6183 L 437.72516 314.53628 Z M 437.72516 314.43868 C 437.72516 312.64168 437.70556 312.64168 433.71156 312.64168 L 433.71156 312.64168 C 433.71156 308.63788 433.71156 308.61828 431.91456 308.61828" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_9">
+        <line x1="369.7589" y1="318.6183" x2="407.82516" y2="318.6183" marker-end="url(#StickArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_10">
+        <line x1="485.6914" y1="318.6183" x2="447.62516" y2="318.6183" marker-end="url(#StickArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="29.71875 301.42456 630.2533 45" width="630.2533" height="45">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="09__Individual_Properties" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>09. Individual Properties</title>
+    <g id="09__Individual_Properties_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_104">
+        <g id="Graphic_90">
+          <ellipse cx="615.472" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <path d="M 646.5847 308.36823 C 663.76784 316.95976 663.76784 330.88937 646.5847 339.4809 C 629.40164 348.07247 601.5424 348.07247 584.3594 339.4809 C 567.1762 330.88937 567.1762 316.95976 584.3594 308.36823 C 601.5424 299.77666 629.40164 299.77666 646.5847 308.36823" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(585.272 315.72856)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.146001" y="13" xml:space="preserve">Literal</tspan>
+          </text>
+        </g>
+        <g id="Graphic_91">
+          <ellipse cx="397.185" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="397.185" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(366.985 315.72856)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Line_92">
+          <line x1="441.18504" y1="323.92456" x2="553.572" y2="323.92456" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_98">
+          <text transform="translate(491.4305 331.58856)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Graphic_132">
+        <text transform="translate(484.1035 301.92456)" fill="#235e00">
+          <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="3659295e-19" y="10" xml:space="preserve">rdf:Object</tspan>
+        </text>
+      </g>
+      <g id="Group_134">
+        <g id="Graphic_138">
+          <ellipse cx="292.50576" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="292.50576" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(262.30576 315.72856)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Graphic_137">
+          <ellipse cx="74.21875" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <ellipse cx="74.21875" cy="323.92456" rx="44.0000703076834" ry="22.0000351538417" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(44.01875 315.72856)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+          </text>
+        </g>
+        <g id="Line_136">
+          <line x1="118.21877" y1="323.92456" x2="230.60574" y2="323.92456" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_135">
+          <text transform="translate(168.46426 331.58856)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Graphic_133">
+        <text transform="translate(161.13726 301.92456)" fill="#235e00">
+          <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="3659295e-19" y="10" xml:space="preserve">rdf:Object</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

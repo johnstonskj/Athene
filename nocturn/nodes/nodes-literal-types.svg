@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="281.2589 505.0162 376.4816 45" width="376.4816" height="45">
+  <defs/>
+  <g id="01__Nodes" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>01. Nodes</title>
+    <g id="01__Nodes_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_88">
+        <ellipse cx="325.7589" cy="527.5162" rx="44.0000703076835" ry="22.0000351538417" fill="white"/>
+        <path d="M 356.87157 511.9599 C 374.0547 520.5514 374.0547 534.481 356.87157 543.07255 C 339.6885 551.6641 311.8293 551.6641 294.64624 543.07255 C 277.4631 534.481 277.4631 520.5514 294.64624 511.9599 C 311.8293 503.3683 339.6885 503.3683 356.87157 511.9599" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(295.5589 519.3202)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="26.308" y="13" xml:space="preserve">?</tspan>
+        </text>
+      </g>
+      <g id="Group_128">
+        <g id="Graphic_90">
+          <ellipse cx="469.4997" cy="527.5162" rx="44.0000703076835" ry="22.0000351538417" fill="white"/>
+          <path d="M 500.6124 511.9599 C 517.7955 520.5514 517.7955 534.481 500.6124 543.07255 C 483.4293 551.6641 455.5701 551.6641 438.38705 543.07255 C 421.2039 534.481 421.2039 520.5514 438.38705 511.9599 C 455.5701 503.3683 483.4293 503.3683 500.6124 511.9599" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(439.2997 514.1162)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="10.229001" y="13" xml:space="preserve">Simon</tspan>
+            <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="20.735" y="26.391998" xml:space="preserve">@en</tspan>
+          </text>
+        </g>
+        <g id="Line_87">
+          <line x1="433.60106" y1="530.94086" x2="505.81517" y2="530.92575" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Group_127">
+        <g id="Graphic_89">
+          <ellipse cx="613.2405" cy="527.5162" rx="44.0000703076834" ry="22.0000351538417" fill="white"/>
+          <path d="M 644.3532 511.9599 C 661.5363 520.5514 661.5363 534.481 644.3532 543.07255 C 627.1701 551.6641 599.3109 551.6641 582.12785 543.07255 C 564.9447 534.481 564.9447 520.5514 582.12785 511.9599 C 599.3109 503.3683 627.1701 503.3683 644.3532 511.9599" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(584.8005 514.1162)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="22.416" y="13" xml:space="preserve">21</tspan>
+            <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="5.385001" y="26.391998" xml:space="preserve">xsd:integer</tspan>
+          </text>
+        </g>
+        <g id="Line_86">
+          <line x1="577.13346" y1="531.15266" x2="649.3476" y2="531.13756" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

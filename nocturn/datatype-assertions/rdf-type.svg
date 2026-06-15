@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="280.41434 884.6759 288.63664 30.47858" width="288.63664" height="30.47858">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -10 17 20" markerWidth="17" markerHeight="20" color="#666">
+      <g>
+        <path d="M 15 0 L 0 -8.75 L 0 8.75 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Cheat_Sheet" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>Cheat Sheet</title>
+    <g id="Cheat_Sheet_Foreground">
+      <title>Foreground</title>
+      <g id="Group_405">
+        <g id="Graphic_77">
+          <rect x="480.551" y="885.1904" width="88" height="29.46411" fill="white"/>
+          <rect x="480.551" y="885.1904" width="88" height="29.46411" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(485.551 891.7265)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="10.734" y="13" xml:space="preserve">Datatype</tspan>
+          </text>
+        </g>
+        <g id="Graphic_76">
+          <rect x="280.91434" y="885.1759" width="88" height="29.46411" fill="white"/>
+          <path d="M 280.91434 885.1759 L 368.91434 885.1759 L 368.91434 914.64 L 280.91434 914.64 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+          <text transform="translate(285.91434 891.712)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.511" y="13" xml:space="preserve">datatype</tspan>
+          </text>
+        </g>
+        <g id="Line_75">
+          <line x1="368.91434" y1="899.9112" x2="464.051" y2="899.9181" marker-end="url(#UMLInheritance_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        </g>
+        <g id="Graphic_55">
+          <text transform="translate(373.78525 885.1904)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="34.39554" y="10" xml:space="preserve">rdf:type</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

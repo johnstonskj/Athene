@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="640.0757 530.75565 257.91797 45" width="257.91797" height="45">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="333.69043 455.95864 307.287 45" width="307.287" height="45">
   <defs>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledDoubleArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 30 14" markerWidth="30" markerHeight="14" color="#666">
       <g>
@@ -17,27 +17,34 @@
     <title>03. Object Properties</title>
     <g id="03__Object_Properties_Layer_1">
       <title>Layer 1</title>
-      <g id="Graphic_12">
-        <rect x="640.5757" y="531.25565" width="88" height="44" fill="white"/>
-        <rect x="640.5757" y="531.25565" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(645.5757 544.03165)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
-        </text>
-      </g>
-      <g id="Graphic_11">
-        <rect x="809.4937" y="531.25565" width="88" height="44" fill="white"/>
-        <rect x="809.4937" y="531.25565" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(814.4937 544.03165)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
-        </text>
-      </g>
-      <g id="Line_10">
-        <line x1="758.4757" y1="553.25565" x2="779.5937" y2="553.25565" marker-end="url(#FilledDoubleArrow_Marker)" marker-start="url(#FilledDoubleArrow_Marker_2)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      </g>
-      <g id="Graphic_61">
-        <text transform="translate(754.1367 536.25565)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
-        </text>
+      <g id="Group_109">
+        <g id="Graphic_12">
+          <rect x="334.19043" y="456.45864" width="88" height="44" fill="white"/>
+          <rect x="334.19043" y="456.45864" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(339.19043 469.23464)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+          </text>
+        </g>
+        <g id="Graphic_11">
+          <rect x="552.47744" y="456.45864" width="88" height="44" fill="white"/>
+          <rect x="552.47744" y="456.45864" width="88" height="44" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(557.47744 469.23464)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="19.152" y="15" xml:space="preserve">Class</tspan>
+          </text>
+        </g>
+        <g id="Line_10">
+          <line x1="452.09043" y1="478.45864" x2="522.57744" y2="478.45864" marker-end="url(#FilledDoubleArrow_Marker)" marker-start="url(#FilledDoubleArrow_Marker_2)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_61">
+          <text transform="translate(472.43593 486.12264)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
+          </text>
+        </g>
+        <g id="Graphic_99">
+          <text transform="translate(436.77893 456.45864)" fill="#235e00">
+            <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="2842171e-19" y="10" xml:space="preserve">Transitive &amp; Symmetric</tspan>
+          </text>
+        </g>
       </g>
     </g>
   </g>

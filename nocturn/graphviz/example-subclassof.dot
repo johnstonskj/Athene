@@ -1,0 +1,11 @@
+strict digraph {
+    rankdir="BT"
+
+    node [fontname="Helvetica", fontcolor="black", color="#808080"];
+    edge [fontname="Helvetica", fontcolor="black", color="#808080"];
+    
+    ClassA [shape="rect"];
+    ClassB [shape="rect"];
+
+    ClassB -> ClassA [arrowhead="empty"];
+}

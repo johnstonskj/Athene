@@ -7,7 +7,17 @@
 
 
         <!-- Custom HTML head -->
-
+        <!-- Custom Highligh.js scripts -->
+        
+        <script>
+            console.log("Hello :)");
+            hljs.configure({ languages: [] });
+        </script>
+        
+        <script src="/highlight/owl.js"></script>
+        <script src="/highlight/sparql.js"></script>
+        <script src="/highlight/turtle.js"></script>
+        <script src="/highlight/custom.js"></script>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -179,47 +189,52 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="object-properties"><a class="header" href="#object-properties">Object Properties</a></h1>
-<p>Object Properties, in general, are shown as directed edges between class nodes.
-The following sections outline the notation for common property types, and
+                        <!-- markdownlint-disable-file MD033 -->
+<h1 id="object-properties"><a class="header" href="#object-properties">Object Properties</a></h1>
+<p>Object Properties, in general, are shown as directed edges between class nodes.</p>
+<p><img src="./overview.svg" alt="Object Properties" /></p>
+<p><span class="figure caption">Object Properties</span></p>
+<p>The following sections outline the notation for common property types, and
 patterns.</p>
 <h2 id="owlobjectproperty"><a class="header" href="#owlobjectproperty">owl:ObjectProperty</a></h2>
 <p><img src="./owl-ObjectProperty.svg" alt="owl:ObjectProperty" /></p>
+<p><span class="figure caption">An OWL <em>ObjectProperty</em> Edge</span></p>
 <h3 id="owlobjectproperty-rules"><a class="header" href="#owlobjectproperty-rules">owl:ObjectProperty Rules</a></h3>
 <p>TBD</p>
-<h2 id="owlequivalentclass"><a class="header" href="#owlequivalentclass">owl:equivalentClass</a></h2>
-<p><img src="./owl-equivalentClass.svg" alt="owl:equivalentClass" /></p>
-<h3 id="owlequivalentclass-rules"><a class="header" href="#owlequivalentclass-rules">owl:equivalentClass Rules</a></h3>
+<h2 id="rdfssubpropertyof"><a class="header" href="#rdfssubpropertyof">rdfs:subPropertyOf</a></h2>
+<p><img src="./rdfs-subPropertyOf.svg" alt="rdfs:subPropertyOf" /></p>
+<p><span class="figure caption">An RDF Schema <em>subPropertyOf</em> Edge</span></p>
+<h3 id="rdfssubpropertyof-rules"><a class="header" href="#rdfssubpropertyof-rules">rdfs:subPropertyOf Rules</a></h3>
 <p>TBD</p>
 <h2 id="owlinverseof"><a class="header" href="#owlinverseof">owl:inverseOf</a></h2>
 <p><img src="./owl-inverseOf.svg" alt="owl:inverseOf" /></p>
+<p><span class="figure caption">An OWL <em>inverseOf</em> Edge</span></p>
 <h3 id="owlinverseof-rules"><a class="header" href="#owlinverseof-rules">owl:inverseOf Rules</a></h3>
-<p>TBD</p>
-<h2 id="owldisjointwith"><a class="header" href="#owldisjointwith">owl:disjointWith</a></h2>
-<p><img src="./owl-disjointWith.svg" alt="owl:disjointWith" /></p>
-<h3 id="owldisjointwith-rules"><a class="header" href="#owldisjointwith-rules">owl:disjointWith Rules</a></h3>
 <p>TBD</p>
 <h2 id="owlsymmetricproperty"><a class="header" href="#owlsymmetricproperty">owl:SymmetricProperty</a></h2>
 <p><img src="./owl-SymmetricProperty.svg" alt="owl:SymmetricProperty" /></p>
+<p><span class="figure caption">A OWL <em>SymmetricProperty</em> Edge</span></p>
 <h3 id="owlsymmetricproperty-rules"><a class="header" href="#owlsymmetricproperty-rules">owl:SymmetricProperty Rules</a></h3>
 <p>TBD</p>
 <h2 id="owltransitiveproperty"><a class="header" href="#owltransitiveproperty">owl:TransitiveProperty</a></h2>
 <p><img src="./owl-TransitiveProperty.svg" alt="owl:TransitiveProperty" /></p>
+<p><span class="figure caption">A OWL <em>TransitiveProperty</em> Edge</span></p>
 <h3 id="owltransitiveproperty-rules"><a class="header" href="#owltransitiveproperty-rules">owl:TransitiveProperty Rules</a></h3>
 <h2 id="owlsymmetricproperty-and-owltransitiveproperty"><a class="header" href="#owlsymmetricproperty-and-owltransitiveproperty">owl:SymmetricProperty <em>and</em> owl:TransitiveProperty</a></h2>
 <p><img src="./owl-SymmetricTransitiveProperty.svg" alt="owl:SymmetricProperty and owl:TransitiveProperty" /></p>
-<h2 id="owlsymmetrictransitiveproperty-rules"><a class="header" href="#owlsymmetrictransitiveproperty-rules">owl:Symmetric/TransitiveProperty Rules</a></h2>
+<p><span class="figure caption">An OWL <em>SymmetricProperty</em> and OWL <em>TransitiveProperty</em> Combined Edge</span></p>
+<h3 id="owlsymmetrictransitiveproperty-rules"><a class="header" href="#owlsymmetrictransitiveproperty-rules">owl:Symmetric/TransitiveProperty Rules</a></h3>
 <p>TBD</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../nocturn/simple-edges/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../nocturn/class-assertions/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../nocturn/datatype-properties/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../nocturn/datatype-assertions/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -229,11 +244,11 @@ patterns.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../nocturn/simple-edges/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../nocturn/class-assertions/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../nocturn/datatype-properties/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../nocturn/datatype-assertions/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -257,9 +272,6 @@ patterns.</p>
         <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../../src/sparql.js"></script>
-        <script src="../../src/turtle.js"></script>
-        <script src="../../src/custom.js"></script>
 
 
 

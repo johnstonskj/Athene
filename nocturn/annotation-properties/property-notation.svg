@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="1731.5 1711.933 307.287 45" width="307.287" height="45">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Box_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#666">
+      <g>
+        <rect x="-6" y="-3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="08__Annotation_Properties" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>08. Annotation Properties</title>
+    <g id="08__Annotation_Properties_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_13">
+        <ellipse cx="1776" cy="1734.433" rx="44.0000703076834" ry="22.0000351538415" fill="white"/>
+        <ellipse cx="1776" cy="1734.433" rx="44.0000703076834" ry="22.0000351538415" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1745.8 1726.237)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x=".38000076" y="13" xml:space="preserve">Individual</tspan>
+        </text>
+      </g>
+      <g id="Graphic_17">
+        <ellipse cx="1994.287" cy="1734.433" rx="44.0000703076835" ry="22.0000351538415" fill="white"/>
+        <path d="M 2025.3997 1718.8766 C 2042.5828 1727.4681 2042.5828 1741.3977 2025.3997 1749.9893 C 2008.2166 1758.5808 1980.3574 1758.5808 1963.1743 1749.9893 C 1945.9912 1741.3977 1945.9912 1727.4681 1963.1743 1718.8766 C 1980.3574 1710.285 2008.2166 1710.285 2025.3997 1718.8766" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,5.0" stroke-width="1"/>
+        <text transform="translate(1964.087 1726.237)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" fill="black" x="11.146001" y="13" xml:space="preserve">Literal</tspan>
+        </text>
+      </g>
+      <g id="Line_27">
+        <line x1="1826.5" y1="1734.433" x2="1932.387" y2="1734.433" marker-end="url(#FilledArrow_Marker)" marker-start="url(#Box_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_42">
+        <text transform="translate(1833.1685 1712.433)" fill="#235e00">
+          <tspan font-family="Helvetica Neue" font-style="italic" font-size="10" fill="#235e00" x="8668621e-19" y="10" xml:space="preserve">owl:AnnotationProperty</tspan>
+        </text>
+      </g>
+      <g id="Graphic_45">
+        <text transform="translate(1870.2455 1742.097)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">name</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

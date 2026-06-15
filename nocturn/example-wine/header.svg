@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="1186.5 1159.8703 717.2991 520.89414" width="717.2991" height="520.89414">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -6 14 12" markerWidth="14" markerHeight="12" color="#666">
+      <g>
+        <path d="M 12 0 L 0 0 M 0 -4.5 L 12 0 L 0 4.5" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBox_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#666">
+      <g>
+        <rect x="-6" y="-3" width="6" height="6" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#666">
+      <g>
+        <path d="M 16 0 L 0 -6 L 0 6 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Wine_-_Ontology" stroke-dasharray="none" stroke="none" fill-opacity="1" fill="none" stroke-opacity="1">
+    <title>Wine - Ontology</title>
+    <g id="Wine_-_Ontology_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_4">
+        <g id="Graphic_6">
+          <rect x="1187" y="1279.8996" width="130" height="55.709085" fill="white"/>
+          <rect x="1187" y="1279.8996" width="130" height="55.709085" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(1189 1298.5302)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="10.248" y="15" xml:space="preserve">Wine Ontology</tspan>
+          </text>
+        </g>
+        <g id="Graphic_5">
+          <path d="M 1220.1594 1269 L 1228.4493 1279.8996 L 1187 1279.8996 L 1187 1269 Z" fill="white"/>
+          <path d="M 1220.1594 1269 L 1228.4493 1279.8996 L 1187 1279.8996 L 1187 1269 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Line_3">
+        <line x1="1323.5" y1="1307.4449" x2="1349.9734" y2="1307.3304" marker-end="url(#StickArrow_Marker)" marker-start="url(#FilledBox_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_2">
+        <path d="M 1596.721 1287.75 C 1596.721 1278.9237 1593.7638 1277.8317 1572.1625 1269.0967 L 1571.9343 1269.0063 C 1550.219 1260.18 1549.993 1260.18 1527.7072 1260.18 C 1498.0331 1260.18 1363.8733 1260.18 1363.8733 1260.18 L 1363.8733 1353.3534 L 1596.721 1353.3534 L 1596.721 1287.75 Z" fill="white"/>
+        <path d="M 1596.721 1287.75 C 1596.721 1278.9237 1593.7638 1277.8317 1572.1625 1269.0967 L 1571.9343 1269.0063 C 1550.219 1260.18 1549.993 1260.18 1527.7072 1260.18 C 1498.0331 1260.18 1363.8733 1260.18 1363.8733 1260.18 L 1363.8733 1353.3534 L 1596.721 1353.3534 L 1596.721 1287.75 Z M 1596.721 1287.2953 C 1596.721 1278.9237 1596.4928 1278.9237 1549.993 1278.9237 L 1549.993 1278.9237 C 1549.993 1260.2713 1549.993 1260.18 1529.0717 1260.18" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(1368.8733 1278.2627)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="11" xml:space="preserve">comment=“An example OWL ontology”</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="25.336" xml:space="preserve">comment=“Derived from the DAML…”</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" fill="black" x="0" y="39.671997" xml:space="preserve">priorVersion=&lt;…&gt;</tspan>
+        </text>
+      </g>
+      <g id="Group_9">
+        <g id="Graphic_11">
+          <rect x="1187" y="1171.27" width="130" height="55.709085" fill="white"/>
+          <rect x="1187" y="1171.27" width="130" height="55.709085" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(1189 1189.9005)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="16" fill="black" x="9.656" y="15" xml:space="preserve">Food Ontology</tspan>
+          </text>
+        </g>
+        <g id="Graphic_10">
+          <path d="M 1220.1594 1160.3703 L 1228.4493 1171.27 L 1187 1171.27 L 1187 1160.3703 Z" fill="white"/>
+          <path d="M 1220.1594 1160.3703 L 1228.4493 1171.27 L 1187 1171.27 L 1187 1160.3703 Z" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Line_12">
+        <line x1="1252" y1="1279.8996" x2="1252" y2="1244.879" marker-end="url(#FilledArrow_Marker)" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>
