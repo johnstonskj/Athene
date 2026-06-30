@@ -84,7 +84,7 @@ fn test_section_3p7_example_ontology_document() {
         .unwrap();
 
     assert_eq!(
-        "Prefix( : = <http://www.example.com/ontology1#> ) Ontology( <http://www.example.com/ontology1> Import( <http://www.example.com/ontology2> ) Annotation( rdf:label \"An example\" ) SubClassOf( :Child owl:Thing ) )",
+        "Prefix( : = <http://www.example.com/ontology1#> ) Ontology( <http://www.example.com/ontology1> Import( <http://www.example.com/ontology2> ) Annotation( rdfs:label \"An example\" ) SubClassOf( :Child owl:Thing ) )",
         format!("{doc}")
     );
 
@@ -98,7 +98,7 @@ Ontology(
         <http://www.example.com/ontology2>
     )
     Annotation(
-        rdf:label
+        rdfs:label
         \"An example\"
     )
     SubClassOf(

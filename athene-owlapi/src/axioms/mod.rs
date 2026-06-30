@@ -10,7 +10,7 @@ use crate::{
     fmt::DisplayPretty,
     literals::Literal,
     ranges::DataRange,
-    values::{CardinalityConstraintViolation, UnboundedNatural},
+    values::{CardinalityConstraintViolation, UnlimitedNatural},
 };
 use rdftk_iri::Iri;
 use strum::{EnumIs, EnumTryAs};
@@ -20,9 +20,23 @@ use strum::{EnumIs, EnumTryAs};
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// OWL 2 provides axioms that allow relationships to be established between class expressions.
+/// The main component of an OWL 2 ontology is a set of *axioms* — statements that say what is
+/// true in the domain.
 ///
-/// ## Specification (section 9)
+/// OWL 2 provides an extensive set of axioms, all of which extend the
+/// **[Axiom]** class in the structural specification. As shown in Figure 12, axioms in OWL 2
+/// can be declarations, axioms about classes, axioms about object or data properties, datatype
+/// definitions, keys, assertions (sometimes also called facts), and axioms about annotations.
+///
+/// ![Figure 12. The Axioms of OWL 2](https://www.w3.org/TR/owl2-syntax/Axioms.gif)
+///
+/// As shown in Figure 1, OWL 2 axioms can contain axiom annotations, the structure of which is
+/// defined in Section 10. Axiom annotations have no effect on the semantics of axioms — that is,
+/// they do not affect the logical consequences of OWL 2 ontologies. In contrast, axiom
+/// annotations do affect structural equivalence: axioms will not be structurally equivalent if
+/// their axiom annotations are not structurally equivalent.
+///
+/// ## Specification (Section §9 -- Axioms)
 ///
 /// ```bnf
 /// Axiom :=
@@ -51,11 +65,23 @@ pub enum Axiom {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// In OWL 2, declarations are a type of axiom; thus, to declare an entity in an ontology,
-/// one can simply include the appropriate axiom in the ontology. These axioms are nonlogical
-/// in the sense that they do not affect the consequences of an OWL 2 ontology.
+/// Each IRI $I$ used in an OWL 2 ontology $O$ can be, and sometimes even needs to be, declared
+/// in $O$; roughly speaking, this means that the axiom closure of $O$ must contain an appropriate
+/// declaration for $I$. A declaration for $I$ in $O$ serves two purposes:
 ///
-/// ## Specification (section 5.8)
+/// * A declaration says that $I$ exists — that is, it says that $I$ is part of the vocabulary
+///   of $O$.
+/// * A declaration associates with $I$ an entity type — that is, it says whether $I$ is used in
+///   $O$ as a class, datatype, object property, data property, annotation property, an individual,
+///   or a combination thereof.
+///
+/// In OWL 2, declarations are a type of axiom; thus, to declare an entity in an ontology, one
+/// can simply include the appropriate axiom in the ontology. These axioms are nonlogical in the
+/// sense that they do not affect the consequences of an OWL 2 ontology.
+///
+/// ![Figure 3. Entity Declarations in OWL 2](https://www.w3.org/TR/owl2-syntax/A_declaration.gif)
+///
+/// ## Specification (Section §5.8)
 ///
 /// ```bnf
 /// Declaration :=
@@ -110,8 +136,18 @@ pub struct Declaration {
 // ------------------------------------------------------------------------------------------------
 
 ///
+/// OWL 2 provides axioms that allow relationships to be established between class expressions,
+/// as shown in Figure 13.
 ///
-/// ## Specification (section 9.1)
+/// The **[SubClassOf]** axiom allows one to state that each instance of one class expression is
+/// also an instance of another class expression, and thus to construct a hierarchy of classes.
+/// The **[EquivalentClass]** axiom allows one to state that several class expressions are
+/// equivalent to each other. The **[DisjointClasses]** axiom allows one to state that several
+/// class expressions are pairwise disjoint — that is, that they have no instances in common.
+/// Finally, the DisjointUnion class expression allows one to define a class as a disjoint union
+/// of several class expressions and thus to express covering constraints.
+///
+/// ## Specification (Section §9.1 -- Class Expression Axioms)
 ///
 /// ```bnf
 /// ClassAxiom :=
@@ -128,13 +164,13 @@ pub enum ClassAxiom {
 }
 
 ///
-/// A subclass axiom $SubClassOf( CE_1 CE_2 )$ states that the class expression $CE_1$ is a
+/// A subclass axiom $SubClassOf( CE_1 \ CE_2 )$ states that the class expression $CE_1$ is a
 /// subclass of the class expression $CE_2$. Roughly speaking, this states that $CE_1$ is more
 /// specific than $CE_2$. Subclass axioms are a fundamental type of axioms in OWL 2 and can be
 /// used to construct a class hierarchy. Other kinds of class expression axiom can be seen as
 /// syntactic shortcuts for one or more subclass axioms.
 ///
-/// ## Specification (section 9.1.1)
+/// ## Specification (Section §9.1.1)
 ///
 /// ```bnf
 /// SubClassOf :=
@@ -170,7 +206,7 @@ pub struct SubClassOf {
 /// expression in the ontology containing such an axiom, $CE_i$ can be replaced with $CE_j$
 /// without affecting the meaning of the ontology.
 ///
-/// ## Specification (section 9.1.2)
+/// ## Specification (Section §9.1.2)
 ///
 /// ```bnf
 /// EquivalentClasses :=
@@ -191,7 +227,7 @@ pub struct EquivalentClass {
 /// class expressions $CE_i, 1 \leq i \leq n$, are pairwise disjoint; that is, no individual
 /// can be at the same time an instance of both $CE_i$ and $CE_j$ for $i \neq j$.
 ///
-/// ## Specification (section 9.1.3)
+/// ## Specification (Section §9.1.3)
 ///
 /// ```bnf
 /// DisjointClasses :=
@@ -208,14 +244,14 @@ pub struct DisjointClasses {
 }
 
 ///
-/// A disjoint union axiom $DisjointUnion( C CE_1 ... CE_n )$ states that a class $C$ is a
+/// A disjoint union axiom $DisjointUnion( C \ CE_1 ... CE_n )$ states that a class $C$ is a
 /// disjoint union of the class expressions $CE_i, 1 \leq i \leq n$, all of which are
 /// pairwise disjoint. Such axioms are sometimes referred to as covering axioms, as they
 /// state that the extensions of all $CE_i$ exactly cover the extension of $C$. Thus, each
 /// instance of $C$ is an instance of exactly one $CE_i$, and each instance of $CE_i$ is
 /// an instance of $C$.
 ///
-/// ## Specification (section 9.1.4)
+/// ## Specification (Section §9.1.4)
 ///
 /// ```bnf
 /// DisjointUnion :=
@@ -241,9 +277,34 @@ pub struct DisjointUnion {
 
 ///
 /// OWL 2 provides axioms that can be used to characterize and establish relationships between
-/// object property expressions.
+/// object property expressions. For clarity, the structure of these axioms is shown in two
+/// separate figures, Figure 14 and Figure 15. The **[SubObjectPropertyOf]** axiom allows one to
+/// state that the extension of one object property expression is included in the extension of
+/// another object property expression. The **[EquivalentObjectProperties]** axiom allows one to
+/// state that the extensions of several object property expressions are the same. The
+/// **[DisjointObjectProperties]** axiom allows one to state that the extensions of several object
+/// property expressions are pairwise disjoint — that is, that they do not share pairs of connected
+/// individuals. The **[InverseObjectProperties]** axiom can be used to state that two object
+/// property expressions are the inverse of each other. The **[ObjectPropertyDomain]** and
+/// **[ObjectPropertyRange]** axioms can be used to restrict the first and the second individual,
+/// respectively, connected by an object property expression to be instances of the specified class
+/// expression.
 ///
-/// ## Specification (section 9.2)
+/// ![Figure 14. Object Property Axioms in OWL 2, Part I](https://www.w3.org/TR/owl2-syntax/A_objectproperty1.gif)
+///
+/// The **[FunctionalObjectProperty]** axiom allows one to state that an object property expression
+/// is functional — that is, that each individual can have at most one outgoing connection of the
+/// specified object property expression. The **[InverseFunctionalObjectProperty]** axiom allows
+/// one to state that an object property expression is inverse-functional — that is, that each
+/// individual can have at most one incoming connection of the specified object property expression.
+/// Finally, the **[ReflexiveObjectProperty]**, **[IrreflexiveObjectProperty]**,
+/// **[SymmetricObjectProperty]**, **[AsymmetricObjectProperty]**, and **[TransitiveObjectProperty]**
+/// axioms allow one to state that an object property expression is reflexive, irreflexive, symmetric,
+/// asymmetric, or transitive, respectively.
+///
+/// ![Figure 15. Axioms Defining Characteristics of Object Properties in OWL 2, Part II](https://www.w3.org/TR/owl2-syntax/A_objectproperty2.gif)
+///
+/// ## Specification (Section §9.2 -- Object Property Axioms)
 ///
 /// ```bnf
 /// ObjectPropertyAxiom :=
@@ -276,7 +337,7 @@ pub enum ObjectPropertyAxiom {
 ///
 /// Object subproperty axioms are analogous to subclass axioms, and they come in two forms.
 ///
-/// The basic form is $SubObjectPropertyOf( OPE_1 OPE_2 )$. This axiom states that the object
+/// The basic form is $SubObjectPropertyOf( OPE_1 \ OPE_2 )$. This axiom states that the object
 /// property expression $OPE_1$ is a subproperty of the object property expression $OPE_2$ —
 /// that is, if an individual $x$ is connected by $OPE_1$ to an individual $y$, then $x$ is
 /// also connected by $OPE_2$ to $y$.
@@ -287,7 +348,7 @@ pub enum ObjectPropertyAxiom {
 /// $y$ by the object property expression $OPE$. Such axioms are also known as complex role
 /// inclusions.
 ///
-/// ## Specification (section 9.2.1)
+/// ## Specification (Section §9.2.1)
 ///
 /// ```bnf
 /// SubObjectPropertyOf :=
@@ -351,7 +412,7 @@ pub struct PropertyExpressionChain {
 /// an axiom, $OPE_i$ can be replaced with $OPE_j$ without affecting the meaning of the
 /// ontology.
 ///
-/// ## Specification (section 9.2.2)
+/// ## Specification (Section §9.2.2)
 ///
 /// ```bnf
 /// EquivalentObjectProperties :=
@@ -373,7 +434,7 @@ pub struct EquivalentObjectProperties {
 /// disjoint; that is, no individual $x$ can be connected to an individual $y$ by both
 /// $OPE_i$ and $OPE_j$ for $i \neq j$.
 ///
-/// ## Specification (section 9.2.3)
+/// ## Specification (Section §9.2.3)
 ///
 /// ```bnf
 /// DisjointObjectProperties :=
@@ -391,12 +452,12 @@ pub struct DisjointObjectProperties {
 }
 
 ///
-/// An inverse object properties axiom $InverseObjectProperties( OPE_1 OPE_2 )$ states
+/// An inverse object properties axiom $InverseObjectProperties( OPE_1 \ OPE_2 )$ states
 /// that the object property expression $OPE_1$ is an inverse of the object property
 /// expression $OPE_2$. Thus, if an individual $x$ is connected by $OPE_1$ to an individual
 /// $y$, then $y$ is also connected by $OPE_2$ to $x$, and vice versa.
 ///
-/// ## Specification (section 9.2.4)
+/// ## Specification (Section §9.2.4)
 ///
 /// ```bnf
 /// InverseObjectProperties :=
@@ -414,12 +475,12 @@ pub struct InverseObjectProperties {
 }
 
 ///
-/// An object property domain axiom $ObjectPropertyDomain( OPE CE )$ states that the domain
+/// An object property domain axiom $ObjectPropertyDomain( OPE \ CE )$ states that the domain
 /// of the object property expression $OPE$ is the class expression $CE$ — that is, if an
 /// individual $x$ is connected by $OPE$ with some other individual, then $x$ is an instance
 /// of $CE$.
 ///
-/// ## Specification (section 9.2.5)
+/// ## Specification (Section §9.2.5)
 ///
 /// ```bnf
 /// ObjectPropertyDomain :=
@@ -437,11 +498,11 @@ pub struct ObjectPropertyDomain {
 }
 
 ///
-/// An object property range axiom $ObjectPropertyRange( OPE CE )$ states that the range of
+/// An object property range axiom $ObjectPropertyRange( OPE \ CE )$ states that the range of
 /// the object property expression $OPE$ is the class expression $CE$ — that is, if some
 /// individual is connected by $OPE$ with an individual $x$, then x is an instance of $CE$.
 ///
-/// ## Specification (section 9.2.6)
+/// ## Specification (Section §9.2.6)
 ///
 /// ```bnf
 /// ObjectPropertyRange :=
@@ -463,7 +524,7 @@ pub struct ObjectPropertyRange {
 /// object property expression $OPE $is functional — that is, for each individual $x$, there can
 /// be at most one distinct individual $y$ such that $x$ is connected by $OPE$ to $y$.
 ///
-/// ## Specification (section 9.2.7)
+/// ## Specification (Section §9.2.7)
 ///
 /// ```bnf
 /// FunctionalObjectProperty :=
@@ -484,7 +545,7 @@ pub struct FunctionalObjectProperty {
 /// that the object property expression $OPE$ is inverse-functional — that is, for each individual
 /// $x$, there can be at most one individual $y$ such that $y$ is connected by $OPE$ with $x$.
 ///
-/// ## Specification (section 9.2.8)
+/// ## Specification (Section §9.2.8)
 ///
 /// ```bnf
 /// InverseFunctionalObjectProperty :=
@@ -504,7 +565,7 @@ pub struct InverseFunctionalObjectProperty {
 /// An object property reflexivity axiom $ReflexiveObjectProperty( OPE )$ states that the object
 /// property expression $OPE$ is reflexive — that is, each individual is connected by $OPE$ to itself.
 ///
-/// ## Specification (section 9.2.9)
+/// ## Specification (Section §9.2.9)
 ///
 /// ```bnf
 /// ObjectProperty :=
@@ -525,7 +586,7 @@ pub struct ReflexiveObjectProperty {
 /// object property expression $OPE$ is irreflexive — that is, no individual is connected by
 /// $OPE$ to itself.
 ///
-/// ## Specification (section 9.2.10)
+/// ## Specification (Section §9.2.10)
 ///
 /// ```bnf
 /// IrreflexiveObjectProperty := '
@@ -546,7 +607,7 @@ pub struct IrreflexiveObjectProperty {
 /// property expression $OPE$ is symmetric — that is, if an individual $x$ is connected by
 /// $OPE$ to an individual $y$, then $y$ is also connected by $OPE$ to $x$.
 ///
-/// ## Specification (section 9.2.11)
+/// ## Specification (Section §9.2.11)
 ///
 /// ```bnf
 /// SymmetricObjectProperty :=
@@ -567,7 +628,7 @@ pub struct SymmetricObjectProperty {
 /// property expression $OPE$ is asymmetric — that is, if an individual $x$ is connected by $OPE$
 /// to an individual $y$, then y cannot be connected by $OPE$ to $x$.
 ///
-/// ## Specification (section 9.2.12)
+/// ## Specification (Section §9.2.12)
 ///
 /// ```bnf
 /// AsymmetricObjectProperty :=
@@ -589,7 +650,7 @@ pub struct AsymmetricObjectProperty {
 /// to an individual $y$ that is connected by $OPE$ to an individual $z$, then $x$ is also
 /// connected by $OPE$ to $z$.
 ///
-/// ## Specification (section 9.2.13)
+/// ## Specification (Section §9.2.13)
 ///
 /// ```bnf
 /// TransitiveObjectProperty :=
@@ -612,7 +673,7 @@ pub struct TransitiveObjectProperty {
 ///
 /// OWL 2 also provides for data property axioms.
 ///
-/// ## Specification (section 9.3)
+/// ## Specification (Section §9.3)
 ///
 /// ```bnf
 /// DataPropertyAxiom :=
@@ -632,12 +693,12 @@ pub enum DataPropertyAxiom {
 }
 
 ///
-/// A data subproperty axiom $SubDataPropertyOf( DPE_1 DPE_2 )$ states that the data property
+/// A data subproperty axiom $SubDataPropertyOf( DPE_1 \ DPE_2 )$ states that the data property
 /// expression $DPE_1$ is a subproperty of the data property expression $DPE_2$ — that is, if an
 /// individual $x$ is connected by $DPE_1$ to a literal $y$, then $x$ is connected by $DPE_2$ to
 /// $y$ as well.
 ///
-/// ## Specification (section 9.3.1)
+/// ## Specification (Section §9.3.1)
 ///
 /// ```bnf
 /// SubDataPropertyOf :=
@@ -663,7 +724,7 @@ pub struct SubDataPropertyOf {
 /// expression in the ontology containing such an axiom, $DPE_i$ can be replaced with $DPE_j$ without
 /// affecting the meaning of the ontology.
 ///
-/// ## Specification (section 9.3.2)
+/// ## Specification (Section §9.3.2)
 ///
 /// ```bnf
 /// EquivalentDataProperties :=
@@ -684,7 +745,7 @@ pub struct EquivalentDataProperties {
 /// of the data property expressions $DPE_i, 1 \leq i \leq n$, are pairwise disjoint; that is, no
 /// individual $x$ can be connected to a literal $y$ by both $DPE_i$ and $DPE_j$ for $i \neq j$.
 ///
-/// ## Specification (section 9.3.3)
+/// ## Specification (Section §9.3.3)
 ///
 /// ```bnf
 /// DisjointDataProperties :=
@@ -705,7 +766,7 @@ pub struct DisjointDataProperties {
 /// expression $DPE$ is functional — that is, for each individual $x$, there can be at most one
 /// distinct literal $y$ such that $x$ is connected by $DPE$ with $y$.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// FunctionalDataProperty :=
@@ -722,11 +783,11 @@ pub struct FunctionalDataProperty {
 }
 
 ///
-/// A data property domain axiom $DataPropertyDomain( DPE CE )$ states that the domain of the data
+/// A data property domain axiom $DataPropertyDomain( DPE \ CE )$ states that the domain of the data
 /// property expression $DPE$ is the class expression $CE$ — that is, if an individual $x$ is
 /// connected by $DPE$ with some literal, then $x$ is an instance of $CE$.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// DataPropertyDomain :=
@@ -744,11 +805,11 @@ pub struct DataPropertyDomain {
 }
 
 ///
-/// A data property range axiom $DataPropertyRange( DPE DR )$ states that the range of the data
+/// A data property range axiom $DataPropertyRange( DPE \ DR )$ states that the range of the data
 /// property expression $DPE$ is the data range $DR$ — that is, if some individual is connected
 /// by $DPE$ with a literal $x$, then $x$ is in $DR$. The arity of $DR$ must be one.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// DataPropertyRange :=
@@ -770,13 +831,13 @@ pub struct DataPropertyRange {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// A datatype definition $DatatypeDefinition( DT DR )$ defines a new datatype $DT$ as being
+/// A datatype definition $DatatypeDefinition( DT \ DR )$ defines a new datatype $DT$ as being
 /// semantically equivalent to the data range $DR$; the latter must be a unary data range.
 /// This axiom allows one to use the defined datatype $DT$ as a synonym for $DR$ — that is,
 /// in any expression in the ontology containing such an axiom, $DT$ can be replaced with $DR$
 /// without affecting the meaning of the ontology.
 ///
-/// ## Specification (section 9.4)
+/// ## Specification (Section §9.4)
 ///
 /// ```bnf
 /// DatatypeDefinition :=
@@ -820,7 +881,7 @@ pub struct DatatypeDefinition {
 /// the latter axiom is also applicable to anonymous individuals and individuals whose existence is
 /// implied by existential quantification.
 ///
-/// ## Specification (section 9.5)
+/// ## Specification (Section §9.5)
 ///
 /// ```bnf
 /// HasKey :=
@@ -846,7 +907,7 @@ pub struct HasKey {
 /// OWL 2 supports a rich set of axioms for stating assertions — axioms about individuals that are
 /// often also called facts.
 ///
-/// ## Specification (section 9.6)
+/// ## Specification (Section §9.6)
 ///
 /// ```bnf
 /// Assertion :=
@@ -879,7 +940,7 @@ pub enum Assertion {
 /// ontology containing such an axiom, $a_i$ can be replaced with $a_j$ without affecting
 /// the meaning of the ontology.
 ///
-/// ## Specification (section 9.6.1)
+/// ## Specification (Section §9.6.1)
 ///
 /// ```bnf
 /// SameIndividual :=
@@ -897,11 +958,11 @@ pub struct SameIndividual {
 ///
 /// An individual inequality axiom $DifferentIndividuals( a_1 \cdots an )$ states that all of
 /// the individuals $a_i, 1 \leq i \leq n$, are different from each other; that is, no
-/// individuals $a_i$ and $a_j with $i \neq j$ can be derived to be equal. This axiom can be
+/// individuals $a_i$ and $a_j$ with $i \neq j$ can be derived to be equal. This axiom can be
 /// used to axiomatize the unique name assumption — the assumption that all different individual
 /// names denote different individuals.
 ///
-/// ## Specification (section 9.6.2)
+/// ## Specification (Section §9.6.2)
 ///
 /// ```bnf
 /// DifferentIndividuals :=
@@ -918,10 +979,10 @@ pub struct DifferentIndividuals {
 }
 
 ///
-/// A class assertion $ClassAssertion( CE a )$ states that the individual $a$ is an instance of
+/// A class assertion $ClassAssertion( CE \ a )$ states that the individual $a$ is an instance of
 /// the class expression $CE$.
 ///
-/// ## Specification (section 9.6.3)
+/// ## Specification (Section §9.6.3)
 ///
 /// ```bnf
 /// ClassAssertion :=
@@ -938,10 +999,10 @@ pub struct ClassAssertion {
 }
 
 ///
-/// A positive object property assertion $ObjectPropertyAssertion( OPE a_1 a_2 )$ states that the
+/// A positive object property assertion $ObjectPropertyAssertion( OPE \ a_1 \ a_2 )$ states that the
 /// individual $a_1$ is connected by the object property expression $OPE$ to the individual $a_2$.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// ObjectPropertyAssertion :=
@@ -960,11 +1021,11 @@ pub struct ObjectPropertyAssertion {
 }
 
 ///
-/// A negative object property assertion $NegativeObjectPropertyAssertion( OPE a_1 a_2 )$ states
+/// A negative object property assertion $NegativeObjectPropertyAssertion( OPE \ a_1 \ a_2 )$ states
 /// that the individual $a_1$ is not connected by the object property expression $OPE$ to the
 /// individual $a_2$.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// NegativeObjectPropertyAssertion :=
@@ -983,10 +1044,10 @@ pub struct NegativeObjectPropertyAssertion {
 }
 
 ///
-/// A positive data property assertion $DataPropertyAssertion( DPE a lt )$ states that the
+/// A positive data property assertion $DataPropertyAssertion( DPE \ a \ lt )$ states that the
 /// individual $a$ is connected by the data property expression $DPE$ to the literal $lt$.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// DataPropertyAssertion :=
@@ -1005,11 +1066,11 @@ pub struct DataPropertyAssertion {
 }
 
 ///
-/// A negative data property assertion $NegativeDataPropertyAssertion( DPE a lt )$ states
+/// A negative data property assertion $NegativeDataPropertyAssertion( DPE \ a \ lt )$ states
 /// that the individual $a$ is not connected by the data property expression $DPE$ to the
 /// literal $lt$.
 ///
-/// ## Specification (section )
+/// ## Specification (Section §)
 ///
 /// ```bnf
 /// NegativeDataPropertyAssertion :=
@@ -1059,11 +1120,11 @@ pub enum AnnotationAxiom {
 }
 
 ///
-/// An annotation assertion $AnnotationAssertion( AP as av )$ states that the annotation
+/// An annotation assertion $AnnotationAssertion( AP \ as \ av )$ states that the annotation
 /// subject $as$ — an IRI or an anonymous individual — is annotated with the annotation
 /// property $AP$ and the annotation value $av$.
 ///
-/// ## Specification (section 10.2.1)
+/// ## Specification (Section §10.2.1)
 ///
 /// ```bnf
 /// AnnotationAssertion :=
@@ -1084,7 +1145,7 @@ pub struct AnnotationAssertion {
 ///
 /// Represents the internal production `AnnotationSubject`.
 ///
-/// ## Specification (section 10.2.1)
+/// ## Specification (Section §10.2.1)
 ///
 /// ```bnf
 /// AnnotationSubject := IRI | AnonymousIndividual
@@ -1097,10 +1158,10 @@ pub enum AnnotationSubject {
 }
 
 ///
-/// An annotation subproperty axiom $SubAnnotationPropertyOf( AP1_ AP_2 )$ states that the
+/// An annotation subproperty axiom $SubAnnotationPropertyOf( AP_1 \ AP_2 )$ states that the
 /// annotation property $AP_1$ is a subproperty of the annotation property $AP_2$.
 ///
-/// ## Specification (section 10.2.2)
+/// ## Specification (Section §10.2.2)
 ///
 /// ```bnf
 /// SubAnnotationPropertyOf :=
@@ -1122,10 +1183,10 @@ pub struct SubAnnotationOf {
 }
 
 ///
-/// An annotation property domain axiom $AnnotationPropertyDomain( AP U )$ states that the domain
+/// An annotation property domain axiom $AnnotationPropertyDomain( AP \ U )$ states that the domain
 /// of the annotation property $AP$ is the IRI $U$.
 ///
-/// ## Specification (section 10.2.3)
+/// ## Specification (Section §10.2.3)
 ///
 /// ```bnf
 /// AnnotationPropertyDomain :=
@@ -1143,10 +1204,10 @@ pub struct AnnotationPropertyDomain {
 }
 
 ///
-/// An annotation property range axiom $AnnotationPropertyRange( AP U ) $states that the range
+/// An annotation property range axiom $AnnotationPropertyRange( AP \ U ) $states that the range
 /// of the annotation property $AP$ is the IRI $U$.
 ///
-/// ## Specification (section 10.2.4)
+/// ## Specification (Section §10.2.4)
 ///
 /// ```bnf
 /// AnnotationPropertyRange :=
@@ -1283,7 +1344,7 @@ impl EquivalentClass {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(class_expressions.len() as u128),
+                UnlimitedNatural::Limited(class_expressions.len() as u128),
             )
             .into())
         }
@@ -1311,7 +1372,7 @@ impl DisjointClasses {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(class_expressions.len() as u128),
+                UnlimitedNatural::Limited(class_expressions.len() as u128),
             )
             .into())
         }
@@ -1344,7 +1405,7 @@ impl DisjointUnion {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(disjoint_class_expressions.len() as u128),
+                UnlimitedNatural::Limited(disjoint_class_expressions.len() as u128),
             )
             .into())
         }

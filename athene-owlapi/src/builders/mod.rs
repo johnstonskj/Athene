@@ -1,3 +1,6 @@
+//! This module provides builder types and traits for more complex constructs to make the
+//! process of ontology development more ergonomic.
+//!
 use crate::{
     Import, Ontology, OntologyDocument,
     annotations::{self, Annotation},
@@ -16,6 +19,7 @@ use rdftk_iri::{Iri, IriPrefixMap, Namespace};
 
 macro_rules! with_this_annotation {
     ($vis:vis $fn_name:ident => $ann_iri:expr) => {
+        #[doc = "Add this annotation to the accumulated set within the builder."]
         $vis fn $fn_name<T: Into<$crate::literals::Literal>>(self, value: T) -> Self
         where
             Self: Sized,
@@ -38,7 +42,7 @@ macro_rules! impl_annotation_builder {
             where
                 I: IntoIterator<Item = $crate::annotations::Annotation>,
             {
-                self.$member_name = $member_name.into_iter().collect();
+                self.$member_name.extend($member_name.into_iter());
                 self
             }
         }
@@ -52,21 +56,66 @@ macro_rules! impl_annotation_builder {
 // Public Traits
 // ------------------------------------------------------------------------------------------------
 
+///
+/// This trait is implemented by all builder objects, call `build` to create an instance
+/// of the type `Output`
+///
 pub trait Builder {
+    ///
+    /// The type of the object created by this builder.
+    ///
+    /// Usually this is the type that created the builder instance in the first place,
+    /// particularly if using the [`HasBuilder`] trait.
     type Output;
 
+    ///
+    /// Construct a new instance of `Self::Output`.
+    ///
+    /// This performs any validation of the collected values before construction rather
+    /// than during assignments to allow for transient invalid states. Note also that
+    /// self is an immutable reference, allowing the same builder to build multiple
+    /// objects, or to build one, modify and build another.
+    ///
     fn build(&self) -> Result<Self::Output, BuilderError>;
 }
+
+///
+/// This trait is implemented by ontology types that provide builder objects.
+///
 pub trait HasBuilder {
+    ///
+    /// The type of the object created by the `Builder`.
+    ///
     type Output;
+    ///
+    /// The type of the builder object returned by this ontology type.
+    ///
     type Builder: Builder<Output = Self::Output>;
 
+    ///
+    /// Fetch the builder for this ontology type.
+    ///
     fn builder() -> Self::Builder;
 }
 
+///
+/// This trait is implemented by any other builder object whose ontology object also
+/// has annotations.
+///
+/// This trait provides a common interface for adding annotations even though the API
+/// may have different names for annotations in different ontology types. It also
+/// provides a set of *short-cut* methods for adding annotations from popular
+/// vocabularies.
+///
 pub trait AnnotationBuilder {
+    ///
+    /// Add this annotation to the accumulated set within the builder.
+    ///
     fn with_annotation(self, annotation: Annotation) -> Self;
 
+    ///
+    /// Add all these annotations to the accumulated set within the builder.
+    ///
     fn with_annotations<I: IntoIterator<Item = Annotation>>(self, annotations: I) -> Self;
 
     with_this_annotation!(with_rdfs_comment => annotations::ANN_RDFS_COMMENT);
@@ -92,12 +141,18 @@ pub trait AnnotationBuilder {
 // Public Builders
 // ------------------------------------------------------------------------------------------------
 
+///
+/// A builder for the core `OntologyDocument` type.
+///
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct OntologyDocumentBuilder {
     mappings: IriPrefixMap,
     ontology: Option<Ontology>,
 }
 
+///
+/// A builder for the core `Ontology` type.
+///
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct OntologyBuilder {
     ontology_iri: Option<Iri>,

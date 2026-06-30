@@ -165,6 +165,18 @@ pub static RESERVED_PREFIX_IRIS: LazyLock<[Iri; 4]> = LazyLock::new(|| {
 // TODO: should the above actually be a table of prefix/IRI?
 
 ///
+/// An OWL 2 *ontology& is an instance $O$ of the **Ontology** UML class from the structural
+/// specification of OWL 2 shown in Figure 1 that satisfies certain conditions given below.
+///
+/// The main component of an OWL 2 ontology is its set of axioms, the structure of which is
+/// described in more detail in Section 9. Because the association between an ontology and its
+/// axioms is a set, an ontology cannot contain two axioms that are structurally equivalent.
+/// Apart from axioms, ontologies can also contain ontology annotations (as described in more
+/// detail in Section 3.5), and they can also import other ontologies (as described in Section
+/// 3.4).
+///
+/// ![Figure 1. The Structure of OWL 2 Ontologies](https://www.w3.org/TR/owl2-syntax/Ontology.gif)
+///
 /// ## Specification (Section §3.7 -- Functional-Style Syntax)
 ///
 /// ```bnf

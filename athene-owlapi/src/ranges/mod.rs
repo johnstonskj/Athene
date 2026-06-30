@@ -1,9 +1,14 @@
+//!
+//! This module provides the types to support OWL 2 Data Ranges.
+//!
+//! ![**Figure 6**. Data Ranges in OWL 2](https://www.w3.org/TR/owl2-syntax/C_datarange.gif)
+//!
 use crate::{
     entities::Datatype,
     error::ApiError,
     fmt::DisplayPretty,
     literals::Literal,
-    values::{CardinalityConstraintViolation, UnboundedNatural},
+    values::{CardinalityConstraintViolation, UnlimitedNatural},
 };
 use core::str::FromStr;
 use rdftk_iri::Iri;
@@ -13,47 +18,204 @@ use strum::{EnumIs, EnumTryAs};
 // Public Types
 // ------------------------------------------------------------------------------------------------
 
+///
+/// Datatypes, such as *xsd:string* or *xsd:integer*, and literals such as *"1"^^xsd:integer*,
+/// can be used to express data ranges — sets of tuples of literals, where tuples consisting of
+/// only one literal are identified with the literal itself. Each data range is associated with
+/// a positive arity, which determines the size of the tuples in the data range. All datatypes
+/// have arity one. This specification currently does not define data ranges of arity more than
+/// one; however, by allowing for n-ary data ranges, the syntax of OWL 2 provides a "hook"
+/// allowing implementations to introduce extensions such as comparisons and arithmetic.
+///
+/// Data ranges can be used in restrictions on data properties, as discussed in Sections 8.4 and
+/// 8.5. The structure of data ranges in OWL 2 is shown in Figure 6. The simplest data ranges
+/// are datatypes. The **DataIntersectionOf**, **DataUnionOf**, and **DataComplementOf** data
+/// ranges provide for the standard set-theoretic operations on data ranges; in logical languages
+/// these are usually called conjunction, disjunction, and negation, respectively. The
+/// **DataOneOf** data range consists of exactly the specified set of literals. Finally, the
+/// **DatatypeRestriction** data range restricts the value space of a datatype by a constraining
+/// facet.
+///
+/// ## Specification (Section §7 -- Data Ranges)
+///
+/// ```bnf
+/// DataRange :=
+///     Datatype | DataIntersectionOf |
+///     DataUnionOf | DataComplementOf |
+///     DataOneOf | DatatypeRestriction
+/// ```
+///
 #[derive(Clone, Debug, PartialEq, EnumIs, EnumTryAs)]
 pub enum DataRange {
-    DataComplementOf(DataComplementOf),
     DataIntersectionOf(DataIntersectionOf),
     DataUnionOf(DataUnionOf),
+    DataComplementOf(DataComplementOf),
     DataOneOf(DataOneOf),
     Datatype(Datatype),
     DatatypeRestriction(DatatypeRestriction),
 }
 
+///
+/// An intersection data range $DataIntersectionOf( DR_1 \cdots DR_n )$ contains all tuples of
+/// literals that are contained in each data range $DR_i$ for $1 \leq i \leq n$. All data ranges
+/// $DR_i$ must be of the same arity, and the resulting data range is of that arity as well.
+///
+/// ## Specification (Section §7.1 -- Intersection of Data Ranges)
+///
+/// ```bnf
+/// DataIntersectionOf :=
+///     'DataIntersectionOf' '('
+///         DataRange DataRange { DataRange }
+///     ')'
+/// ```
+///
+/// ## Example
+///
+/// The following data range contains exactly the integer 0:
+///
+/// ```owl
+/// DataIntersectionOf( xsd:nonNegativeInteger xsd:nonPositiveInteger )
+/// ```
+///
+#[derive(Clone, Debug, PartialEq)]
+pub struct DataIntersectionOf {
+    arity: UnlimitedNatural,
+    data_ranges: Vec<DataRange>, // 2..*
+}
+
+///
+/// A union data range $DataUnionOf( DR_1 \cdots DR_n )$ contains all tuples of literals that are
+/// contained in the at least one data range $DR_i$ for $1 \leq i \leq n$. All data ranges $DR_i$
+/// must be of the same arity, and the resulting data range is of that arity as well.
+///
+/// ## Specification (Section §7.2 -- Union of Data Ranges)
+///
+/// ```bnf
+/// DataUnionOf :=
+///     'DataUnionOf' '('
+///         DataRange DataRange { DataRange }
+///     ')'
+/// ```
+///
+/// ## Example
+///
+/// The following data range contains all strings and all integers:
+///
+/// ```owl
+/// DataUnionOf( xsd:string xsd:integer )
+/// ```
+///
+#[derive(Clone, Debug, PartialEq)]
+pub struct DataUnionOf {
+    arity: UnlimitedNatural,
+    data_ranges: Vec<DataRange>, // 2..*
+}
+
+///
+/// A complement data range $DataComplementOf( DR )$ contains all tuples of literals that are not
+/// contained in the data range $DR$. The resulting data range has the arity equal to the arity
+/// of $DR$.
+///
+/// ## Specification (Section §7.3 -- Complement of Data Ranges)
+///
+/// ```bnf
+/// DataComplementOf :=
+///     'DataComplementOf' '(' DataRange ')'
+/// ```
+///
+/// ## Example
+///
+/// The following complement data range contains literals that are not positive integers. In
+/// particular, this data range contains the integer zero and all negative integers; however,
+/// it also contains all strings (since strings are not positive integers).
+///
+/// ```owl
+/// DataComplementOf( xsd:positiveInteger )
+/// ```
+///
 #[derive(Clone, Debug, PartialEq)]
 pub struct DataComplementOf {
-    arity: UnboundedNatural,
+    arity: UnlimitedNatural,
     data_range: Box<DataRange>,
 }
 
-#[derive(Clone, Debug, PartialEq)]
-pub struct DataIntersectionOf {
-    arity: UnboundedNatural,
-    data_ranges: Vec<DataRange>, // 2..*
-}
-
-#[derive(Clone, Debug, PartialEq)]
-pub struct DataUnionOf {
-    arity: UnboundedNatural,
-    data_ranges: Vec<DataRange>, // 2..*
-}
-
+///
+/// An enumeration of literals $DataOneOf( lt_1 \cdots lt_n )$ contains exactly the explicitly
+/// specified literals $lt_i$ with $1 \leq i \leq n$. The resulting data range has arity one.
+///
+/// ## Specification (Section §7.4 -- Enumeration of Literals)
+///
+/// ```bnf
+/// DataOneOf :=
+///     'DataOneOf' '('
+///         Literal { Literal }
+///     ')'
+/// ```
+///
+/// ## Example
+///
+/// The following data range contains exactly two literals: the string `"Peter"` and the integer one.
+///
+/// ```owl
+/// DataOneOf( "Peter" "1"^^xsd:integer )
+/// ```
+///
+///
 #[derive(Clone, Debug, PartialEq)]
 pub struct DataOneOf {
-    arity: UnboundedNatural,
+    arity: UnlimitedNatural,
     literals: Vec<Literal>, // 1..*
 }
 
+///
+/// A datatype restriction $DatatypeRestriction( DT F_1 lt_1 \cdots F_n lt_n )$ consists of a unary
+/// datatype $DT$ and $n$ pairs $( F_i , lt_i )$. The resulting data range is unary and is obtained
+/// by restricting the value space of $DT$ according to the semantics of all $( F_i , v_i )$
+/// (multiple pairs are interpreted conjunctively), where $v_i$ are the data values of the literals
+/// $lt_i$.
+///
+/// In an OWL 2 DL ontology, each pair $( F_i , v_i )$ must be contained in the facet space of $DT$
+/// (see Section 4).
+///
+/// ## Specification (Section §7.5 -- Datatype Restrictions)
+///
+/// ```bnf
+/// DatatypeRestriction := 'DatatypeRestriction' '(' Datatype constrainingFacet restrictionValue { constrainingFacet restrictionValue } ')'
+///
+/// constrainingFacet := IRI
+///
+/// restrictionValue := Literal
+/// ```
+///
+/// ## Example
+///
+/// The following data range contains exactly the integers 5, 6, 7, 8, and 9:
+///
+/// ```owl
+/// DatatypeRestriction(
+///     xsd:integer
+///     xsd:minInclusive "5"^^xsd:integer
+///     xsd:maxExclusive "10"^^xsd:integer
+/// )
+/// ```
+///
 #[derive(Clone, Debug, PartialEq)]
 pub struct DatatypeRestriction {
-    arity: UnboundedNatural,
+    arity: UnlimitedNatural,
     datatype: Datatype,
     restrictions: Vec<FacetRestriction>, // 1..*
 }
 
+///
+/// This corresponds to the repeating pair `(constrainingFacet, restrictionValue)` in the rule
+/// [`DatatypeRestriction`]. Note that this is not a production in the source grammar.
+///
+/// ## Specification (Section §7.5 -- Datatype Restrictions)
+///
+/// ```bnf
+/// __FacetRestriction := constrainingFacet restrictionValue
+/// ```
+///
 #[derive(Clone, Debug, PartialEq)]
 pub struct FacetRestriction {
     constraining_facet: Iri,
@@ -64,15 +226,39 @@ pub struct FacetRestriction {
 // Public Types ❯ Traits
 // ------------------------------------------------------------------------------------------------
 
+///
+/// TBD
+///
+/// ## Specification (Section § -- )
+///
+/// ```bnf
+/// ```
+///
 pub trait HasArity {
-    fn arity(&self) -> UnboundedNatural;
+    fn arity(&self) -> UnlimitedNatural;
 }
 
+///
+/// TBD
+///
+/// ## Specification (Section § -- )
+///
+/// ```bnf
+/// ```
+///
 pub trait HasDataRange {
     fn data_range(&self) -> &DataRange;
     fn data_range_mut(&mut self) -> &mut DataRange;
 }
 
+///
+/// TBD
+///
+/// ## Specification (Section § -- )
+///
+/// ```bnf
+/// ```
+///
 pub trait HasDataRanges {
     fn has_data_ranges(&self) -> bool;
     fn data_ranges(&self) -> impl Iterator<Item = &DataRange>;
@@ -91,6 +277,13 @@ impl_display_pretty!(DataRange enum DataComplementOf,
     DatatypeRestriction
 );
 
+impl_from_for_variant!(DataRange, DataComplementOf);
+impl_from_for_variant!(DataRange, DataIntersectionOf);
+impl_from_for_variant!(DataRange, DataUnionOf);
+impl_from_for_variant!(DataRange, DataOneOf);
+impl_from_for_variant!(DataRange, Datatype);
+impl_from_for_variant!(DataRange, DatatypeRestriction);
+
 // ------------------------------------------------------------------------------------------------
 // Implementation ❯ DataComplementOf
 // ------------------------------------------------------------------------------------------------
@@ -98,7 +291,7 @@ impl_display_pretty!(DataRange enum DataComplementOf,
 impl_display_pretty!(DataComplementOf(data_range));
 
 impl HasArity for DataComplementOf {
-    fn arity(&self) -> UnboundedNatural {
+    fn arity(&self) -> UnlimitedNatural {
         self.arity
     }
 }
@@ -128,7 +321,7 @@ impl DataComplementOf {
 impl_display_pretty!(DataIntersectionOf( @list data_ranges ));
 
 impl HasArity for DataIntersectionOf {
-    fn arity(&self) -> UnboundedNatural {
+    fn arity(&self) -> UnlimitedNatural {
         self.arity
     }
 }
@@ -157,7 +350,7 @@ impl DataIntersectionOf {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(data_ranges.len() as u128),
+                UnlimitedNatural::Limited(data_ranges.len() as u128),
             )
             .into())
         }
@@ -171,7 +364,7 @@ impl DataIntersectionOf {
 impl_display_pretty!(DataUnionOf( @list data_ranges ));
 
 impl HasArity for DataUnionOf {
-    fn arity(&self) -> UnboundedNatural {
+    fn arity(&self) -> UnlimitedNatural {
         self.arity
     }
 }
@@ -200,7 +393,7 @@ impl DataUnionOf {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(data_ranges.len() as u128),
+                UnlimitedNatural::Limited(data_ranges.len() as u128),
             )
             .into())
         }
@@ -214,7 +407,7 @@ impl DataUnionOf {
 impl_display_pretty!(DataOneOf( @list literals ));
 
 impl HasArity for DataOneOf {
-    fn arity(&self) -> UnboundedNatural {
+    fn arity(&self) -> UnlimitedNatural {
         self.arity
     }
 }
@@ -231,7 +424,7 @@ impl DataOneOf {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(literals.len() as u128),
+                UnlimitedNatural::Limited(literals.len() as u128),
             )
             .into())
         }
@@ -257,7 +450,7 @@ impl DataOneOf {
 impl_display_pretty!(DatatypeRestriction( datatype, @list restrictions ));
 
 impl HasArity for DatatypeRestriction {
-    fn arity(&self) -> UnboundedNatural {
+    fn arity(&self) -> UnlimitedNatural {
         self.arity
     }
 }
@@ -278,7 +471,7 @@ impl DatatypeRestriction {
         } else {
             Err(CardinalityConstraintViolation::min_fail(
                 2,
-                UnboundedNatural::Bounded(restrictions.len() as u128),
+                UnlimitedNatural::Limited(restrictions.len() as u128),
             )
             .into())
         }
