@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="613.29246 249.24355 576.4388 278.81332" width="576.4388" height="278.81332">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#a5a5a5">
+      <g>
+        <path d="M 16 0 L 0 0 M 0 -6 L 16 0 L 0 6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#a5a5a5">
+      <g>
+        <path d="M 16 0 L 0 0 M 0 -6 L 16 0 L 0 6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Ontology" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>Ontology</title>
+    <g id="Ontology_OWL">
+      <title>OWL</title>
+      <g id="Group_2">
+        <title>Class with Attributes</title>
+        <g id="Graphic_4">
+          <title>Attributes</title>
+          <rect x="712" y="349" width="103" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_3">
+          <title>Class Name</title>
+          <rect x="712" y="320.22047" width="103" height="28.779527" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(718 325.61024)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="16.7375" y="13" xml:space="preserve">Ontology</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_8">
+        <title>Class with Attributes</title>
+        <g id="Graphic_9">
+          <title>Class Name</title>
+          <rect x="712" y="479.3058" width="103" height="42.722656" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(718 484.1671)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="11" fill="#515556" x="18.803" y="11" xml:space="preserve">«dataype»</tspan>
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="37.791" y="28" xml:space="preserve">IRI</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_14">
+        <line x1="763.5" y1="373" x2="763.5" y2="461.4058" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_15">
+        <title>Class with Attributes</title>
+        <g id="Graphic_17">
+          <title>Attributes</title>
+          <rect x="1009.4136" y="349" width="103" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_16">
+          <title>Class Name</title>
+          <rect x="1009.4136" y="320.22047" width="103" height="28.779527" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1015.4136 325.61024)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="11.44" y="13" xml:space="preserve">Annotation</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_18">
+        <title>Class with Attributes</title>
+        <g id="Graphic_20">
+          <title>Attributes</title>
+          <rect x="1009.4136" y="503.0569" width="103" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_19">
+          <title>Class Name</title>
+          <rect x="1009.4136" y="474.27734" width="103" height="28.779527" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1015.4136 479.6671)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="26.0065" y="13" xml:space="preserve">Axiom</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_21">
+        <path d="M 763.5 320.22047 L 763.5 252.0294 L 789.25 252.0294 L 789.25 302.32047" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_22">
+        <text transform="translate(790.3284 275.2683)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">imports</tspan>
+        </text>
+      </g>
+      <g id="Line_24">
+        <path d="M 737.75 320.22047 L 737.75 251.51834 L 615.0221 251.51834 L 615.0221 334.61024 L 694.1 334.61024" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_25">
+        <text transform="translate(625.5586 322.33024)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="66.49" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="2046363e-18" y="22.28" xml:space="preserve">/directlyImports</tspan>
+        </text>
+      </g>
+      <g id="Graphic_26">
+        <text transform="translate(766.8662 434.84715)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">0..1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">ontologyIRI</tspan>
+        </text>
+      </g>
+      <g id="Line_28">
+        <path d="M 712 361 L 613.79246 361 L 613.79246 500.6671 L 694.1 500.6671" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_27">
+        <text transform="translate(641.67736 488.3871)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="30.9" y="10" xml:space="preserve">0..1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="17479351e-19" y="22.28" xml:space="preserve">/versionIRI</tspan>
+        </text>
+      </g>
+      <g id="Line_30">
+        <path d="M 815 367 L 885.7303 367 L 885.7303 500.6671 L 832.9 500.6671" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_29">
+        <text transform="translate(826.7303 466.63854)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">directlyImportsDocuments</tspan>
+        </text>
+      </g>
+      <g id="Line_32">
+        <line x1="815" y1="334.61024" x2="990.5136" y2="334.61024" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_31">
+        <text transform="translate(895.126 322.33024)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="88.9" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">ontologyAnnotations</tspan>
+        </text>
+      </g>
+      <g id="Graphic_34">
+        <text transform="translate(1088.7812 275.2683)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">annotationAnnotations</tspan>
+        </text>
+      </g>
+      <g id="Line_35">
+        <path d="M 1060.9136 320.22047 L 1060.9136 249.74355 L 1086.6636 249.74355 L 1086.6636 302.32047" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_36">
+        <line x1="1060.9136" y1="474.27734" x2="1060.9136" y2="391.9" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_37">
+        <text transform="translate(1062.9864 391.29484)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">axiomAnnotations</tspan>
+        </text>
+      </g>
+      <g id="Line_40">
+        <path d="M 815 355 L 980.0204 355 L 980.0204 488.6671 L 991.5136 488.6671" marker-end="url(#StickArrow_Marker_2)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_41">
+        <text transform="translate(982.2184 442.8383)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">axioms</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

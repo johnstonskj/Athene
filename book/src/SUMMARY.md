@@ -21,3 +21,4 @@
   - [General Axioms](./nocturn/general-axioms/index.md)
   - [Appendix: Wine Ontology](./nocturn/example-wine/index.md)
   - [Appendix: GraphViz](./nocturn/graphviz/index.md)
+- [Appendix: UML](./appendix/uml/index.md)

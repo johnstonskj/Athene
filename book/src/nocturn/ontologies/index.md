@@ -9,16 +9,28 @@ Corresponds to section 3.2 of the *OWL 2 Structural Specification*.
 
 <span class="figure caption">Ontology Nodes and Edges</span>
 
+### Ontology Node Properties
+
+* `ontologyIRI` -- the **required** ontology IRI.
+* `versionIRI` -- the optional ontology version IRI.
+
+Additionally, there are the following specific annotation properties;
+`owl:versionInfo`, `owl:priorVersion`, `owl:backwardCompatibleWith`, and
+`owl:incompatibleWith`.
+
 ### Ontology Node Rules
 
-1. The node's shape **must** be a *folder*, a rectangle with a small *tab* on the top-left corner.
+1. The node's shape **must** be a *folder*, a rectangle with a small *tab* on the top-left corner, with *solid* lines.
    1. The diagram above shows the **preferred** form with a sloped rectangular tab on the left.
    2. The alternate, acceptable, form with a plain rectangular tab on the right.
-2. An ontology node may have the following edges attached:
+2. An ontology node be the source of the following edges:
    1. Ontology imports.
    2. Ontology dependencies.
    3. General axioms.
    4. Annotation properties.
+3. An ontology node be the target of the following edges:
+   1. Ontology imports.
+   2. Ontology dependencies.
 
 ## Imports
 
@@ -37,8 +49,9 @@ Ontology(
 ### Imports Rules
 
 1. The edge **must** be a solid line with a *filled triangle* at the target.
-2. There must be **at most** one edge between any pair of ontology nodes.
-3. These edges have no labels.
+2. The source and target **must** be Ontology nodes, and **must** be distinct.
+3. There must be **at most** one edge between any pair of ontology nodes.
+4. These edges have no labels.
 
 ## Dependencies and Prefixes
 
@@ -61,8 +74,9 @@ declared prefix "dcterms".
 
 ### Dependency and Prefix Rules
 
-1. The edge **must** be a dottes line with a *filled triangle* at the target.
-2. The edge may have a label, all labels originating from the same source
+1. The edge **must** be a dotted line with a *filled triangle* at the target.
+2. The source and target **must** be Ontology nodes, and **must** be distinct.
+3. The edge may have a label, all labels originating from the same source
    ontology **must** be unique.
    1. As these are the prefix to qualified name it is not legal to include the
       colon (`':'`, Unicode `U+003A`) character in the name.

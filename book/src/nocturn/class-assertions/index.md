@@ -13,7 +13,7 @@
 
 ### rdfs:subClassOf Rules
 
-TBD
+1. The source and target of the edge **must** both be classes.
 
 ## rdf:type
 
@@ -23,7 +23,7 @@ TBD
 
 ### rdf:type Rules
 
-TBD
+1. The source and target of the edge **must** both be classes.
 
 ## owl:equivalentClass
 
@@ -33,7 +33,7 @@ TBD
 
 ### owl:equivalentClass Rules
 
-TBD
+1. The source and target of the edge **must** both be classes.
 
 ## owl:disjointWith
 
@@ -42,3 +42,6 @@ TBD
 <span class="figure caption">An OWL *disjointWith* Edge</span>
 
 ### owl:disjointWith Rules
+
+1. The source and target of the edge **must** both be classes.
+1. The source and target of the edge **must** not be the same.

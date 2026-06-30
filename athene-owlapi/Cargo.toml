@@ -1,0 +1,33 @@
+[package]
+name = "athene-owlapi"
+description = ""
+version = "0.1.0"
+readme = "README.md"
+publish = true
+
+edition.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+rustdoc-args = ["--html-in-header", "doc-src/header.html"]
+
+[features]
+default = ["std"]
+
+## This feature implies the presence of the Rust standard library. If not present
+## the `no_std` configuration attribute is set.
+std = []
+
+[dependencies]
+document-features = "0.2"
+language-tags = "0.3"
+num-traits = "0.2"
+rdftk_iri = "0.4"
+strum = { version = "0.28", features = ["derive"] }
+thiserror = { version = "2.0", default-features = false }
+
+[lints]
+workspace = true

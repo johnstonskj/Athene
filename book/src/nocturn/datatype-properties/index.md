@@ -13,7 +13,19 @@
 
 ### owl:DatatypeProperty Rules
 
-TBD
+1. The source of the edge **must** be a class, and the target **must** be a Datatype.
+2. The edge **must** be named.
+
+## rdfs:subPropertyOf
+
+![rdfs:subPropertyOf](./rdfs-subPropertyOf.svg)
+
+<span class="figure caption">An RDF Schema *subPropertyOf* Edge</span>
+
+### rdfs:subPropertyOf Rules
+
+1. The source and target of the edge **must** both be Datatype Properties.
+2. The edge **must** be named.
 
 ## owl:disjointWith
 
@@ -23,4 +35,4 @@ TBD
 
 ### owl:disjointWith Rules
 
-TBD
+1. The source and target of the edge **must** both be Datatype Properties.

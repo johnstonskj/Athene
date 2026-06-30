@@ -1,0 +1,70 @@
+use athene_owlapi::{Ontology, OntologyDocument, fmt::FunctionalSyntaxWriter};
+use objio::ObjectWriter;
+use rdftk_iri::{Iri, IriPrefixMap};
+use std::str::FromStr;
+
+#[test]
+fn test_section_3p4_example_ontology() {
+    let example = Ontology::builder()
+        .with_ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+        .build()
+        .unwrap();
+
+    let mappings = IriPrefixMap::default();
+    let writer = FunctionalSyntaxWriter::new(&mappings);
+    let output = writer.write_to_string(&example);
+    assert!(output.is_ok());
+
+    assert_eq!(
+        r"Ontology(
+    <http://www.example.com/importing-ontology>
+
+    Import( <http://www.example.com/my/2.0> )
+)
+",
+        output.unwrap().as_str()
+    )
+}
+
+#[test]
+fn test_section_3p4_example_ontology_document() {
+    let example = Ontology::builder()
+        .with_ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+        .build()
+        .unwrap();
+
+    let doc = OntologyDocument::builder()
+        .with_default_namespace(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .with_ontology(example)
+        .build()
+        .unwrap();
+
+    let mappings = doc.prefix_mappings();
+    let writer = FunctionalSyntaxWriter::new(&mappings);
+    let output = writer.write_to_string(&doc);
+    assert!(output.is_ok());
+
+    assert_eq!(
+        r"Prefix( : = <http://www.example.com/importing-ontology> )
+Ontology(
+    :
+
+    Import( <http://www.example.com/my/2.0> )
+)
+",
+        output.unwrap().as_str()
+    )
+}
+
+#[test]
+fn test_ontology_version_without_ontology_iri_error() {
+    let result = Ontology::builder()
+        .with_version_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+        .build();
+    assert!(result.is_err());
+    let result = result.err().unwrap();
+    assert!(result.is_builder())
+}

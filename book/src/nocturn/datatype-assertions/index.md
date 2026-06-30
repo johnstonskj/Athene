@@ -13,7 +13,7 @@
 
 ### rdf:type Rules
 
-TBD
+1. The source and target of the edge **must** both be datatypes.
 
 ## Datatype owl:Restriction Notation
 
@@ -23,4 +23,6 @@ TBD
 
 ### Datatype owl:Restriction Rules
 
-TBD
+1. The source and target of the edge **must** both be datatypes.
+2. The edge **may** have an attached axiom node.
+   1. Axiom details TBD

@@ -13,9 +13,14 @@
 
 ### Class Rules
 
-1. The overall shape is a rectangle, it's **must** be greater than it's height,
-   and corners **must** be hard, not rounded.
+1. The overall shape **must** be a *rectangle*.
+   1. It's width **must** be greater than it's height.
+   2. It's corners **must** be hard, not rounded.
 2. Node lines **must** be solid.
+3. A class node be the source of the following edges:
+   1. TBD
+4. A class node be the target of the following edges:
+   1. TBD
 
 ## Datatypes
 
@@ -25,10 +30,15 @@
 
 ### Datatype Rules
 
-1. The overall shape is a rectangle, it's **must** be greater than it's height,
-   and corners **must** be hard, not rounded.
+1. The overall shape **must** be a *rectangle*.
+   1. It's width **must** be greater than it's height.
+   2. It's corners **must** be hard, not rounded.
 2. Node lines **must** be dotted.
    1. More space must exist between dots than the width of the dots for clarity.
+3. A datatype node be the source of the following edges:
+   1. TBD
+4. A datatype node be the target of the following edges:
+   1. TBD
 
 ## Individuals
 
@@ -38,8 +48,13 @@
 
 ### Individual Rules
 
-1. The overall shape is an ellipse, it's **must** be greater than it's height.
+1. The overall shape **must** be an *ellipse*.
+   1. It's width **must** be greater than it's height.
 2. Node lines **must** be solid.
+3. An individual node be the source of the following edges:
+   1. TBD
+4. An individual node be the target of the following edges:
+   1. TBD
 
 ## Literals
 
@@ -63,13 +78,19 @@
 
 ### Literal Rules
 
-1. The overall shape is an ellipse, it's **must** be greater than it's height.
+1. The overall shape **must** be an *ellipse*.
+   1. It's width **must** be greater than it's height.
 2. Node lines **must** be dotted.
-   1. More space must exist between dots than the width of the dots for clarity.
-3. If the value is a `langString` a horizontal bar **must** separate the value above
-   from the language identifier with the prefix `@` character.
-4. If the value...
-5. If the value (ellide...) ...
+3. If the literal's type is a `langString` a horizontal bar **must** separate
+   the value above from the language identifier with the prefix `@` character.
+4. If the literal is a typed value a horizontal bar **must** separate the value
+   above from the datatype IRI below.
+5. If the literal's value is too large to easily fit in the node, replace with
+   a Unicode ellipsis character `'…'` (HORIZONTAL ELLIPSIS `U+2026`).
+6. A literal node be the source of the following edges:
+   1. TBD
+7. A literal node be the target of the following edges:
+   1. TBD
 
 ## Properties
 
@@ -81,11 +102,15 @@
 
 1. The overall shape for Object and Datatype properties **must** be an isosceles triangle
    with a narrow base and with it's apex pointed to the right.
-2. The overall shape for Annotation properties **must** be an *pointed flag*
+2. The overall shape for Annotation properties **must** be a *pointed flag*
    with a longer rectangle and trangular apex to the right.
 3. Lables in all property nodes **must** be left justified so they are not lost in the apex.
-4. Object and Annotation properties are represented with solid lines.
-5. Datatype properties are represented with dotted lines.
+4. Object and Annotation properties are represented with *solid* lines.
+5. Datatype properties are represented with *dotted* lines.
+6. A property node be the source of the following edges:
+   1. TBD
+7. A property node be the target of the following edges:
+   1. TBD
 
 ## Axioms and Annotations
 
@@ -113,3 +138,11 @@ Notes:
    filled with a light shade (`#ebebeb` in our example).
 7. As axiom content **may** be consider code-like, it is acceptable to use a monospaced
    code font as an alternative.
+8. An axiom node be the source of the following edges:
+   1. TBD
+9. An axiom node be the target of the following edges:
+   1. TBD
+10. An annotation node be the source of the following edges:
+11. TBD
+12. An annotation node be the target of the following edges:
+13. TBD

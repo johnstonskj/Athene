@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="1367.5 1710.5 1188.919 388.15095" width="1188.919" height="388.15095">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#a5a5a5">
+      <g>
+        <path d="M 16 0 L 0 0 M 0 -6 L 16 0 L 0 6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -15 26 30" markerWidth="26" markerHeight="30" color="#a5a5a5">
+      <g>
+        <path d="M 24 0 L 0 -14 L 0 14 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Data_Ranges" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>Data Ranges</title>
+    <g id="Data_Ranges_OWL">
+      <title>OWL</title>
+      <g id="Group_102">
+        <title>Class with Attributes</title>
+        <g id="Graphic_104">
+          <title>Attributes</title>
+          <rect x="1975.761" y="2020.5536" width="142.65266" height="27.724166" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1981.761 2026.5536)" fill="#666">
+            <tspan font-family="Helvetica" font-size="13" fill="#666" x="0" y="13" xml:space="preserve">lexicalForm: String</tspan>
+          </text>
+        </g>
+        <g id="Graphic_103">
+          <title>Class Name</title>
+          <rect x="1975.761" y="1995.4982" width="142.65266" height="25.05536" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1981.761 1999.026)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="46.29433" y="13" xml:space="preserve">Literal</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_101">
+        <line x1="2047.1008" y1="1994.4982" x2="2048.0192" y2="1926.5055" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_100">
+        <text transform="translate(2055.914 1931.7505)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">datatype</tspan>
+        </text>
+      </g>
+      <g id="Line_99">
+        <path d="M 1933.005 1912.8266 L 1933.005 2008.026 L 1957.861 2008.026" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_98">
+        <text transform="translate(1943.1344 1971.6176)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="14.24" y="10" xml:space="preserve">1..*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">literals</tspan>
+        </text>
+      </g>
+      <g id="Group_95">
+        <title>Class with Attributes</title>
+        <g id="Graphic_97">
+          <title>Attributes</title>
+          <rect x="2228.0102" y="2020.2777" width="115.57744" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_96">
+          <title>Class Name</title>
+          <rect x="2228.0102" y="1995.7178" width="115.57744" height="24.559998" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(2234.0102 1998.9978)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="2.6617192" y="13" xml:space="preserve">FacetRestriction</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_94">
+        <line x1="2285.799" y1="1913.8266" x2="2285.799" y2="1976.8178" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_92">
+        <title>Class with Attributes</title>
+        <g id="Graphic_93">
+          <title>Class Name</title>
+          <rect x="2452.419" y="1986.5225" width="103" height="42.722656" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(2458.419 1989.8838)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="13.949" y="13" xml:space="preserve">«dataype»</tspan>
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="37.791" y="31" xml:space="preserve">IRI</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_91">
+        <path d="M 2285.757 2044.2777 L 2285.757 2098.151 L 2047.0873 2098.151 L 2047.0873 2066.1777" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_90">
+        <text transform="translate(2050.0736 2068.0416)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">restrictionValue</tspan>
+        </text>
+      </g>
+      <g id="Graphic_89">
+        <text transform="translate(2287.5298 1955.0698)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">1..*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">restrictions</tspan>
+        </text>
+      </g>
+      <g id="Line_88">
+        <line x1="2343.5876" y1="2007.9978" x2="2434.519" y2="2007.9026" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_87">
+        <text transform="translate(2367.9873 1976.4939)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="74.26" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">constrainingFacet</tspan>
+        </text>
+      </g>
+      <g id="Line_86">
+        <path d="M 2048.261 1860.0471 L 2048.261 1838.1113 L 1862.6278 1838.1113 L 1862.6278 1826.7562" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_85">
+        <path d="M 1933.005 1860.0471 L 1933.005 1838.1254 L 1862.6278 1838.1254 L 1862.6278 1826.7562" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_82">
+        <title>Class with Attributes</title>
+        <g id="Graphic_84">
+          <title>Attributes</title>
+          <rect x="1782.6978" y="1772.8615" width="159.85994" height="28.39468" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1788.6978 1778.8615)" fill="#aeaeae">
+            <tspan font-family="Helvetica" font-size="13" fill="#aeaeae" x="0" y="13" xml:space="preserve">arty: UnlimitedNatural</tspan>
+          </text>
+        </g>
+        <g id="Graphic_83">
+          <title>Class Name</title>
+          <rect x="1782.6978" y="1748.4767" width="159.85994" height="24.384848" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1788.6978 1751.669)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="40.34447" y="13" xml:space="preserve">DataRange</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_79">
+        <title>Class with Attributes</title>
+        <g id="Graphic_81">
+          <title>Attributes</title>
+          <rect x="1881.505" y="1884.432" width="103" height="28.39468" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_80">
+          <title>Class Name</title>
+          <rect x="1881.505" y="1860.0471" width="103" height="24.384848" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1887.505 1863.2395)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="10.478" y="13" xml:space="preserve">DataOneOf</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_76">
+        <title>Class with Attributes</title>
+        <g id="Graphic_78">
+          <title>Attributes</title>
+          <rect x="1594.1335" y="1884.432" width="159.85994" height="28.39468" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_77">
+          <title>Class Name</title>
+          <rect x="1594.1335" y="1860.0471" width="159.85994" height="24.384848" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1600.1335 1863.2395)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="15.78747" y="13" xml:space="preserve">DataIntersectionOf</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_73">
+        <title>Class with Attributes</title>
+        <g id="Graphic_75">
+          <title>Attributes</title>
+          <rect x="2205.869" y="1884.432" width="159.85994" height="28.39468" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_74">
+          <title>Class Name</title>
+          <rect x="2205.869" y="1860.0471" width="159.85994" height="24.384848" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(2211.869 1863.2395)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="13.24597" y="13" xml:space="preserve">DatatypeRestriction</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_70">
+        <title>Class with Attributes</title>
+        <g id="Graphic_72">
+          <title>Attributes</title>
+          <rect x="1996.761" y="1884.6071" width="103" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_71">
+          <title>Class Name</title>
+          <rect x="1996.761" y="1860.0471" width="103" height="24.559998" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(2002.761 1863.3271)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="17.329" y="13" xml:space="preserve">Datatype</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_69">
+        <path d="M 2285.757 1860.0471 L 2285.757 1838.2783 L 1862.6278 1838.2783 L 1862.6278 1826.7562" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_68">
+        <path d="M 1674.0635 1860.0471 L 1674.0635 1838.1632 L 1862.6278 1838.1632 L 1862.6278 1826.7562" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_67">
+        <path d="M 1501.9477 1860.0471 L 1501.9477 1838.1632 L 1862.6278 1838.1632 L 1862.6278 1826.7562" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_64">
+        <title>Class with Attributes</title>
+        <g id="Graphic_66">
+          <title>Attributes</title>
+          <rect x="1766.2493" y="1884.432" width="103" height="28.39468" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_65">
+          <title>Class Name</title>
+          <rect x="1766.2493" y="1860.0471" width="103" height="24.384848" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1772.2493 1863.2395)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="5.5445" y="13" xml:space="preserve">DataUnionOf</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_63">
+        <path d="M 1817.7493 1860.0471 L 1817.7493 1838.1166 L 1862.6278 1838.1166 L 1862.6278 1826.7562" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_62">
+        <path d="M 1461.9827 1860.0471 L 1461.9827 1794.1575 L 1764.7978 1794.1575" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_59">
+        <title>Class with Attributes</title>
+        <g id="Graphic_61">
+          <title>Attributes</title>
+          <rect x="1422.0177" y="1884.432" width="159.85994" height="28.39468" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_60">
+          <title>Class Name</title>
+          <rect x="1422.0177" y="1860.0471" width="159.85994" height="24.384848" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1428.0177 1863.2395)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="12.55047" y="13" xml:space="preserve">DataComplementOf</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_58">
+        <path d="M 1674.0635 1912.8266 L 1674.0635 1939.2723 L 1395.7487 1939.2723 L 1395.7487 1760.669 L 1764.7978 1760.669" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_57">
+        <path d="M 1817.7493 1912.8266 L 1817.7493 1965.9738 L 1368 1965.9738 L 1368 1711 L 1822.6628 1711 L 1822.6628 1730.5767" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_56">
+        <text transform="translate(1710.1857 1794.3596)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="43.15" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">dataRange</tspan>
+        </text>
+      </g>
+      <g id="Graphic_55">
+        <text transform="translate(1705.1857 1762.5864)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="39.07" y="10" xml:space="preserve">2..*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">dataRanges</tspan>
+        </text>
+      </g>
+      <g id="Graphic_54">
+        <text transform="translate(1758.468 1711.8114)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="39.07" y="10" xml:space="preserve">2..*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">dataRanges</tspan>
+        </text>
+      </g>
+      <g id="Line_105">
+        <line x1="2205.869" y1="1878.3358" x2="2117.661" y2="1878.445" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_106">
+        <text transform="translate(2120.456 1851.2775)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">datatype</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

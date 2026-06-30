@@ -16,7 +16,11 @@ to be used as a renderer.
 Some attempts at visual representations have proven too simple and make it
 very hard to represent even mildly complex cases, others have a set of so
 many low-level primitives that a representation of a mildly complex case
-looks like a spider-web of interconnected nameless nodes.
+looks like a spider-web of interconnected nameless nodes. Also, it is not
+always possible or even desirable to make every aspect of the language a
+visual feature, some things are best left as *properties* in text or tabular
+form attached to a visual element, Nocturn tries to balance this where
+appropriate and possible.
 
 At the end of some chapters there will be sections entitled *Tool Notes* and
 these will be non-normative thoughts on tool implementations for supporting
@@ -138,4 +142,12 @@ create a new view with all relations radiating from a given starting node, etc. 
 such cases the easiest and most in-line with the style rules above is to increase
 the weight of the element; increase the line weight, increase the size of (probably
 only directly attached) edge shapes, increase the weight of the node's label and so
-forth.
+forth. The following figure demonstrates this in terms of a selected node, allowing
+the user to associate the selection with the properties and annotations shown.
+
+![Example Two](./example-2.svg)
+
+<span class="figure caption">Example Tool Focus and Properties</span>
+
+In this case the properties and annotations are those described in the section
+[Ontology Node Properties](../ontologies/index.md#ontology-node-properties).

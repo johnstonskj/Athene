@@ -18,7 +18,8 @@ patterns.
 
 ### owl:ObjectProperty Rules
 
-TBD
+1. The source and target of the edge **must** both be classes.
+2. The edge **must** be named.
 
 ## rdfs:subPropertyOf
 
@@ -28,7 +29,8 @@ TBD
 
 ### rdfs:subPropertyOf Rules
 
-TBD
+1. The source and target of the edge **must** both be Object Properties.
+2. The edge **must** be named.
 
 ## owl:inverseOf
 
@@ -38,7 +40,7 @@ TBD
 
 ### owl:inverseOf Rules
 
-TBD
+1. The source and target of the edge **must** both be Object Properties.
 
 ## owl:SymmetricProperty
 
@@ -48,7 +50,8 @@ TBD
 
 ### owl:SymmetricProperty Rules
 
-TBD
+1. The source and target of the edge **must** both be classes.
+2. The edge **must** be named.
 
 ## owl:TransitiveProperty
 
@@ -58,6 +61,9 @@ TBD
 
 ### owl:TransitiveProperty Rules
 
+1. The source and target of the edge **must** both be classes.
+2. The edge **must** be named.
+
 ## owl:SymmetricProperty *and* owl:TransitiveProperty
 
 ![owl:SymmetricProperty and owl:TransitiveProperty](./owl-SymmetricTransitiveProperty.svg)
@@ -66,4 +72,5 @@ TBD
 
 ### owl:Symmetric/TransitiveProperty Rules
 
-TBD
+1. The source and target of the edge **must** both be classes.
+2. The edge **must** be named.
