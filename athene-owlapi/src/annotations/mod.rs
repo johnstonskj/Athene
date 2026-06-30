@@ -123,6 +123,14 @@ impl Annotation {
         }
     }
 
+    pub fn new_with_annotations(
+        property: Iri,
+        value: AnnotationValue,
+        annotations: Vec<Annotation>,
+    ) -> Self {
+        Self { property, value, annotations }
+    }
+
     pub fn property(&self) -> &Iri {
         &self.property
     }

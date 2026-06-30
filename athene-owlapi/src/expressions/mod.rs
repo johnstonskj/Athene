@@ -210,24 +210,16 @@ pub enum ClassExpression {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
+/// An intersection class expression $ObjectIntersectionOf( CE_1 \cdots CE_n )$ contains all
+/// individuals that are instances of all class expressions $CE_i$ for $1 \leq i \leq n$.
 ///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
-///
-#[derive(Clone, Debug, PartialEq)]
-pub struct ObjectComplementOf {
-    class_expression: Box<ClassExpression>,
-}
-
-///
-/// TBD
-///
-/// ## Specification (Section § -- )
+/// ## Specification (Section §8.1.1 -- Intersection of Class Expressions)
 ///
 /// ```bnf
+/// ObjectIntersectionOf :=
+///     'ObjectIntersectionOf' '('
+///         ClassExpression ClassExpression { ClassExpression }
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -236,11 +228,16 @@ pub struct ObjectIntersectionOf {
 }
 
 ///
-/// TBD
+/// A union class expression $ObjectUnionOf( CE_1 \cdots CE_n )$ contains all individuals that
+/// are instances of at least one class expression $CE_i$ for $1 \leq i \leq n$.
 ///
-/// ## Specification (Section § -- )
+/// ## Specification (Section §8.1.2 -- Union of Class Expressions)
 ///
 /// ```bnf
+/// ObjectUnionOf :=
+///     'ObjectUnionOf' '('
+///         ClassExpression ClassExpression { ClassExpression }
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -249,11 +246,32 @@ pub struct ObjectUnionOf {
 }
 
 ///
-/// TBD
+/// A complement class expression $ObjectComplementOf( CE )$ contains all individuals that are
+/// not instances of the class expression $CE$.
 ///
-/// ## Specification (Section § -- )
+/// ## Specification (Section §8.1.3 -- Complement of Class Expressions)
 ///
 /// ```bnf
+/// ObjectComplementOf :=
+///     'ObjectComplementOf' '(' ClassExpression ')'
+/// ```
+///
+#[derive(Clone, Debug, PartialEq)]
+pub struct ObjectComplementOf {
+    class_expression: Box<ClassExpression>,
+}
+
+///
+/// An enumeration of individuals $ObjectOneOf( a_1 \cdots a_n )$ contains exactly the
+/// individuals $a_i$ with $1 \leq i \leq n$.
+///
+/// ## Specification (Section §8.1.4 -- Enumeration of Individuals)
+///
+/// ```bnf
+/// ObjectOneOf :=
+///     'ObjectOneOf' '('
+///         Individual { Individual }
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -266,11 +284,45 @@ pub struct ObjectOneOf {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
+/// An existential class expression $ObjectSomeValuesFrom( OPE \ CE )$ consists of an object
+/// property expression $OPE$ and a class expression $CE$, and it contains all those
+/// individuals that are connected by $OPE$ to an individual that is an instance of $CE$.
 ///
-/// ## Specification (Section § -- )
+/// Provided that $OPE$ is simple according to the definition in Section 11, such a class
+/// expression can be seen as a syntactic shortcut for the class expression
+/// $ObjectMinCardinality( 1 \ OPE \ CE )$.
+///
+/// ## Specification (Section §8.2.1 -- Existential Quantification)
 ///
 /// ```bnf
+/// ObjectSomeValuesFrom :=
+///     'ObjectSomeValuesFrom' '('
+///         ObjectPropertyExpression ClassExpression
+///     ')'
+/// ```
+///
+#[derive(Clone, Debug, PartialEq)]
+pub struct ObjectSomeValuesFrom {
+    object_property_expression: ObjectPropertyExpression,
+    class_expression: Box<ClassExpression>,
+}
+
+///
+/// A universal class expression $ObjectAllValuesFrom( OPE \ CE )$ consists of an object
+/// property expression $OPE$ and a class expression $CE$, and it contains all those
+/// individuals that are connected by $OPE$ only to individuals that are instances of $CE$.
+///
+/// Provided that $OPE$ is simple according to the definition in Section 11, such a class
+/// expression can be seen as a syntactic shortcut for the class expression
+/// $ObjectMaxCardinality( 0 \ OPE \ ObjectComplementOf( CE ) )$.
+///
+/// ## Specification (Section §8.2.2 -- Universal Quantification)
+///
+/// ```bnf
+/// ObjectAllValuesFrom :=
+///     'ObjectAllValuesFrom' '('
+///         ObjectPropertyExpression ClassExpression
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -280,24 +332,20 @@ pub struct ObjectAllValuesFrom {
 }
 
 ///
-/// TBD
+/// A has-value class expression $ObjectHasValue( OPE \ a )$ consists of an object property
+/// expression $OPE$ and an individual $a$, and it contains all those individuals that are
+/// connected by $OPE$ to $a$.
 ///
-/// ## Specification (Section § -- )
+/// Each such class expression can be seen as a syntactic shortcut for the class expression
+/// $ObjectSomeValuesFrom( OPE \ ObjectOneOf( a ) )$.
 ///
-/// ```bnf
-/// ```
-///
-#[derive(Clone, Debug, PartialEq)]
-pub struct ObjectHasSelf {
-    object_property_expression: ObjectPropertyExpression,
-}
-
-///
-/// TBD
-///
-/// ## Specification (Section § -- )
+/// ## Specification (Section §8.2.3 -- Individual Value Restriction)
 ///
 /// ```bnf
+/// ObjectHasValue :=
+///     'ObjectHasValue' '('
+///         ObjectPropertyExpression Individual
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -307,17 +355,19 @@ pub struct ObjectHasValue {
 }
 
 ///
-/// TBD
+/// A self-restriction $ObjectHasSelf( OPE )$ consists of an object property expression
+/// $OPE$, and it contains all those individuals that are connected by $OPE$ to themselves.
 ///
-/// ## Specification (Section § -- )
+/// ## Specification (Section §8.2.4 -- Self-Restriction)
 ///
 /// ```bnf
+/// ObjectHasSelf :=
+///     'ObjectHasSelf' '(' ObjectPropertyExpression ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
-pub struct ObjectSomeValuesFrom {
+pub struct ObjectHasSelf {
     object_property_expression: ObjectPropertyExpression,
-    class_expression: Box<ClassExpression>,
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -325,30 +375,52 @@ pub struct ObjectSomeValuesFrom {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
+/// A minimum cardinality expression $ObjectMinCardinality( n \ OPE \ CE )$ consists of a
+/// nonnegative integer $n$, an object property expression $OPE$, and a class expression
+/// $CE$, and it contains all those individuals that are connected by $OPE$ to at least $n$
+/// different individuals that are instances of $CE$.
 ///
-/// ## Specification (Section § -- )
+/// If $CE$ is missing, it is taken to be *owl:Thing*.
 ///
-/// ```bnf
-/// ```
-///
-#[derive(Clone, Debug, PartialEq)]
-pub struct ObjectMaxCardinality {
-    cardinality: UnlimitedNatural,
-    class_expression: Option<Box<ClassExpression>>,
-}
-
-///
-/// TBD
-///
-/// ## Specification (Section § -- )
+/// ## Specification (Section §8.3.1 -- Minimum Cardinality)
 ///
 /// ```bnf
+/// ObjectMinCardinality :=
+///     'ObjectMinCardinality' '('
+///         nonNegativeInteger ObjectPropertyExpression
+///         [ ClassExpression ]
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
 pub struct ObjectMinCardinality {
     cardinality: UnlimitedNatural,
+    object_property_expression: ObjectPropertyExpression,
+    class_expression: Option<Box<ClassExpression>>,
+}
+
+///
+/// A maximum cardinality expression $ObjectMaxCardinality( n \ OPE \ CE ) consists of a
+/// nonnegative integer $n$, an object property expression $OPE$, and a class expression
+/// $CE$, and it contains all those individuals that are connected by $OPE$ to at most $n$
+/// different individuals that are instances of $CE$.
+///
+/// If $CE$ is missing, it is taken to be *owl:Thing*.
+///
+/// ## Specification (Section §8.3.2 -- Maximum Cardinality)
+///
+/// ```bnf
+/// ObjectMaxCardinality :=
+///     'ObjectMaxCardinality' '('
+///         nonNegativeInteger ObjectPropertyExpression
+///         [ ClassExpression ]
+///     ')'
+/// ```
+///
+#[derive(Clone, Debug, PartialEq)]
+pub struct ObjectMaxCardinality {
+    cardinality: UnlimitedNatural,
+    object_property_expression: ObjectPropertyExpression,
     class_expression: Option<Box<ClassExpression>>,
 }
 
@@ -363,6 +435,7 @@ pub struct ObjectMinCardinality {
 #[derive(Clone, Debug, PartialEq)]
 pub struct ObjectExactCardinality {
     cardinality: UnlimitedNatural,
+    object_property_expression: ObjectPropertyExpression,
     class_expression: Option<Box<ClassExpression>>,
 }
 
@@ -499,6 +572,10 @@ impl_display_pretty!(ObjectPropertyExpression enum ObjectProperty, InverseObject
 impl_display_pretty!(InverseObjectProperty(object_property));
 
 impl InverseObjectProperty {
+    pub fn new(object_property: ObjectProperty) -> Self {
+        Self { object_property }
+    }
+
     pub fn object_property(&self) -> &ObjectProperty {
         &self.object_property
     }
@@ -561,6 +638,10 @@ impl_from_for_variant!(ClassExpression, DataExactCardinality);
 impl_display_pretty!(ObjectIntersectionOf( @list class_expressions ));
 
 impl ObjectIntersectionOf {
+    pub fn new<I: IntoIterator<Item = ClassExpression>>(expressions: I) -> Self {
+        Self { class_expressions: expressions.into_iter().collect() }
+    }
+
     pub fn class_expressions(&self) -> impl Iterator<Item = &ClassExpression> {
         self.class_expressions.iter()
     }
@@ -571,6 +652,10 @@ impl ObjectIntersectionOf {
 impl_display_pretty!(ObjectUnionOf( @list class_expressions ));
 
 impl ObjectUnionOf {
+    pub fn new<I: IntoIterator<Item = ClassExpression>>(expressions: I) -> Self {
+        Self { class_expressions: expressions.into_iter().collect() }
+    }
+
     pub fn class_expressions(&self) -> impl Iterator<Item = &ClassExpression> {
         self.class_expressions.iter()
     }
@@ -581,6 +666,10 @@ impl ObjectUnionOf {
 impl_display_pretty!(ObjectComplementOf(class_expression));
 
 impl ObjectComplementOf {
+    pub fn new(class_expression: ClassExpression) -> Self {
+        Self { class_expression: Box::new(class_expression) }
+    }
+
     pub fn class_expression(&self) -> &ClassExpression {
         &self.class_expression
     }
@@ -591,6 +680,10 @@ impl ObjectComplementOf {
 impl_display_pretty!(ObjectOneOf( @list individuals ));
 
 impl ObjectOneOf {
+    pub fn new<I: IntoIterator<Item = Individual>>(individuals: I) -> Self {
+        Self { individuals: individuals.into_iter().collect() }
+    }
+
     pub fn individuals(&self) -> impl Iterator<Item = &Individual> {
         self.individuals.iter()
     }
@@ -606,6 +699,10 @@ impl_display_pretty!(ObjectSomeValuesFrom(
 ));
 
 impl ObjectSomeValuesFrom {
+    pub fn new(ope: ObjectPropertyExpression, ce: ClassExpression) -> Self {
+        Self { object_property_expression: ope, class_expression: Box::new(ce) }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -623,6 +720,10 @@ impl_display_pretty!(ObjectAllValuesFrom(
 ));
 
 impl ObjectAllValuesFrom {
+    pub fn new(ope: ObjectPropertyExpression, ce: ClassExpression) -> Self {
+        Self { object_property_expression: ope, class_expression: Box::new(ce) }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -637,6 +738,10 @@ impl ObjectAllValuesFrom {
 impl_display_pretty!(ObjectHasValue(object_property_expression, individual));
 
 impl ObjectHasValue {
+    pub fn new(ope: ObjectPropertyExpression, individual: Individual) -> Self {
+        Self { object_property_expression: ope, individual }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -651,6 +756,10 @@ impl ObjectHasValue {
 impl_display_pretty!(ObjectHasSelf(object_property_expression));
 
 impl ObjectHasSelf {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self { object_property_expression: ope }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -660,11 +769,27 @@ impl ObjectHasSelf {
 // Implementations ❯ Class Expressions  ❯ Object Property Cardinality Restrictions
 // ------------------------------------------------------------------------------------------------
 
-impl_display_pretty!(ObjectMinCardinality( @optional class_expression, @display cardinality ));
+impl_display_pretty!(ObjectMinCardinality( @display cardinality, object_property_expression, @optional class_expression ));
 
 impl ObjectMinCardinality {
+    pub fn new(
+        cardinality: u32,
+        object_property_expression: ObjectPropertyExpression,
+        class_expression: Option<ClassExpression>,
+    ) -> Self {
+        Self {
+            cardinality: UnlimitedNatural::Limited(cardinality as u128),
+            object_property_expression,
+            class_expression: class_expression.map(Box::new),
+        }
+    }
+
     pub fn cardinality(&self) -> UnlimitedNatural {
         self.cardinality
+    }
+
+    pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
+        &self.object_property_expression
     }
 
     pub fn class_expression(&self) -> Option<&Box<ClassExpression>> {
@@ -674,11 +799,27 @@ impl ObjectMinCardinality {
 
 // ------------------------------------------------------------------------------------------------
 
-impl_display_pretty!(ObjectMaxCardinality( @optional class_expression, @display cardinality ));
+impl_display_pretty!(ObjectMaxCardinality( @display cardinality, object_property_expression, @optional class_expression ));
 
 impl ObjectMaxCardinality {
+    pub fn new(
+        cardinality: u32,
+        object_property_expression: ObjectPropertyExpression,
+        class_expression: Option<ClassExpression>,
+    ) -> Self {
+        Self {
+            cardinality: UnlimitedNatural::Limited(cardinality as u128),
+            object_property_expression,
+            class_expression: class_expression.map(Box::new),
+        }
+    }
+
     pub fn cardinality(&self) -> UnlimitedNatural {
         self.cardinality
+    }
+
+    pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
+        &self.object_property_expression
     }
 
     pub fn class_expression(&self) -> Option<&Box<ClassExpression>> {
@@ -688,11 +829,27 @@ impl ObjectMaxCardinality {
 
 // ------------------------------------------------------------------------------------------------
 
-impl_display_pretty!(ObjectExactCardinality( @optional class_expression, @display cardinality ));
+impl_display_pretty!(ObjectExactCardinality( @display cardinality, object_property_expression, @optional class_expression ));
 
 impl ObjectExactCardinality {
+    pub fn new(
+        cardinality: u32,
+        object_property_expression: ObjectPropertyExpression,
+        class_expression: Option<ClassExpression>,
+    ) -> Self {
+        Self {
+            cardinality: UnlimitedNatural::Limited(cardinality as u128),
+            object_property_expression,
+            class_expression: class_expression.map(Box::new),
+        }
+    }
+
     pub fn cardinality(&self) -> UnlimitedNatural {
         self.cardinality
+    }
+
+    pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
+        &self.object_property_expression
     }
 
     pub fn class_expression(&self) -> Option<&Box<ClassExpression>> {
@@ -707,6 +864,10 @@ impl ObjectExactCardinality {
 impl_display_pretty!(DataSomeValuesFrom( @list data_property_expressions, data_range ));
 
 impl DataSomeValuesFrom {
+    pub fn new<I: IntoIterator<Item = DataPropertyExpression>>(dpes: I, dr: DataRange) -> Self {
+        Self { data_property_expressions: dpes.into_iter().collect(), data_range: dr }
+    }
+
     pub fn data_range(&self) -> &DataRange {
         &self.data_range
     }
@@ -721,6 +882,10 @@ impl DataSomeValuesFrom {
 impl_display_pretty!(DataAllValuesFrom( @list data_property_expressions, data_range ));
 
 impl DataAllValuesFrom {
+    pub fn new<I: IntoIterator<Item = DataPropertyExpression>>(dpes: I, dr: DataRange) -> Self {
+        Self { data_property_expressions: dpes.into_iter().collect(), data_range: dr }
+    }
+
     pub fn data_range(&self) -> &DataRange {
         &self.data_range
     }
@@ -735,6 +900,10 @@ impl DataAllValuesFrom {
 impl_display_pretty!(DataHasValue(data_property_expression, literal));
 
 impl DataHasValue {
+    pub fn new(dpe: DataPropertyExpression, literal: Literal) -> Self {
+        Self { data_property_expression: dpe, literal }
+    }
+
     pub fn literal(&self) -> &Literal {
         &self.literal
     }
@@ -753,6 +922,14 @@ impl_display_pretty!(
 );
 
 impl DataMinCardinality {
+    pub fn new(n: u32, dpe: DataPropertyExpression, dr: Option<DataRange>) -> Self {
+        Self {
+            cardinality: UnlimitedNatural::Limited(n as u128),
+            data_property_expression: dpe,
+            data_range: dr,
+        }
+    }
+
     pub fn cardinality(&self) -> UnlimitedNatural {
         self.cardinality
     }
@@ -773,6 +950,14 @@ impl_display_pretty!(
 );
 
 impl DataMaxCardinality {
+    pub fn new(n: u32, dpe: DataPropertyExpression, dr: Option<DataRange>) -> Self {
+        Self {
+            cardinality: UnlimitedNatural::Limited(n as u128),
+            data_property_expression: dpe,
+            data_range: dr,
+        }
+    }
+
     pub fn cardinality(&self) -> UnlimitedNatural {
         self.cardinality
     }
@@ -793,6 +978,14 @@ impl_display_pretty!(
 );
 
 impl DataExactCardinality {
+    pub fn new(n: u32, dpe: DataPropertyExpression, dr: Option<DataRange>) -> Self {
+        Self {
+            cardinality: UnlimitedNatural::Limited(n as u128),
+            data_property_expression: dpe,
+            data_range: dr,
+        }
+    }
+
     pub fn cardinality(&self) -> UnlimitedNatural {
         self.cardinality
     }
