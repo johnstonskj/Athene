@@ -198,20 +198,48 @@
 <p><span class="figure caption">A Class Node</span></p>
 <h3 id="class-rules"><a class="header" href="#class-rules">Class Rules</a></h3>
 <ol>
-<li>The overall shape is a rectangle, it's <strong>must</strong> be greater than it's height,
-and corners <strong>must</strong> be hard, not rounded.</li>
+<li>The overall shape <strong>must</strong> be a <em>rectangle</em>.
+<ol>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
+<li>It's corners <strong>must</strong> be hard, not rounded.</li>
+</ol>
+</li>
 <li>Node lines <strong>must</strong> be solid.</li>
+<li>A class node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A class node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="datatypes"><a class="header" href="#datatypes">Datatypes</a></h2>
 <p><img src="./nodes-datatype.svg" alt="Datatype Notation" /></p>
 <p><span class="figure caption">A Datatype Node</span></p>
 <h3 id="datatype-rules"><a class="header" href="#datatype-rules">Datatype Rules</a></h3>
 <ol>
-<li>The overall shape is a rectangle, it's <strong>must</strong> be greater than it's height,
-and corners <strong>must</strong> be hard, not rounded.</li>
+<li>The overall shape <strong>must</strong> be a <em>rectangle</em>.
+<ol>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
+<li>It's corners <strong>must</strong> be hard, not rounded.</li>
+</ol>
+</li>
 <li>Node lines <strong>must</strong> be dotted.
 <ol>
 <li>More space must exist between dots than the width of the dots for clarity.</li>
+</ol>
+</li>
+<li>A datatype node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A datatype node be the target of the following edges:
+<ol>
+<li>TBD</li>
 </ol>
 </li>
 </ol>
@@ -220,8 +248,22 @@ and corners <strong>must</strong> be hard, not rounded.</li>
 <p><span class="figure caption">An Individual Node</span></p>
 <h3 id="individual-rules"><a class="header" href="#individual-rules">Individual Rules</a></h3>
 <ol>
-<li>The overall shape is an ellipse, it's <strong>must</strong> be greater than it's height.</li>
+<li>The overall shape <strong>must</strong> be an <em>ellipse</em>.
+<ol>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
+</ol>
+</li>
 <li>Node lines <strong>must</strong> be solid.</li>
+<li>An individual node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>An individual node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="literals"><a class="header" href="#literals">Literals</a></h2>
 <p><img src="./nodes-literals.svg" alt="Value Notation" /></p>
@@ -237,16 +279,28 @@ and corners <strong>must</strong> be hard, not rounded.</li>
 <p><span class="figure caption">Specific Literal Type Nodes</span></p>
 <h3 id="literal-rules"><a class="header" href="#literal-rules">Literal Rules</a></h3>
 <ol>
-<li>The overall shape is an ellipse, it's <strong>must</strong> be greater than it's height.</li>
-<li>Node lines <strong>must</strong> be dotted.
+<li>The overall shape <strong>must</strong> be an <em>ellipse</em>.
 <ol>
-<li>More space must exist between dots than the width of the dots for clarity.</li>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
 </ol>
 </li>
-<li>If the value is a <code>langString</code> a horizontal bar <strong>must</strong> separate the value above
-from the language identifier with the prefix <code>@</code> character.</li>
-<li>If the value...</li>
-<li>If the value (ellide...) ...</li>
+<li>Node lines <strong>must</strong> be dotted.</li>
+<li>If the literal's type is a <code>langString</code> a horizontal bar <strong>must</strong> separate
+the value above from the language identifier with the prefix <code>@</code> character.</li>
+<li>If the literal is a typed value a horizontal bar <strong>must</strong> separate the value
+above from the datatype IRI below.</li>
+<li>If the literal's value is too large to easily fit in the node, replace with
+a Unicode ellipsis character <code>'…'</code> (HORIZONTAL ELLIPSIS <code>U+2026</code>).</li>
+<li>A literal node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A literal node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="properties"><a class="header" href="#properties">Properties</a></h2>
 <p><img src="./nodes-properties.svg" alt="Property Nodes" /></p>
@@ -255,11 +309,21 @@ from the language identifier with the prefix <code>@</code> character.</li>
 <ol>
 <li>The overall shape for Object and Datatype properties <strong>must</strong> be an isosceles triangle
 with a narrow base and with it's apex pointed to the right.</li>
-<li>The overall shape for Annotation properties <strong>must</strong> be an <em>pointed flag</em>
+<li>The overall shape for Annotation properties <strong>must</strong> be a <em>pointed flag</em>
 with a longer rectangle and trangular apex to the right.</li>
 <li>Lables in all property nodes <strong>must</strong> be left justified so they are not lost in the apex.</li>
-<li>Object and Annotation properties are represented with solid lines.</li>
-<li>Datatype properties are represented with dotted lines.</li>
+<li>Object and Annotation properties are represented with <em>solid</em> lines.</li>
+<li>Datatype properties are represented with <em>dotted</em> lines.</li>
+<li>A property node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A property node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="axioms-and-annotations"><a class="header" href="#axioms-and-annotations">Axioms and Annotations</a></h2>
 <p><img src="./nodes-axioms.svg" alt="Axioms" /></p>
@@ -284,6 +348,20 @@ OWL Functional Syntax or Manchester Syntax.</li>
 filled with a light shade (<code>#ebebeb</code> in our example).</li>
 <li>As axiom content <strong>may</strong> be consider code-like, it is acceptable to use a monospaced
 code font as an alternative.</li>
+<li>An axiom node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>An axiom node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>An annotation node be the source of the following edges:</li>
+<li>TBD</li>
+<li>An annotation node be the target of the following edges:</li>
+<li>TBD</li>
 </ol>
 
                     </main>

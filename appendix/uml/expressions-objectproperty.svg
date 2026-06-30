@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="1510.126 456.1824 422.81584 191.17924" width="422.81584" height="191.17924">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -15 26 30" markerWidth="26" markerHeight="30" color="#a5a5a5">
+      <g>
+        <path d="M 24 0 L 0 -14 L 0 14 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#a5a5a5">
+      <g>
+        <path d="M 16 0 L 0 0 M 0 -6 L 16 0 L 0 6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Expressions____Object_Property" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>Expressions :: Object Property</title>
+    <g id="Expressions____Object_Property_OWL">
+      <title>OWL</title>
+      <g id="Group_8">
+        <title>Class with Attributes</title>
+        <g id="Graphic_10">
+          <title>Attributes</title>
+          <rect x="1511.126" y="622.3616" width="120.5" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_9">
+          <title>Class Name</title>
+          <rect x="1511.126" y="593.5821" width="120.5" height="28.779527" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1517.126 598.97185)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="7.0535" y="13" xml:space="preserve">ObjectProperty</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_11">
+        <title>Class with Attributes</title>
+        <g id="Graphic_13">
+          <title>Attributes</title>
+          <rect x="1612.067" y="487.40687" width="179" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_12">
+          <title>Class Name</title>
+          <rect x="1612.067" y="457.1824" width="179" height="30.22449" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1618.067 463.2946)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="3.446" y="13" xml:space="preserve">ObjectPropertyExpression</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_14">
+        <title>Class with Attributes</title>
+        <g id="Graphic_16">
+          <title>Attributes</title>
+          <rect x="1757.4419" y="622.3616" width="174.5" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_15">
+          <title>Class Name</title>
+          <rect x="1757.4419" y="592.1371" width="174.5" height="30.22449" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(1763.4419 598.2494)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="12.2655" y="13" xml:space="preserve">InverseObjectProperty</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_19">
+        <path d="M 1571.376 593.5821 L 1571.376 552.4945 L 1701.567 552.4945 L 1701.567 536.9069" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_20">
+        <path d="M 1844.6919 592.1371 L 1844.6919 551.772 L 1701.567 551.772 L 1701.567 536.9069" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_98">
+        <line x1="1757.4419" y1="614.8055" x2="1649.526" y2="615.11534" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_99">
+        <text transform="translate(1649.9923 590.69216)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">objectProperty</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

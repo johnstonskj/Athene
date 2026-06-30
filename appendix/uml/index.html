@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Appendix: GraphViz - Athene - OWL Tools</title>
+        <title>Appendix: UML - Athene - OWL Tools</title>
 
 
         <!-- Custom HTML head -->
@@ -189,118 +189,59 @@
 
                 <div id="content" class="content">
                     <main>
-                        <!-- markdownlint-disable-file MD033 -->
-<h1 id="appendix-graphviz"><a class="header" href="#appendix-graphviz">Appendix: GraphViz</a></h1>
-<h2 id="nodes"><a class="header" href="#nodes">Nodes</a></h2>
-<p>Default node configuration.</p>
-<pre><code class="language-dot">node [fontname="Helvetica", fontcolor="black", color="#808080"];
-</code></pre>
-<p><img src="./dot-nodes.svg" alt="Nodes" /></p>
-<h3 id="graphviz-rendering"><a class="header" href="#graphviz-rendering">GraphViz Rendering</a></h3>
-<p><img src="./example-nodes.svg" alt="Nodes in GraphViz" /></p>
-<details>
-  <summary>Show dot source</summary>
-<pre><code class="language-dot">strict digraph {
-  rankdir="BT"
-
-  node [fontname="Helvetica", fontcolor="black", color="#808080"];
-  edge [fontname="Helvetica", fontcolor="black", color="#808080"];
-
-
-  subgraph cluster_01 {
-    rankdir="LR";
-    peripheries = 0;
-      
-    Class [shape="rect"];
-       
-    Ontology [ shape="tab"];
-
-    Datatype [shape="rect", style="dotted"];
-  };
-   
-
-  subgraph cluster_02 {
-    rankdir="LR";
-    peripheries = 0;
-      
-    Individual [shape="ellipse"];
- 
-    axioms [ shape="note"];
-
-    Literal [shape="ellipse", style="dotted"];
-  };
-
-  subgraph cluster_03 {
-    rankdir="LR";
-    peripheries = 0;
-      
-    OProperty  [shape="polygon", sides=3, orientation=270];
-    
-    DProperty  [shape="polygon", sides=3, orientation=270, style="dotted"];
-
-    AProperty [shape="house", orientation=270];
-  };
-
-  axioms -&gt; Ontology [style="invisible", dir="none"];
-  DProperty -&gt; axioms [style="invisible", dir="none"];
-}
-</code></pre>
-</details>
-<h3 id="literals"><a class="header" href="#literals">Literals</a></h3>
-<p><img src="./example-literals.svg" alt="Literals in GraphViz" /></p>
-<details>
-  <summary>Show dot source</summary>
-<pre><code class="language-dot">strict digraph {
-  rankdir="LR"
-
-  node [fontname="Helvetica", fontcolor="black", color="#808080"];
-  edge [fontname="Helvetica", fontcolor="black", color="#808080"];
-
-
-  Literal [shape="ellipse", style="dotted", label="?"];
-
-  LanguageString [shape="ellipse", style="dotted", label=&lt;
-    &lt;TABLE BORDER="0" CELLBORDER="0" CELLPADDING="0" CELLSPACING="0"&gt;
-        &lt;TR&gt;
-            &lt;TD&gt;Simon&lt;/TD&gt;
-        &lt;/TR&gt;
-        &lt;HR/&gt;
-        &lt;TR&gt;
-            &lt;TD&gt;@en&lt;/TD&gt;
-        &lt;/TR&gt;
-    &lt;/TABLE&gt;
-  &gt;];
-  
-  TypedLiteral [shape="ellipse", style="dotted", label=&lt;
-    &lt;TABLE BORDER="0" CELLBORDER="0" CELLPADDING="0" CELLSPACING="0"&gt;
-        &lt;TR&gt;
-            &lt;TD&gt;21&lt;/TD&gt;
-        &lt;/TR&gt;
-        &lt;HR/&gt;
-        &lt;TR&gt;
-            &lt;TD&gt;xsd:integer&lt;/TD&gt;
-        &lt;/TR&gt;
-    &lt;/TABLE&gt;
-  &gt;];
-
-  Literal -&gt; LanguageString [style="invisible", dir="none"];
-  LanguageString -&gt; TypedLiteral [style="invisible", dir="none"];
-}
-</code></pre>
-</details>
-<h2 id="edges"><a class="header" href="#edges">Edges</a></h2>
+                        <h1 id="appendix-uml"><a class="header" href="#appendix-uml">Appendix: UML</a></h1>
+<h2 id="ontologies"><a class="header" href="#ontologies">Ontologies</a></h2>
+<p><img src="./ontology.svg" alt="Ontologies" /></p>
+<h2 id="entities-literal-and-anonymous-individuals"><a class="header" href="#entities-literal-and-anonymous-individuals">Entities, Literal, and Anonymous Individuals</a></h2>
+<p><img src="./entities.svg" alt="Entities" /></p>
+<h2 id="property-expressions"><a class="header" href="#property-expressions">Property Expressions</a></h2>
+<h3 id="object-property"><a class="header" href="#object-property">Object Property</a></h3>
+<p><img src="./expressions-objectproperty.svg" alt="Object Property Expressions" /></p>
+<h3 id="data-property"><a class="header" href="#data-property">Data Property</a></h3>
+<p><img src="./expression-dataproperty.svg" alt="Data Property Expressions" /></p>
+<h2 id="data-ranges"><a class="header" href="#data-ranges">Data Ranges</a></h2>
+<p><img src="./data-ranges.svg" alt="Data Ranges" /></p>
+<h2 id="class-expressions"><a class="header" href="#class-expressions">Class Expressions</a></h2>
+<h3 id="propositional-connectives-and-enumeration-of-individuals"><a class="header" href="#propositional-connectives-and-enumeration-of-individuals">Propositional Connectives and Enumeration of Individuals</a></h3>
+<p><img src="./expressions-class-1.svg" alt="Class Expressions 1" /></p>
+<h3 id="object-property-restrictions"><a class="header" href="#object-property-restrictions">Object Property Restrictions</a></h3>
+<p><img src="./expressions-class-2.svg" alt="Class Expressions 2" /></p>
+<h3 id="object-property-cardinality-restrictions"><a class="header" href="#object-property-cardinality-restrictions">Object Property Cardinality Restrictions</a></h3>
+<p><img src="./expressions-class-3.svg" alt="Class Expressions 3" /></p>
+<h3 id="data-property-restrictions"><a class="header" href="#data-property-restrictions">Data Property Restrictions</a></h3>
+<p><img src="./expressions-class-4.svg" alt="Class Expressions 4" /></p>
+<h3 id="data-property-cardinality-restrictions"><a class="header" href="#data-property-cardinality-restrictions">Data Property Cardinality Restrictions</a></h3>
+<p><img src="./expressions-class-5.svg" alt="Class Expressions 5" /></p>
+<h2 id="axioms"><a class="header" href="#axioms">Axioms</a></h2>
+<p><img src="./axioms.svg" alt="Axioms" /></p>
+<h3 id="entity-declarations"><a class="header" href="#entity-declarations">Entity Declarations</a></h3>
+<p><img src="./axiom-declaration.svg" alt="Entity Declarations" /></p>
+<h3 id="class-axioms"><a class="header" href="#class-axioms">Class Axioms</a></h3>
+<p><img src="./axiom-class.svg" alt="Class Axioms" /></p>
+<h3 id="object-property-axioms"><a class="header" href="#object-property-axioms">Object Property Axioms</a></h3>
+<p><img src="./axiom-objectproperty-1.svg" alt="Object Property Axioms 1" /></p>
+<p><img src="./axiom-objectproperty-2.svg" alt="Object Property Axioms 2" /></p>
+<h3 id="data-property-axioms"><a class="header" href="#data-property-axioms">Data Property Axioms</a></h3>
+<p><img src="./axiom-dataproperty.svg" alt="Data Property Axioms" /></p>
+<h3 id="datatype-definition"><a class="header" href="#datatype-definition">Datatype Definition</a></h3>
+<p><img src="./axiom-datatypedefinition.svg" alt="Datatype Definition" /></p>
+<h3 id="has-key"><a class="header" href="#has-key">Has Key</a></h3>
+<p><img src="./axiom-haskey.svg" alt="Has Key" /></p>
+<h3 id="assertion"><a class="header" href="#assertion">Assertion</a></h3>
+<p><img src="./axiom-assertion.svg" alt="Assertion" /></p>
+<h3 id="annotation-axiom"><a class="header" href="#annotation-axiom">Annotation Axiom</a></h3>
+<p><img src="./axiom-annotationaxiom.svg" alt="Annotation Axiom" /></p>
+<h2 id="annotations"><a class="header" href="#annotations">Annotations</a></h2>
+<p><img src="./annotations.svg" alt="Annotations" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../nocturn/example-wine/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../nocturn/graphviz/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../appendix/uml/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -308,13 +249,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../nocturn/example-wine/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../nocturn/graphviz/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../appendix/uml/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

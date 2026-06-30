@@ -195,20 +195,34 @@
 <h2 id="ontology-nodes"><a class="header" href="#ontology-nodes">Ontology Nodes</a></h2>
 <p><img src="./overview.svg" alt="Ontologies" /></p>
 <p><span class="figure caption">Ontology Nodes and Edges</span></p>
+<h3 id="ontology-node-properties"><a class="header" href="#ontology-node-properties">Ontology Node Properties</a></h3>
+<ul>
+<li><code>ontologyIRI</code> -- the <strong>required</strong> ontology IRI.</li>
+<li><code>versionIRI</code> -- the optional ontology version IRI.</li>
+</ul>
+<p>Additionally, there are the following specific annotation properties;
+<code>owl:versionInfo</code>, <code>owl:priorVersion</code>, <code>owl:backwardCompatibleWith</code>, and
+<code>owl:incompatibleWith</code>.</p>
 <h3 id="ontology-node-rules"><a class="header" href="#ontology-node-rules">Ontology Node Rules</a></h3>
 <ol>
-<li>The node's shape <strong>must</strong> be a <em>folder</em>, a rectangle with a small <em>tab</em> on the top-left corner.
+<li>The node's shape <strong>must</strong> be a <em>folder</em>, a rectangle with a small <em>tab</em> on the top-left corner, with <em>solid</em> lines.
 <ol>
 <li>The diagram above shows the <strong>preferred</strong> form with a sloped rectangular tab on the left.</li>
 <li>The alternate, acceptable, form with a plain rectangular tab on the right.</li>
 </ol>
 </li>
-<li>An ontology node may have the following edges attached:
+<li>An ontology node be the source of the following edges:
 <ol>
 <li>Ontology imports.</li>
 <li>Ontology dependencies.</li>
 <li>General axioms.</li>
 <li>Annotation properties.</li>
+</ol>
+</li>
+<li>An ontology node be the target of the following edges:
+<ol>
+<li>Ontology imports.</li>
+<li>Ontology dependencies.</li>
 </ol>
 </li>
 </ol>
@@ -224,6 +238,7 @@
 <h3 id="imports-rules"><a class="header" href="#imports-rules">Imports Rules</a></h3>
 <ol>
 <li>The edge <strong>must</strong> be a solid line with a <em>filled triangle</em> at the target.</li>
+<li>The source and target <strong>must</strong> be Ontology nodes, and <strong>must</strong> be distinct.</li>
 <li>There must be <strong>at most</strong> one edge between any pair of ontology nodes.</li>
 <li>These edges have no labels.</li>
 </ol>
@@ -242,7 +257,8 @@ Ontology(
 declared prefix "dcterms".</p>
 <h3 id="dependency-and-prefix-rules"><a class="header" href="#dependency-and-prefix-rules">Dependency and Prefix Rules</a></h3>
 <ol>
-<li>The edge <strong>must</strong> be a dottes line with a <em>filled triangle</em> at the target.</li>
+<li>The edge <strong>must</strong> be a dotted line with a <em>filled triangle</em> at the target.</li>
+<li>The source and target <strong>must</strong> be Ontology nodes, and <strong>must</strong> be distinct.</li>
 <li>The edge may have a label, all labels originating from the same source
 ontology <strong>must</strong> be unique.
 <ol>

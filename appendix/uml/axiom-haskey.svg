@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="3670.2285 -515.97795 550.5518 356.10096" width="550.5518" height="356.10096">
+  <defs>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="StickArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -7 18 14" markerWidth="18" markerHeight="14" color="#a5a5a5">
+      <g>
+        <path d="M 16 0 L 0 0 M 0 -6 L 16 0 L 0 6" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -15 26 30" markerWidth="26" markerHeight="30" color="#a5a5a5">
+      <g>
+        <path d="M 24 0 L 0 -14 L 0 14 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g id="Axioms____Has_Key" fill-opacity="1" stroke-opacity="1" stroke="none" stroke-dasharray="none" fill="none">
+    <title>Axioms :: Has Key</title>
+    <g id="Axioms____Has_Key_OWL">
+      <title>OWL</title>
+      <g id="Group_27">
+        <title>Class with Attributes</title>
+        <g id="Graphic_29">
+          <title>Attributes</title>
+          <rect x="3923.856" y="-314.59317" width="68" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_28">
+          <title>Class Name</title>
+          <rect x="3923.856" y="-343.3882" width="68" height="28.795026" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(3929.856 -337.9907)" fill="#515556">
+            <tspan font-family="Avenir" font-weight="bold" font-size="13" fill="#515556" x="5.25" y="13" xml:space="preserve">HasKey</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_144">
+        <title>Class with Attributes</title>
+        <g id="Graphic_146">
+          <title>Attributes</title>
+          <rect x="4065.483" y="-186.32195" width="143.5" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_145">
+          <title>Class Name</title>
+          <rect x="4065.483" y="-215.10147" width="143.5" height="28.779527" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(4071.483 -209.7117)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="17.4875" y="13" xml:space="preserve">ClassExpression</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_141">
+        <title>Class with Attributes</title>
+        <g id="Graphic_143">
+          <title>Attributes</title>
+          <rect x="3671.2285" y="-184.87698" width="179" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_142">
+          <title>Class Name</title>
+          <rect x="3671.2285" y="-215.10147" width="179" height="30.22449" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(3677.2285 -208.98923)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="3.446" y="13" xml:space="preserve">ObjectPropertyExpression</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_138">
+        <title>Class with Attributes</title>
+        <g id="Graphic_140">
+          <title>Attributes</title>
+          <rect x="3868.356" y="-184.87698" width="179" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_139">
+          <title>Class Name</title>
+          <rect x="3868.356" y="-215.10147" width="179" height="30.22449" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(3874.356 -208.98923)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="9.595" y="13" xml:space="preserve">DataPropertyExpression</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_149">
+        <line x1="3957.856" y1="-290.59317" x2="3957.856" y2="-234.00147" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_150">
+        <path d="M 3940.856 -290.59317 L 3940.856 -261.91117 L 3760.7285 -261.91117 L 3760.7285 -233.00147" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_151">
+        <path d="M 3974.856 -290.59317 L 3974.856 -262.3458 L 4137.233 -262.3458 L 4137.233 -233.00147" marker-end="url(#StickArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_152">
+        <text transform="translate(3772.2576 -255.01015)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">objectPropertyExpressions</tspan>
+        </text>
+      </g>
+      <g id="Graphic_153">
+        <text transform="translate(3969.796 -255.01015)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">*</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">dataPropertyExpressions</tspan>
+        </text>
+      </g>
+      <g id="Graphic_154">
+        <text transform="translate(4148.5603 -255.01015)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="10" xml:space="preserve">1</tspan>
+          <tspan font-family="Helvetica Neue" font-size="10" fill="black" x="0" y="22.28" xml:space="preserve">classExpression</tspan>
+        </text>
+      </g>
+      <g id="Group_450">
+        <title>Class with Attributes</title>
+        <g id="Graphic_452">
+          <title>Attributes</title>
+          <rect x="3906.356" y="-486.1984" width="103" height="24" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_451">
+          <title>Class Name</title>
+          <rect x="3906.356" y="-514.97795" width="103" height="28.779527" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <text transform="translate(3912.356 -509.5882)" fill="#515556">
+            <tspan font-family="Avenir" font-style="italic" font-weight="bold" font-size="13" fill="#515556" x="26.0065" y="13" xml:space="preserve">Axiom</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_457">
+        <line x1="3957.856" y1="-343.3882" x2="3957.856" y2="-436.6984" marker-end="url(#UMLInheritance_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

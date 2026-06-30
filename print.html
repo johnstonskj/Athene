@@ -216,7 +216,11 @@ to be used as a renderer.</p>
 <p>Some attempts at visual representations have proven too simple and make it
 very hard to represent even mildly complex cases, others have a set of so
 many low-level primitives that a representation of a mildly complex case
-looks like a spider-web of interconnected nameless nodes.</p>
+looks like a spider-web of interconnected nameless nodes. Also, it is not
+always possible or even desirable to make every aspect of the language a
+visual feature, some things are best left as <em>properties</em> in text or tabular
+form attached to a visual element, Nocturn tries to balance this where
+appropriate and possible.</p>
 <p>At the end of some chapters there will be sections entitled <em>Tool Notes</em> and
 these will be non-normative thoughts on tool implementations for supporting
 Nocturn. These may be suggestions on interaction with the visual representation,
@@ -324,27 +328,46 @@ create a new view with all relations radiating from a given starting node, etc. 
 such cases the easiest and most in-line with the style rules above is to increase
 the weight of the element; increase the line weight, increase the size of (probably
 only directly attached) edge shapes, increase the weight of the node's label and so
-forth.</p>
+forth. The following figure demonstrates this in terms of a selected node, allowing
+the user to associate the selection with the properties and annotations shown.</p>
+<p><img src="nocturn/introduction/./example-2.svg" alt="Example Two" /></p>
+<p><span class="figure caption">Example Tool Focus and Properties</span></p>
+<p>In this case the properties and annotations are those described in the section
+<a href="nocturn/introduction/../ontologies/index.html#ontology-node-properties">Ontology Node Properties</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="ontology-relations"><a class="header" href="#ontology-relations">Ontology Relations</a></h1>
 <p>Corresponds to section 3.2 of the <em>OWL 2 Structural Specification</em>.</p>
 <h2 id="ontology-nodes"><a class="header" href="#ontology-nodes">Ontology Nodes</a></h2>
 <p><img src="nocturn/ontologies/./overview.svg" alt="Ontologies" /></p>
 <p><span class="figure caption">Ontology Nodes and Edges</span></p>
+<h3 id="ontology-node-properties"><a class="header" href="#ontology-node-properties">Ontology Node Properties</a></h3>
+<ul>
+<li><code>ontologyIRI</code> -- the <strong>required</strong> ontology IRI.</li>
+<li><code>versionIRI</code> -- the optional ontology version IRI.</li>
+</ul>
+<p>Additionally, there are the following specific annotation properties;
+<code>owl:versionInfo</code>, <code>owl:priorVersion</code>, <code>owl:backwardCompatibleWith</code>, and
+<code>owl:incompatibleWith</code>.</p>
 <h3 id="ontology-node-rules"><a class="header" href="#ontology-node-rules">Ontology Node Rules</a></h3>
 <ol>
-<li>The node's shape <strong>must</strong> be a <em>folder</em>, a rectangle with a small <em>tab</em> on the top-left corner.
+<li>The node's shape <strong>must</strong> be a <em>folder</em>, a rectangle with a small <em>tab</em> on the top-left corner, with <em>solid</em> lines.
 <ol>
 <li>The diagram above shows the <strong>preferred</strong> form with a sloped rectangular tab on the left.</li>
 <li>The alternate, acceptable, form with a plain rectangular tab on the right.</li>
 </ol>
 </li>
-<li>An ontology node may have the following edges attached:
+<li>An ontology node be the source of the following edges:
 <ol>
 <li>Ontology imports.</li>
 <li>Ontology dependencies.</li>
 <li>General axioms.</li>
 <li>Annotation properties.</li>
+</ol>
+</li>
+<li>An ontology node be the target of the following edges:
+<ol>
+<li>Ontology imports.</li>
+<li>Ontology dependencies.</li>
 </ol>
 </li>
 </ol>
@@ -360,6 +383,7 @@ forth.</p>
 <h3 id="imports-rules"><a class="header" href="#imports-rules">Imports Rules</a></h3>
 <ol>
 <li>The edge <strong>must</strong> be a solid line with a <em>filled triangle</em> at the target.</li>
+<li>The source and target <strong>must</strong> be Ontology nodes, and <strong>must</strong> be distinct.</li>
 <li>There must be <strong>at most</strong> one edge between any pair of ontology nodes.</li>
 <li>These edges have no labels.</li>
 </ol>
@@ -378,7 +402,8 @@ Ontology(
 declared prefix "dcterms".</p>
 <h3 id="dependency-and-prefix-rules"><a class="header" href="#dependency-and-prefix-rules">Dependency and Prefix Rules</a></h3>
 <ol>
-<li>The edge <strong>must</strong> be a dottes line with a <em>filled triangle</em> at the target.</li>
+<li>The edge <strong>must</strong> be a dotted line with a <em>filled triangle</em> at the target.</li>
+<li>The source and target <strong>must</strong> be Ontology nodes, and <strong>must</strong> be distinct.</li>
 <li>The edge may have a label, all labels originating from the same source
 ontology <strong>must</strong> be unique.
 <ol>
@@ -413,20 +438,48 @@ cached, and those moved from the cache to local a <em>workspace</em> for editing
 <p><span class="figure caption">A Class Node</span></p>
 <h3 id="class-rules"><a class="header" href="#class-rules">Class Rules</a></h3>
 <ol>
-<li>The overall shape is a rectangle, it's <strong>must</strong> be greater than it's height,
-and corners <strong>must</strong> be hard, not rounded.</li>
+<li>The overall shape <strong>must</strong> be a <em>rectangle</em>.
+<ol>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
+<li>It's corners <strong>must</strong> be hard, not rounded.</li>
+</ol>
+</li>
 <li>Node lines <strong>must</strong> be solid.</li>
+<li>A class node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A class node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="datatypes"><a class="header" href="#datatypes">Datatypes</a></h2>
 <p><img src="nocturn/nodes/./nodes-datatype.svg" alt="Datatype Notation" /></p>
 <p><span class="figure caption">A Datatype Node</span></p>
 <h3 id="datatype-rules"><a class="header" href="#datatype-rules">Datatype Rules</a></h3>
 <ol>
-<li>The overall shape is a rectangle, it's <strong>must</strong> be greater than it's height,
-and corners <strong>must</strong> be hard, not rounded.</li>
+<li>The overall shape <strong>must</strong> be a <em>rectangle</em>.
+<ol>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
+<li>It's corners <strong>must</strong> be hard, not rounded.</li>
+</ol>
+</li>
 <li>Node lines <strong>must</strong> be dotted.
 <ol>
 <li>More space must exist between dots than the width of the dots for clarity.</li>
+</ol>
+</li>
+<li>A datatype node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A datatype node be the target of the following edges:
+<ol>
+<li>TBD</li>
 </ol>
 </li>
 </ol>
@@ -435,8 +488,22 @@ and corners <strong>must</strong> be hard, not rounded.</li>
 <p><span class="figure caption">An Individual Node</span></p>
 <h3 id="individual-rules"><a class="header" href="#individual-rules">Individual Rules</a></h3>
 <ol>
-<li>The overall shape is an ellipse, it's <strong>must</strong> be greater than it's height.</li>
+<li>The overall shape <strong>must</strong> be an <em>ellipse</em>.
+<ol>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
+</ol>
+</li>
 <li>Node lines <strong>must</strong> be solid.</li>
+<li>An individual node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>An individual node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="literals"><a class="header" href="#literals">Literals</a></h2>
 <p><img src="nocturn/nodes/./nodes-literals.svg" alt="Value Notation" /></p>
@@ -452,16 +519,28 @@ and corners <strong>must</strong> be hard, not rounded.</li>
 <p><span class="figure caption">Specific Literal Type Nodes</span></p>
 <h3 id="literal-rules"><a class="header" href="#literal-rules">Literal Rules</a></h3>
 <ol>
-<li>The overall shape is an ellipse, it's <strong>must</strong> be greater than it's height.</li>
-<li>Node lines <strong>must</strong> be dotted.
+<li>The overall shape <strong>must</strong> be an <em>ellipse</em>.
 <ol>
-<li>More space must exist between dots than the width of the dots for clarity.</li>
+<li>It's width <strong>must</strong> be greater than it's height.</li>
 </ol>
 </li>
-<li>If the value is a <code>langString</code> a horizontal bar <strong>must</strong> separate the value above
-from the language identifier with the prefix <code>@</code> character.</li>
-<li>If the value...</li>
-<li>If the value (ellide...) ...</li>
+<li>Node lines <strong>must</strong> be dotted.</li>
+<li>If the literal's type is a <code>langString</code> a horizontal bar <strong>must</strong> separate
+the value above from the language identifier with the prefix <code>@</code> character.</li>
+<li>If the literal is a typed value a horizontal bar <strong>must</strong> separate the value
+above from the datatype IRI below.</li>
+<li>If the literal's value is too large to easily fit in the node, replace with
+a Unicode ellipsis character <code>'…'</code> (HORIZONTAL ELLIPSIS <code>U+2026</code>).</li>
+<li>A literal node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A literal node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="properties"><a class="header" href="#properties">Properties</a></h2>
 <p><img src="nocturn/nodes/./nodes-properties.svg" alt="Property Nodes" /></p>
@@ -470,11 +549,21 @@ from the language identifier with the prefix <code>@</code> character.</li>
 <ol>
 <li>The overall shape for Object and Datatype properties <strong>must</strong> be an isosceles triangle
 with a narrow base and with it's apex pointed to the right.</li>
-<li>The overall shape for Annotation properties <strong>must</strong> be an <em>pointed flag</em>
+<li>The overall shape for Annotation properties <strong>must</strong> be a <em>pointed flag</em>
 with a longer rectangle and trangular apex to the right.</li>
 <li>Lables in all property nodes <strong>must</strong> be left justified so they are not lost in the apex.</li>
-<li>Object and Annotation properties are represented with solid lines.</li>
-<li>Datatype properties are represented with dotted lines.</li>
+<li>Object and Annotation properties are represented with <em>solid</em> lines.</li>
+<li>Datatype properties are represented with <em>dotted</em> lines.</li>
+<li>A property node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>A property node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
 </ol>
 <h2 id="axioms-and-annotations"><a class="header" href="#axioms-and-annotations">Axioms and Annotations</a></h2>
 <p><img src="nocturn/nodes/./nodes-axioms.svg" alt="Axioms" /></p>
@@ -499,6 +588,20 @@ OWL Functional Syntax or Manchester Syntax.</li>
 filled with a light shade (<code>#ebebeb</code> in our example).</li>
 <li>As axiom content <strong>may</strong> be consider code-like, it is acceptable to use a monospaced
 code font as an alternative.</li>
+<li>An axiom node be the source of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>An axiom node be the target of the following edges:
+<ol>
+<li>TBD</li>
+</ol>
+</li>
+<li>An annotation node be the source of the following edges:</li>
+<li>TBD</li>
+<li>An annotation node be the target of the following edges:</li>
+<li>TBD</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="class-assertions"><a class="header" href="#class-assertions">Class Assertions</a></h1>
@@ -508,21 +611,31 @@ code font as an alternative.</li>
 <p><img src="nocturn/class-assertions/./rdfs-subClassOf.svg" alt="rdfs:subClassOf" /></p>
 <p><span class="figure caption">An RDF Schema <em>subClassOf</em> Edge</span></p>
 <h3 id="rdfssubclassof-rules"><a class="header" href="#rdfssubclassof-rules">rdfs:subClassOf Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+</ol>
 <h2 id="rdftype"><a class="header" href="#rdftype">rdf:type</a></h2>
 <p><img src="nocturn/class-assertions/./rdf-type.svg" alt="rdf:type" /></p>
 <p><span class="figure caption">An RDF <em>type</em>-of Edge</span></p>
 <h3 id="rdftype-rules"><a class="header" href="#rdftype-rules">rdf:type Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+</ol>
 <h2 id="owlequivalentclass"><a class="header" href="#owlequivalentclass">owl:equivalentClass</a></h2>
 <p><img src="nocturn/class-assertions/./owl-equivalentClass.svg" alt="owl:equivalentClass" /></p>
 <p><span class="figure caption">An OWL <em>equivalentClass</em> Edge</span></p>
 <h3 id="owlequivalentclass-rules"><a class="header" href="#owlequivalentclass-rules">owl:equivalentClass Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+</ol>
 <h2 id="owldisjointwith"><a class="header" href="#owldisjointwith">owl:disjointWith</a></h2>
 <p><img src="nocturn/class-assertions/./owl-disjointWith.svg" alt="owl:disjointWith" /></p>
 <p><span class="figure caption">An OWL <em>disjointWith</em> Edge</span></p>
 <h3 id="owldisjointwith-rules"><a class="header" href="#owldisjointwith-rules">owl:disjointWith Rules</a></h3>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+<li>The source and target of the edge <strong>must</strong> not be the same.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="object-properties"><a class="header" href="#object-properties">Object Properties</a></h1>
 <p>Object Properties, in general, are shown as directed edges between class nodes.</p>
@@ -534,31 +647,49 @@ patterns.</p>
 <p><img src="nocturn/object-properties/./owl-ObjectProperty.svg" alt="owl:ObjectProperty" /></p>
 <p><span class="figure caption">An OWL <em>ObjectProperty</em> Edge</span></p>
 <h3 id="owlobjectproperty-rules"><a class="header" href="#owlobjectproperty-rules">owl:ObjectProperty Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
 <h2 id="rdfssubpropertyof"><a class="header" href="#rdfssubpropertyof">rdfs:subPropertyOf</a></h2>
 <p><img src="nocturn/object-properties/./rdfs-subPropertyOf.svg" alt="rdfs:subPropertyOf" /></p>
 <p><span class="figure caption">An RDF Schema <em>subPropertyOf</em> Edge</span></p>
 <h3 id="rdfssubpropertyof-rules"><a class="header" href="#rdfssubpropertyof-rules">rdfs:subPropertyOf Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be Object Properties.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
 <h2 id="owlinverseof"><a class="header" href="#owlinverseof">owl:inverseOf</a></h2>
 <p><img src="nocturn/object-properties/./owl-inverseOf.svg" alt="owl:inverseOf" /></p>
 <p><span class="figure caption">An OWL <em>inverseOf</em> Edge</span></p>
 <h3 id="owlinverseof-rules"><a class="header" href="#owlinverseof-rules">owl:inverseOf Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be Object Properties.</li>
+</ol>
 <h2 id="owlsymmetricproperty"><a class="header" href="#owlsymmetricproperty">owl:SymmetricProperty</a></h2>
 <p><img src="nocturn/object-properties/./owl-SymmetricProperty.svg" alt="owl:SymmetricProperty" /></p>
 <p><span class="figure caption">A OWL <em>SymmetricProperty</em> Edge</span></p>
 <h3 id="owlsymmetricproperty-rules"><a class="header" href="#owlsymmetricproperty-rules">owl:SymmetricProperty Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
 <h2 id="owltransitiveproperty"><a class="header" href="#owltransitiveproperty">owl:TransitiveProperty</a></h2>
 <p><img src="nocturn/object-properties/./owl-TransitiveProperty.svg" alt="owl:TransitiveProperty" /></p>
 <p><span class="figure caption">A OWL <em>TransitiveProperty</em> Edge</span></p>
 <h3 id="owltransitiveproperty-rules"><a class="header" href="#owltransitiveproperty-rules">owl:TransitiveProperty Rules</a></h3>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
 <h2 id="owlsymmetricproperty-and-owltransitiveproperty"><a class="header" href="#owlsymmetricproperty-and-owltransitiveproperty">owl:SymmetricProperty <em>and</em> owl:TransitiveProperty</a></h2>
 <p><img src="nocturn/object-properties/./owl-SymmetricTransitiveProperty.svg" alt="owl:SymmetricProperty and owl:TransitiveProperty" /></p>
 <p><span class="figure caption">An OWL <em>SymmetricProperty</em> and OWL <em>TransitiveProperty</em> Combined Edge</span></p>
 <h3 id="owlsymmetrictransitiveproperty-rules"><a class="header" href="#owlsymmetrictransitiveproperty-rules">owl:Symmetric/TransitiveProperty Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be classes.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="datatype-assertions"><a class="header" href="#datatype-assertions">Datatype Assertions</a></h1>
 <p><img src="nocturn/datatype-assertions/./overview.svg" alt="Datatype Assertions" /></p>
@@ -567,12 +698,21 @@ patterns.</p>
 <p><img src="nocturn/datatype-assertions/./rdf-type.svg" alt="rdf:type" /></p>
 <p><span class="figure caption">An RDF <em>type</em>-of Edge</span></p>
 <h3 id="rdftype-rules-1"><a class="header" href="#rdftype-rules-1">rdf:type Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be datatypes.</li>
+</ol>
 <h2 id="datatype-owlrestriction-notation"><a class="header" href="#datatype-owlrestriction-notation">Datatype owl:Restriction Notation</a></h2>
 <p><img src="nocturn/datatype-assertions/./owl-Restriction.svg" alt="Class Notation" /></p>
 <p><span class="figure caption">An OWL <em>Restriction</em> Edge and Axiom Node</span></p>
 <h3 id="datatype-owlrestriction-rules"><a class="header" href="#datatype-owlrestriction-rules">Datatype owl:Restriction Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be datatypes.</li>
+<li>The edge <strong>may</strong> have an attached axiom node.
+<ol>
+<li>Axiom details TBD</li>
+</ol>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="datatype-properties"><a class="header" href="#datatype-properties">Datatype Properties</a></h1>
 <p><img src="nocturn/datatype-properties/./overview.svg" alt="Datatype Properties" /></p>
@@ -581,12 +721,25 @@ patterns.</p>
 <p><img src="nocturn/datatype-properties/./owl-DatatypeProperty.svg" alt="Class Notation" /></p>
 <p><span class="figure caption">An OWL <em>DatatypeProperty</em> Edge</span></p>
 <h3 id="owldatatypeproperty-rules"><a class="header" href="#owldatatypeproperty-rules">owl:DatatypeProperty Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source of the edge <strong>must</strong> be a class, and the target <strong>must</strong> be a Datatype.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
+<h2 id="rdfssubpropertyof-1"><a class="header" href="#rdfssubpropertyof-1">rdfs:subPropertyOf</a></h2>
+<p><img src="nocturn/datatype-properties/./rdfs-subPropertyOf.svg" alt="rdfs:subPropertyOf" /></p>
+<p><span class="figure caption">An RDF Schema <em>subPropertyOf</em> Edge</span></p>
+<h3 id="rdfssubpropertyof-rules-1"><a class="header" href="#rdfssubpropertyof-rules-1">rdfs:subPropertyOf Rules</a></h3>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be Datatype Properties.</li>
+<li>The edge <strong>must</strong> be named.</li>
+</ol>
 <h2 id="owldisjointwith-1"><a class="header" href="#owldisjointwith-1">owl:disjointWith</a></h2>
 <p><img src="nocturn/datatype-properties/./owl-disjointWith.svg" alt="Class Notation" /></p>
 <p><span class="figure caption">An OWL <em>disjointWith</em> Edge</span></p>
 <h3 id="owldisjointwith-rules-1"><a class="header" href="#owldisjointwith-rules-1">owl:disjointWith Rules</a></h3>
-<p>TBD</p>
+<ol>
+<li>The source and target of the edge <strong>must</strong> both be Datatype Properties.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="annotation-properties"><a class="header" href="#annotation-properties">Annotation Properties</a></h1>
 <p><img src="nocturn/annotation-properties/./overview.svg" alt="Annotation Properties" /></p>
@@ -819,6 +972,50 @@ but the edge target <strong>must</strong> be be another AnnotationProperty node.
 </code></pre>
 </details>
 <h2 id="edges"><a class="header" href="#edges">Edges</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-uml"><a class="header" href="#appendix-uml">Appendix: UML</a></h1>
+<h2 id="ontologies"><a class="header" href="#ontologies">Ontologies</a></h2>
+<p><img src="appendix/uml/./ontology.svg" alt="Ontologies" /></p>
+<h2 id="entities-literal-and-anonymous-individuals"><a class="header" href="#entities-literal-and-anonymous-individuals">Entities, Literal, and Anonymous Individuals</a></h2>
+<p><img src="appendix/uml/./entities.svg" alt="Entities" /></p>
+<h2 id="property-expressions"><a class="header" href="#property-expressions">Property Expressions</a></h2>
+<h3 id="object-property"><a class="header" href="#object-property">Object Property</a></h3>
+<p><img src="appendix/uml/./expressions-objectproperty.svg" alt="Object Property Expressions" /></p>
+<h3 id="data-property"><a class="header" href="#data-property">Data Property</a></h3>
+<p><img src="appendix/uml/./expression-dataproperty.svg" alt="Data Property Expressions" /></p>
+<h2 id="data-ranges"><a class="header" href="#data-ranges">Data Ranges</a></h2>
+<p><img src="appendix/uml/./data-ranges.svg" alt="Data Ranges" /></p>
+<h2 id="class-expressions"><a class="header" href="#class-expressions">Class Expressions</a></h2>
+<h3 id="propositional-connectives-and-enumeration-of-individuals"><a class="header" href="#propositional-connectives-and-enumeration-of-individuals">Propositional Connectives and Enumeration of Individuals</a></h3>
+<p><img src="appendix/uml/./expressions-class-1.svg" alt="Class Expressions 1" /></p>
+<h3 id="object-property-restrictions"><a class="header" href="#object-property-restrictions">Object Property Restrictions</a></h3>
+<p><img src="appendix/uml/./expressions-class-2.svg" alt="Class Expressions 2" /></p>
+<h3 id="object-property-cardinality-restrictions"><a class="header" href="#object-property-cardinality-restrictions">Object Property Cardinality Restrictions</a></h3>
+<p><img src="appendix/uml/./expressions-class-3.svg" alt="Class Expressions 3" /></p>
+<h3 id="data-property-restrictions"><a class="header" href="#data-property-restrictions">Data Property Restrictions</a></h3>
+<p><img src="appendix/uml/./expressions-class-4.svg" alt="Class Expressions 4" /></p>
+<h3 id="data-property-cardinality-restrictions"><a class="header" href="#data-property-cardinality-restrictions">Data Property Cardinality Restrictions</a></h3>
+<p><img src="appendix/uml/./expressions-class-5.svg" alt="Class Expressions 5" /></p>
+<h2 id="axioms"><a class="header" href="#axioms">Axioms</a></h2>
+<p><img src="appendix/uml/./axioms.svg" alt="Axioms" /></p>
+<h3 id="entity-declarations"><a class="header" href="#entity-declarations">Entity Declarations</a></h3>
+<p><img src="appendix/uml/./axiom-declaration.svg" alt="Entity Declarations" /></p>
+<h3 id="class-axioms"><a class="header" href="#class-axioms">Class Axioms</a></h3>
+<p><img src="appendix/uml/./axiom-class.svg" alt="Class Axioms" /></p>
+<h3 id="object-property-axioms"><a class="header" href="#object-property-axioms">Object Property Axioms</a></h3>
+<p><img src="appendix/uml/./axiom-objectproperty-1.svg" alt="Object Property Axioms 1" /></p>
+<p><img src="appendix/uml/./axiom-objectproperty-2.svg" alt="Object Property Axioms 2" /></p>
+<h3 id="data-property-axioms"><a class="header" href="#data-property-axioms">Data Property Axioms</a></h3>
+<p><img src="appendix/uml/./axiom-dataproperty.svg" alt="Data Property Axioms" /></p>
+<h3 id="datatype-definition"><a class="header" href="#datatype-definition">Datatype Definition</a></h3>
+<p><img src="appendix/uml/./axiom-datatypedefinition.svg" alt="Datatype Definition" /></p>
+<h3 id="has-key"><a class="header" href="#has-key">Has Key</a></h3>
+<p><img src="appendix/uml/./axiom-haskey.svg" alt="Has Key" /></p>
+<h3 id="assertion"><a class="header" href="#assertion">Assertion</a></h3>
+<p><img src="appendix/uml/./axiom-assertion.svg" alt="Assertion" /></p>
+<h3 id="annotation-axiom"><a class="header" href="#annotation-axiom">Annotation Axiom</a></h3>
+<p><img src="appendix/uml/./axiom-annotationaxiom.svg" alt="Annotation Axiom" /></p>
+<h2 id="annotations"><a class="header" href="#annotations">Annotations</a></h2>
+<p><img src="appendix/uml/./annotations.svg" alt="Annotations" /></p>
 
                     </main>
 
