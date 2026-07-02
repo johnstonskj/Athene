@@ -118,6 +118,7 @@ mod macros;
 ///     axioms::SubClassOf,
 ///     builders::{AnnotationBuilder, Builder},
 ///     entities::{Class, EntityTrait},
+///     things::owl,
 /// };
 /// use rdftk_iri::Iri;
 /// use std::str::FromStr;
@@ -129,8 +130,8 @@ mod macros;
 ///        .with_direct_import(Iri::from_str("http://www.example.com/ontology2").unwrap())
 ///        .with_rdfs_label("An example")
 ///        .with_class_axiom(SubClassOf::new(
-///            Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()).into(),
-///            Class::new(Iri::from_str("http://www.w3.org/2002/07/owl#Thing").unwrap()).into(),
+///            Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()),
+///            Class::new(owl::thing_iri()),
 ///        ))
 ///        .build()
 ///        .expect("could not build Ontology"))

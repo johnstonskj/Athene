@@ -71,8 +71,8 @@ fn test_section_3p7_example_ontology_document() {
         .with_direct_import(Iri::from_str("http://www.example.com/ontology2").unwrap())
         .with_rdfs_label("An example")
         .with_class_axiom(SubClassOf::new(
-            Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()).into(),
-            Class::new(Iri::from_str("http://www.w3.org/2002/07/owl#Thing").unwrap()).into(),
+            Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()),
+            Class::new(Iri::from_str("http://www.w3.org/2002/07/owl#Thing").unwrap()),
         ))
         .build()
         .unwrap();

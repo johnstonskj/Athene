@@ -1321,23 +1321,32 @@ impl_display_pretty!(SubClassOf(@list axiom_annotations, sub_class_expression, s
 impl_has_annotations!(SubClassOf, axiom_annotations);
 
 impl SubClassOf {
-    pub fn new(sub_class: ClassExpression, super_class: ClassExpression) -> Self {
+    pub fn new<CE1, CE2>(sub_class: CE1, super_class: CE2) -> Self
+    where
+        CE1: Into<ClassExpression>,
+        CE2: Into<ClassExpression>,
+    {
         Self {
             axiom_annotations: Default::default(),
-            sub_class_expression: sub_class,
-            super_class_expression: super_class,
+            sub_class_expression: sub_class.into(),
+            super_class_expression: super_class.into(),
         }
     }
 
-    pub fn new_with_annotations(
-        ann: Vec<Annotation>,
-        sub_class: ClassExpression,
-        super_class: ClassExpression,
-    ) -> Self {
+    pub fn new_with_annotations<CE1, CE2, I>(
+        annotations: I,
+        sub_class: CE1,
+        super_class: CE2,
+    ) -> Self
+    where
+        I: IntoIterator<Item = Annotation>,
+        CE1: Into<ClassExpression>,
+        CE2: Into<ClassExpression>,
+    {
         Self {
-            axiom_annotations: ann,
-            sub_class_expression: sub_class,
-            super_class_expression: super_class,
+            axiom_annotations: annotations.into_iter().collect(),
+            sub_class_expression: sub_class.into(),
+            super_class_expression: super_class.into(),
         }
     }
 

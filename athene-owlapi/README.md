@@ -45,7 +45,7 @@ Ontology( <http://www.example.com/ontology1>
 )
 ```
 
-The following Rust code
+The following Rust code will generate
 
 ```rust
 use athene_owlapi::{
@@ -53,6 +53,7 @@ use athene_owlapi::{
     axioms::SubClassOf,
     builders::{AnnotationBuilder, Builder},
     entities::{Class, EntityTrait},
+    things::owl,
 };
 use rdftk_iri::Iri;
 use std::str::FromStr;
@@ -64,8 +65,8 @@ let document = OntologyDocument::builder()
        .with_direct_import(Iri::from_str("http://www.example.com/ontology2").unwrap())
        .with_rdfs_label("An example")
        .with_class_axiom(SubClassOf::new(
-           Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()).into(),
-           Class::new(Iri::from_str("http://www.w3.org/2002/07/owl#Thing").unwrap()).into(),
+           Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()),
+           Class::new(owl::thing_iri()),
        ))
        .build()
        .expect("could not build Ontology"))
@@ -75,17 +76,32 @@ let document = OntologyDocument::builder()
 
 ## Status
 
-TBD
-
 ### API Coverage
+
+Currently **all** of the OWL 2 structural specification is covered.
 
 ### Builders/Erognomics
 
 ### Reader Robustness
 
+Pretty poor, it's currently only implemented for happy path cases.
+
+The following are still to be done.
+
+- [ ] Move type conversion (string -> Iri, etc.) from Semantic to Parser layer.
+- [ ] Ensure semantic layer performs all cardinality checking.
+- [ ] Handle unexpected nodes.
+- [ ] Recover and continue where possible.
+- [ ] Usage of Ariadne for user-facing errors.
+
 ### Documentation
 
+Most documentation copied from the specification is now present, few examples from the specification
+are present, and of those even fewer have Rust equivalents.
+
 ### Test Coverage
+
+Poor.
 
 ## License(s)
 

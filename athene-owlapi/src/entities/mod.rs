@@ -21,6 +21,7 @@
 //!
 
 use crate::{
+    axioms::Declaration,
     error::ApiError,
     fmt::{DisplayPretty, Indenter},
     ranges::HasArity,
@@ -292,6 +293,16 @@ pub struct AnonymousIndividual {
 pub trait EntityTrait: DisplayPretty + From<Iri> + Into<Iri> {
     fn new(entity_iri: Iri) -> Self;
     fn entity_iri(&self) -> &Iri;
+    fn as_declaration(&self) -> Declaration;
+}
+
+pub trait IriAsEntity {
+    fn as_annotation_property(&self) -> AnnotationProperty;
+    fn as_class(&self) -> Class;
+    fn as_data_property(&self) -> DataProperty;
+    fn as_adatatype(&self) -> Datatype;
+    fn as_object_property(&self) -> ObjectProperty;
+    fn as_named_individual(&self) -> NamedIndividual;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -348,6 +359,10 @@ macro_rules! impl_entity {
 
             fn entity_iri(&self) -> &Iri {
                 &self.entity_iri
+            }
+
+            fn as_declaration(&self) -> Declaration {
+                Declaration::new(self.clone().into())
             }
         }
     };
@@ -444,6 +459,23 @@ impl From<NamedIndividual> for Entity {
     }
 }
 
+impl Entity {
+    pub fn entity_iri(&self) -> &Iri {
+        match self {
+            Entity::AnnotationProperty(annotation_property) => annotation_property.entity_iri(),
+            Entity::Class(class) => class.entity_iri(),
+            Entity::DataProperty(data_property) => data_property.entity_iri(),
+            Entity::Datatype(datatype) => datatype.entity_iri(),
+            Entity::ObjectProperty(object_property) => object_property.entity_iri(),
+            Entity::NamedIndividual(named_individual) => named_individual.entity_iri(),
+        }
+    }
+
+    pub fn as_declaration(&self) -> Declaration {
+        Declaration::new(self.clone())
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ AnnotationProperty
 // ------------------------------------------------------------------------------------------------
@@ -491,6 +523,10 @@ impl Datatype {
 
     pub fn entity_iri(&self) -> &Iri {
         &self.entity_iri
+    }
+
+    pub fn as_declaration(&self) -> Declaration {
+        Declaration::new(self.clone().into())
     }
 }
 
@@ -549,5 +585,35 @@ impl From<Name> for AnonymousIndividual {
 impl AnonymousIndividual {
     pub fn node_id(&self) -> &Name {
         &self.node_id
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Implementations ❯ IriAsEntity
+// ------------------------------------------------------------------------------------------------
+
+impl IriAsEntity for Iri {
+    fn as_annotation_property(&self) -> AnnotationProperty {
+        AnnotationProperty::new(self.clone())
+    }
+
+    fn as_class(&self) -> Class {
+        Class::new(self.clone())
+    }
+
+    fn as_data_property(&self) -> DataProperty {
+        DataProperty::new(self.clone())
+    }
+
+    fn as_adatatype(&self) -> Datatype {
+        Datatype::new(self.clone())
+    }
+
+    fn as_object_property(&self) -> ObjectProperty {
+        ObjectProperty::new(self.clone())
+    }
+
+    fn as_named_individual(&self) -> NamedIndividual {
+        NamedIndividual::new(self.clone())
     }
 }
