@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Appendix: UML - Athene - OWL Tools</title>
+        <title>Appendix: OWL API for Rust - Athene - OWL Tools</title>
 
 
         <!-- Custom HTML head -->
@@ -189,59 +189,51 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="appendix-uml"><a class="header" href="#appendix-uml">Appendix: UML</a></h1>
-<h2 id="ontologies"><a class="header" href="#ontologies">Ontologies</a></h2>
-<p><img src="./ontology.svg" alt="Ontologies" /></p>
-<h2 id="entities-literal-and-anonymous-individuals"><a class="header" href="#entities-literal-and-anonymous-individuals">Entities, Literal, and Anonymous Individuals</a></h2>
-<p><img src="./entities.svg" alt="Entities" /></p>
-<h2 id="property-expressions"><a class="header" href="#property-expressions">Property Expressions</a></h2>
-<h3 id="object-property"><a class="header" href="#object-property">Object Property</a></h3>
-<p><img src="./expressions-objectproperty.svg" alt="Object Property Expressions" /></p>
-<h3 id="data-property"><a class="header" href="#data-property">Data Property</a></h3>
-<p><img src="./expression-dataproperty.svg" alt="Data Property Expressions" /></p>
-<h2 id="data-ranges"><a class="header" href="#data-ranges">Data Ranges</a></h2>
-<p><img src="./data-ranges.svg" alt="Data Ranges" /></p>
-<h2 id="class-expressions"><a class="header" href="#class-expressions">Class Expressions</a></h2>
-<h3 id="propositional-connectives-and-enumeration-of-individuals"><a class="header" href="#propositional-connectives-and-enumeration-of-individuals">Propositional Connectives and Enumeration of Individuals</a></h3>
-<p><img src="./expressions-class-1.svg" alt="Class Expressions 1" /></p>
-<h3 id="object-property-restrictions"><a class="header" href="#object-property-restrictions">Object Property Restrictions</a></h3>
-<p><img src="./expressions-class-2.svg" alt="Class Expressions 2" /></p>
-<h3 id="object-property-cardinality-restrictions"><a class="header" href="#object-property-cardinality-restrictions">Object Property Cardinality Restrictions</a></h3>
-<p><img src="./expressions-class-3.svg" alt="Class Expressions 3" /></p>
-<h3 id="data-property-restrictions"><a class="header" href="#data-property-restrictions">Data Property Restrictions</a></h3>
-<p><img src="./expressions-class-4.svg" alt="Class Expressions 4" /></p>
-<h3 id="data-property-cardinality-restrictions"><a class="header" href="#data-property-cardinality-restrictions">Data Property Cardinality Restrictions</a></h3>
-<p><img src="./expressions-class-5.svg" alt="Class Expressions 5" /></p>
-<h2 id="axioms"><a class="header" href="#axioms">Axioms</a></h2>
-<p><img src="./axioms.svg" alt="Axioms" /></p>
-<h3 id="entity-declarations"><a class="header" href="#entity-declarations">Entity Declarations</a></h3>
-<p><img src="./axiom-declaration.svg" alt="Entity Declarations" /></p>
-<h3 id="class-axioms"><a class="header" href="#class-axioms">Class Axioms</a></h3>
-<p><img src="./axiom-class.svg" alt="Class Axioms" /></p>
-<h3 id="object-property-axioms"><a class="header" href="#object-property-axioms">Object Property Axioms</a></h3>
-<p><img src="./axiom-objectproperty-1.svg" alt="Object Property Axioms 1" /></p>
-<p><img src="./axiom-objectproperty-2.svg" alt="Object Property Axioms 2" /></p>
-<h3 id="data-property-axioms"><a class="header" href="#data-property-axioms">Data Property Axioms</a></h3>
-<p><img src="./axiom-dataproperty.svg" alt="Data Property Axioms" /></p>
-<h3 id="datatype-definition"><a class="header" href="#datatype-definition">Datatype Definition</a></h3>
-<p><img src="./axiom-datatypedefinition.svg" alt="Datatype Definition" /></p>
-<h3 id="has-key"><a class="header" href="#has-key">Has Key</a></h3>
-<p><img src="./axiom-haskey.svg" alt="Has Key" /></p>
-<h3 id="assertion"><a class="header" href="#assertion">Assertion</a></h3>
-<p><img src="./axiom-assertion.svg" alt="Assertion" /></p>
-<h3 id="annotation-axiom"><a class="header" href="#annotation-axiom">Annotation Axiom</a></h3>
-<p><img src="./axiom-annotationaxiom.svg" alt="Annotation Axiom" /></p>
-<h2 id="annotations"><a class="header" href="#annotations">Annotations</a></h2>
-<p><img src="./annotations.svg" alt="Annotations" /></p>
+                        <!-- markdownlint-disable-file MD033 -->
+<h1 id="appendix-owl-api-for-rust"><a class="header" href="#appendix-owl-api-for-rust">Appendix: OWL API for Rust</a></h1>
+<p>The <a href=""><code>athene-owlapi</code></a> package is a Rust OWL API that provides an implementation
+as close as possible to the <em>OWL 2 Web Ontology Language
+<a href="https://www.w3.org/TR/owl2-syntax/">Structural Specification</a></em>.</p>
+<p>As the structural specification relies heavily on an object-oriented model with
+inheritence of key concepts there has had to be a mapping from the modeling in
+the specification to the API herein. That mapping can be describe as follows.</p>
+<ol>
+<li>Parent types, which are usually abstract, in the OWL 2 specification are
+present in the API as enumerated types.
+<ol>
+<li>The <code>strum</code> crate provides <code>is_{variant}</code> and <code>trye_as_{variant}</code>
+methods on the enum to access sub-types.</li>
+<li>As all sub-types are distinct each super-type provides implementations
+of <code>From</code> between parent and each child type.</li>
+</ol>
+</li>
+<li>Attributes present on parent types are pushed down (replicated) on all
+sub-types; however, accessors are present on the enumeration for these
+attributes.</li>
+<li>Constructors, usually <code>new(...)</code>, are provided for simple cases such as
+<code>Declaration</code> with more complex cases using a builder pattern.</li>
+</ol>
+<p>As the primary goal in the design of the package interface is consistency with the OWL 2
+structural specification, rather than writing documentation from scratch we will rely on the
+text of the OWL specification. Each section of Rust documentation will have a sub-section
+titled <strong>Specification (Section X.Y)</strong> denoting the source location. Examples in the Rust
+documentation will reference examples in the same section of the source, with the OWL
+/
+<img src="./Coruja-listrada_(Strix_hylophila)_no_Parque_Estadual_Intervales.jpg" alt="The Rusty-Barred Owl: Strix hylophila" /></p>
+<!-- By Nortondefeis - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=49829508 -->
+<p><span class="figure caption">Strix hylophila -- Rusty-Barred Owl (By Nortondefeis - Own work, CC BY-SA 4.0)</span></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../appendix/owlapi/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../nocturn/graphviz/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next prefetch" href="../../appendix/uml/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -249,10 +241,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../appendix/owlapi/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../nocturn/graphviz/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next prefetch" href="../../appendix/uml/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
