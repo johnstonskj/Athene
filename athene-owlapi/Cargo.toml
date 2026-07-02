@@ -1,6 +1,9 @@
 [package]
 name = "athene-owlapi"
-description = ""
+description = """
+This package provides a Rust API for OWL that adheres as closely as possible to
+the OWL 2 Web Ontology Language Structural Specification.
+"""
 version = "0.0.1"
 readme = "README.md"
 publish = true
