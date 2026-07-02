@@ -1,8 +1,23 @@
+//!
 //! Syntactic AST for the OWL 2 functional-style syntax reader (Stage 1).
+//!
+
 use core::fmt;
 use strum::{EnumIs, EnumTryAs};
 
-// ── Span / Position ──────────────────────────────────────────────────────────
+#[cfg(not(feature = "std"))]
+use alloc::{string::String, vec::Vec};
+
+// ------------------------------------------------------------------------------------------------
+// Public Types ❯ Span / Position
+// ------------------------------------------------------------------------------------------------
+
+/// A contiguous range of source text.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Span {
+    pub start: Position,
+    pub end: Position,
+}
 
 /// A byte position in the source text.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
@@ -15,48 +30,9 @@ pub struct Position {
     pub offset: u32,
 }
 
-impl fmt::Display for Position {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}:{}", self.line, self.column)
-    }
-}
-
-/// A contiguous range of source text.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub struct Span {
-    pub start: Position,
-    pub end: Position,
-}
-
-impl fmt::Display for Span {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if self.start.line == self.end.line {
-            write!(
-                f,
-                "{}:{}-{}",
-                self.start.line, self.start.column, self.end.column
-            )
-        } else {
-            write!(f, "{}-{}", self.start, self.end)
-        }
-    }
-}
-
-impl Span {
-    pub fn new(start: Position, end: Position) -> Self {
-        Self { start, end }
-    }
-
-    pub fn at(pos: Position) -> Self {
-        Self { start: pos, end: pos }
-    }
-
-    pub fn extend_to(self, other: Span) -> Self {
-        Self { start: self.start, end: other.end }
-    }
-}
-
-// ── IriRef ───────────────────────────────────────────────────────────────────
+// ------------------------------------------------------------------------------------------------
+// Public Types ❯ IriRef
+// ------------------------------------------------------------------------------------------------
 
 /// An abbreviated IRI with an optional prefix and a local name: `owl:Thing` or `:local`.
 #[derive(Clone, Debug, PartialEq)]
@@ -77,7 +53,9 @@ pub enum IriRef {
     Namespace(Option<String>),
 }
 
-// ── LiteralSyntax ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------------------------------------------
+// Public Types ❯ LiteralSyntax
+// ------------------------------------------------------------------------------------------------
 
 /// A literal value as it appears in source text.
 #[derive(Clone, Debug, PartialEq)]
@@ -91,7 +69,9 @@ pub struct LiteralSyntax {
     pub span: Span,
 }
 
-// ── Atom ─────────────────────────────────────────────────────────────────────
+// ------------------------------------------------------------------------------------------------
+// Public Types ❯ Atom
+// ------------------------------------------------------------------------------------------------
 
 /// A terminal (leaf) value in the syntactic tree.
 #[derive(Clone, Debug, PartialEq, EnumIs, EnumTryAs)]
@@ -106,22 +86,15 @@ pub enum Atom {
     Equals,
 }
 
-// ── SyntaxNode ───────────────────────────────────────────────────────────────
+// ------------------------------------------------------------------------------------------------
+// Public Types ❯ SyntaxNode
+// ------------------------------------------------------------------------------------------------
 
 /// A function call node: `Name( arg… )`.
 #[derive(Clone, Debug, PartialEq)]
 pub struct FunctionNode {
     pub name: String,
     pub args: Vec<SyntaxNode>,
-}
-
-impl FunctionNode {
-    /// Non-comment args.
-    pub fn semantic_args(&self) -> impl Iterator<Item = &SyntaxNode> {
-        self.args
-            .iter()
-            .filter(|n| !n.kind.is_comment())
-    }
 }
 
 /// The kind of a node in the Stage 1 syntactic tree.
@@ -146,49 +119,112 @@ pub struct SyntaxDocument {
     pub nodes: Vec<SyntaxNode>,
 }
 
-// ── SyntaxNode helpers ───────────────────────────────────────────────────────
+// ------------------------------------------------------------------------------------------------
+// Implementations ❯ Span / Position
+// ------------------------------------------------------------------------------------------------
+
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}:{}", self.line, self.column)
+    }
+}
+
+impl fmt::Display for Span {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.start.line == self.end.line {
+            write!(
+                f,
+                "{}:{}-{}",
+                self.start.line, self.start.column, self.end.column
+            )
+        } else {
+            write!(f, "{}-{}", self.start, self.end)
+        }
+    }
+}
+
+impl Span {
+    pub fn new(start: Position, end: Position) -> Self {
+        Self { start, end }
+    }
+
+    pub fn at(pos: Position) -> Self {
+        Self {
+            start: pos,
+            end: pos,
+        }
+    }
+
+    pub fn extend_to(self, other: Span) -> Self {
+        Self {
+            start: self.start,
+            end: other.end,
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Implementations ❯ FunctionNode
+// ------------------------------------------------------------------------------------------------
+
+impl FunctionNode {
+    /// Non-comment args.
+    pub fn semantic_args(&self) -> impl Iterator<Item = &SyntaxNode> {
+        self.args.iter().filter(|n| !n.kind.is_comment())
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Implementations ❯ SyntaxNode
+// ------------------------------------------------------------------------------------------------
 
 impl SyntaxNode {
     pub fn function_name(&self) -> Option<&str> {
-        self.kind
-            .try_as_function()
-            .map(|f| f.name.as_str())
+        match &self.kind {
+            SyntaxNodeKind::Function(f) => Some(f.name.as_str()),
+            _ => None,
+        }
     }
 
     pub fn function_args(&self) -> Option<&[SyntaxNode]> {
-        self.kind
-            .try_as_function()
-            .map(|f| f.args.as_slice())
+        match &self.kind {
+            SyntaxNodeKind::Function(f) => Some(f.args.as_slice()),
+            _ => None,
+        }
     }
 
     pub fn semantic_args(&self) -> Option<impl Iterator<Item = &SyntaxNode>> {
-        self.kind
-            .try_as_function()
-            .map(|f| f.semantic_args())
+        match &self.kind {
+            SyntaxNodeKind::Function(f) => Some(f.semantic_args()),
+            _ => None,
+        }
     }
 
-    pub fn as_iri_ref(&self) -> Option<&IriRef> {
-        self.kind
-            .try_as_atom()
-            .and_then(|a| a.try_as_iri())
+    pub fn try_as_iri_ref(&self) -> Option<&IriRef> {
+        match &self.kind {
+            SyntaxNodeKind::Atom(Atom::Iri(r)) => Some(r),
+            _ => None,
+        }
     }
 
-    pub fn as_integer(&self) -> Option<&u32> {
-        self.kind
-            .try_as_atom()
-            .and_then(|a| a.try_as_integer())
+    pub fn try_as_integer(&self) -> Option<u32> {
+        match &self.kind {
+            SyntaxNodeKind::Atom(v) => v.try_as_integer_ref().map(|v| *v),
+            _ => None,
+        }
     }
 
     pub fn as_literal_syntax(&self) -> Option<&LiteralSyntax> {
-        self.kind
-            .try_as_atom()
-            .and_then(|a| a.try_as_literal())
+        match &self.kind {
+            SyntaxNodeKind::Atom(v) => v.try_as_literal_ref(),
+            _ => None,
+        }
     }
 
-    pub fn as_node_id(&self) -> Option<&str> {
-        self.kind
-            .try_as_atom()
-            .and_then(|a| a.try_as_node_id())
-            .map(|s| s.as_str())
+    pub fn as_node_id(&self) -> Option<&String> {
+        match &self.kind {
+            SyntaxNodeKind::Atom(v) => v.try_as_node_id_ref(),
+            _ => None,
+        }
     }
 }

@@ -1,4 +1,10 @@
-use std::cell::RefCell;
+use core::cell::RefCell;
+
+#[cfg(not(feature = "std"))]
+use alloc::{
+    format,
+    string::{String, ToString},
+};
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -66,7 +72,7 @@ impl Indenter {
     }
 
     pub fn indent_prefix_string_for(&self, indentation: usize) -> String {
-        std::iter::repeat(INDENTATION_CHAR)
+        core::iter::repeat(INDENTATION_CHAR)
             .take(indentation)
             .collect()
     }

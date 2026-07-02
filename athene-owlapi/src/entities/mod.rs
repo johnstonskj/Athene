@@ -19,16 +19,27 @@
 //!
 //! ![Figure 2. Entities, Literals, and Anonymous Individuals in OWL 2](https://www.w3.org/TR/owl2-syntax/C_entities.gif)
 //!
+
 use crate::{
     error::ApiError,
     fmt::{DisplayPretty, Indenter},
     ranges::HasArity,
+    syntax::{
+        ANONYMOUS_NAMESPACE, DELIM_ARGS_GROUP_START, DELIM_FN_ARGS_END, FN_ANNOTATION_PROPERTY,
+        FN_ANONYMOUS_INDIVIDUAL, FN_CLASS, FN_DATA_PROPERTY, FN_DATATYPE, FN_NAMED_INDIVIDUAL,
+        FN_OBJECT_PROPERTY, NAMESPACE_NAME_SEPARATOR,
+    },
     values::UnlimitedNatural,
 };
-use core::fmt::{Display, Formatter, Result as FmtResult};
+use core::{
+    fmt::{Display, Formatter, Result as FmtResult},
+    str::FromStr,
+};
 use rdftk_iri::{Iri, IriPrefixMap, Name};
-use std::str::FromStr;
 use strum::{EnumIs, EnumTryAs};
+
+#[cfg(not(feature = "std"))]
+use alloc::{format, string::ToString};
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -363,12 +374,14 @@ impl DisplayPretty for Entity {
             f,
             "{}",
             match self {
-                Self::AnnotationProperty(_) => "AnnotationProperty(",
-                Self::Class(_) => "Class(",
-                Self::DataProperty(_) => "DataProperty(",
-                Self::Datatype(_) => "Datatype(",
-                Self::ObjectProperty(_) => "ObjectProperty(",
-                Self::NamedIndividual(_) => "NamedIndividual(",
+                Self::AnnotationProperty(_) =>
+                    format!("{FN_ANNOTATION_PROPERTY}{DELIM_ARGS_GROUP_START}"),
+                Self::Class(_) => format!("{FN_CLASS}{DELIM_ARGS_GROUP_START}"),
+                Self::DataProperty(_) => format!("{FN_DATA_PROPERTY}{DELIM_ARGS_GROUP_START}"),
+                Self::Datatype(_) => format!("{FN_DATATYPE}{DELIM_ARGS_GROUP_START}"),
+                Self::ObjectProperty(_) => format!("{FN_OBJECT_PROPERTY}{DELIM_ARGS_GROUP_START}"),
+                Self::NamedIndividual(_) =>
+                    format!("{FN_NAMED_INDIVIDUAL}{DELIM_ARGS_GROUP_START}"),
             }
         )?;
         if f.alternate() {
@@ -387,7 +400,11 @@ impl DisplayPretty for Entity {
         if f.alternate() {
             let _ = indenter.outdent();
         }
-        write!(f, "{})", indenter.separator_string(f.alternate()))
+        write!(
+            f,
+            "{}{DELIM_FN_ARGS_END}",
+            indenter.separator_string(f.alternate())
+        )
     }
 }
 
@@ -503,7 +520,11 @@ impl Display for AnonymousIndividual {
 
 impl DisplayPretty for AnonymousIndividual {
     fn fmt_pretty(&self, f: &mut Formatter<'_>, _: &Indenter, _: &IriPrefixMap) -> FmtResult {
-        write!(f, "_:{}", self.node_id)
+        write!(
+            f,
+            "{ANONYMOUS_NAMESPACE}{NAMESPACE_NAME_SEPARATOR}{}",
+            self.node_id
+        )
     }
 }
 
@@ -513,7 +534,7 @@ impl FromStr for AnonymousIndividual {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(Self {
             node_id: Name::from_str(s).map_err(|e| {
-                ApiError::ValueParser("AnonymousIndividual", e.to_string(), s.to_string())
+                ApiError::ValueParser(FN_ANONYMOUS_INDIVIDUAL, e.to_string(), s.to_string())
             })?,
         })
     }

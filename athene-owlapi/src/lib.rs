@@ -54,27 +54,26 @@
 #![doc = document_features::document_features!()]
 //!
 
-// // #![cfg_attr(not(feature = "std"), no_std)]
-// //
-// // #[cfg(not(feature = "std"))]
-// // extern crate alloc as std;
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(not(feature = "std"))]
+extern crate alloc;
 
 use crate::{
     annotations::Annotation,
     axioms::Axiom,
     builders::{OntologyBuilder, OntologyDocumentBuilder},
     fmt::{DisplayPretty, Indenter},
+    syntax::{DELIM_FN_ARGS_END, DELIM_FN_ARGS_START, FN_PREFIX},
 };
 use core::{
     cell::{Ref, RefCell},
     fmt::{Display, Formatter, Result as FmtResult},
 };
-use rdftk_iri::{
-    Iri, IriPrefixMap,
-    vocab::{VOCABULARY_OWL, VOCABULARY_RDF, VOCABULARY_RDF_SCHEMA, VOCABULARY_XML_SCHEMA},
-};
-use std::sync::LazyLock;
+use rdftk_iri::{Iri, IriPrefixMap};
 
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 #[macro_use]
 mod macros;
 
@@ -144,25 +143,6 @@ pub struct OntologyDocument {
     prefix_map: RefCell<IriPrefixMap>,
     ontology: Ontology,
 }
-
-///
-/// This is a list of all reserved IRIs defined in the standard, the prefix names for
-/// these are fixed and **may not** be redefined.
-///
-/// ## Specification (Section §2.4 -- IRIs)
-///
-/// See Table 2, *Declarations of the Standard Prefix Names*.
-///
-pub static RESERVED_PREFIX_IRIS: LazyLock<[Iri; 4]> = LazyLock::new(|| {
-    [
-        VOCABULARY_RDF.iri_as_iri(),
-        VOCABULARY_RDF_SCHEMA.iri_as_iri(),
-        VOCABULARY_OWL.iri_as_iri(),
-        VOCABULARY_XML_SCHEMA.iri_as_iri(),
-    ]
-});
-
-// TODO: should the above actually be a table of prefix/IRI?
 
 ///
 /// An OWL 2 *ontology& is an instance $O$ of the **Ontology** UML class from the structural
@@ -250,6 +230,22 @@ pub struct Import {
 }
 
 // ------------------------------------------------------------------------------------------------
+// Public Functions
+// ------------------------------------------------------------------------------------------------
+
+///
+/// This is a list of all reserved IRIs defined in the standard, the prefix names for
+/// these are fixed and **may not** be redefined.
+///
+/// ## Specification (Section §2.4 -- IRIs)
+///
+/// See Table 2, *Declarations of the Standard Prefix Names*.
+///
+pub fn reserved_prefix_map() -> IriPrefixMap {
+    IriPrefixMap::default()
+}
+
+// ------------------------------------------------------------------------------------------------
 // Implementations ❯ OntologyDocument
 // ------------------------------------------------------------------------------------------------
 
@@ -287,13 +283,18 @@ impl DisplayPretty for OntologyDocument {
         indenter: &Indenter,
         _: &IriPrefixMap,
     ) -> FmtResult {
+        let reserved_prefix_map_copy = reserved_prefix_map();
+        let reserved_prefix_iris: Vec<&Iri> = reserved_prefix_map_copy
+            .mappings()
+            .map(|(_, ns)| ns)
+            .collect();
         let outer_separator = indenter.separator_string(f.alternate());
         for (i, (prefix, iri)) in self.prefix_mappings().mappings().enumerate() {
-            if !RESERVED_PREFIX_IRIS.contains(iri) {
+            if !reserved_prefix_iris.contains(&iri) {
                 if i > 0 {
                     write!(f, "{outer_separator}",)?;
                 }
-                write!(f, "Prefix(")?;
+                write!(f, "{FN_PREFIX}{DELIM_FN_ARGS_START}")?;
                 let inner_separator = if f.alternate() {
                     indenter.indent();
                     indenter.separator_string(f.alternate())
@@ -302,7 +303,7 @@ impl DisplayPretty for OntologyDocument {
                 };
                 // Use Iri.fmt, not fmt_pretty, we do not want IRI compression.
                 write!(f, "{inner_separator}{prefix} = {iri}",)?;
-                write!(f, "{outer_separator})")?;
+                write!(f, "{outer_separator}{DELIM_FN_ARGS_END}")?;
                 if f.alternate() {
                     indenter.outdent();
                 }
@@ -417,3 +418,8 @@ pub mod ranges;
 pub mod values;
 
 pub mod builders;
+
+pub mod reader;
+pub mod syntax;
+
+pub mod things;

@@ -1,8 +1,24 @@
+//!
 //! Stage 1 lexer for the OWL 2 functional-style syntax.
-use crate::reader::ast::{Position, PrefixedIriRef, Span};
-use crate::reader::error::ParseError;
+//!
+use crate::{
+    reader::{
+        ast::{Position, PrefixedIriRef, Span},
+        error::ParseError,
+    },
+    syntax::{
+        ANONYMOUS_NAMESPACE, DELIM_COMMENT_START, DELIM_FN_ARGS_END, DELIM_FN_ARGS_START,
+        DELIM_IRI_END, DELIM_IRI_START, DELIM_LITERAL_DATATYPE, DELIM_LITERAL_LANGUAGE,
+        DELIM_PREFIX_ASSIGN, DELIM_QUOTED_STRING, NAMESPACE_NAME_SEPARATOR,
+    },
+};
 
-// ── Token ─────────────────────────────────────────────────────────────────────
+#[cfg(not(feature = "std"))]
+use alloc::{borrow::ToOwned, format, string::String, vec::Vec};
+
+// ------------------------------------------------------------------------------------------------
+// Crate Public Types
+// ------------------------------------------------------------------------------------------------
 
 #[derive(Clone, Debug, PartialEq)]
 pub(crate) enum TokenKind {
@@ -39,8 +55,6 @@ pub(crate) struct Token {
     pub span: Span,
 }
 
-// ── Lexer ─────────────────────────────────────────────────────────────────────
-
 pub(crate) struct Lexer {
     chars: Vec<char>,
     pos: usize,
@@ -50,8 +64,12 @@ pub(crate) struct Lexer {
     column: u32,
 }
 
+// ------------------------------------------------------------------------------------------------
+// Implementations
+// ------------------------------------------------------------------------------------------------
+
 impl Lexer {
-    pub fn new(input: &str) -> Self {
+    pub(super) fn new(input: &str) -> Self {
         Self {
             chars: input.chars().collect(),
             pos: 0,
@@ -64,7 +82,11 @@ impl Lexer {
     // ── Position helpers ──────────────────────────────────────────────────────
 
     fn current_position(&self) -> Position {
-        Position { line: self.line, column: self.column, offset: self.byte_offset }
+        Position {
+            line: self.line,
+            column: self.column,
+            offset: self.byte_offset,
+        }
     }
 
     fn peek(&self) -> Option<char> {
@@ -96,12 +118,15 @@ impl Lexer {
     }
 
     fn make_token(&self, kind: TokenKind, start: Position) -> Token {
-        Token { kind, span: Span::new(start, self.current_position()) }
+        Token {
+            kind,
+            span: Span::new(start, self.current_position()),
+        }
     }
 
     // ── Public interface ──────────────────────────────────────────────────────
 
-    pub fn next_token(&mut self) -> Result<Token, ParseError> {
+    pub(super) fn next_token(&mut self) -> Result<Token, ParseError> {
         self.skip_whitespace();
 
         let start = self.current_position();
@@ -112,31 +137,36 @@ impl Lexer {
         };
 
         match ch {
-            '(' => {
+            DELIM_FN_ARGS_START => {
                 self.advance();
                 Ok(self.make_token(TokenKind::LParen, start))
             }
-            ')' => {
+            DELIM_FN_ARGS_END => {
                 self.advance();
                 Ok(self.make_token(TokenKind::RParen, start))
             }
-            '=' => {
+            DELIM_PREFIX_ASSIGN => {
                 self.advance();
                 Ok(self.make_token(TokenKind::Equals, start))
             }
-            '#' => self.lex_comment(start),
-            '<' => self.lex_full_iri(start),
-            '"' => self.lex_quoted_string(start),
-            '@' => self.lex_lang_tag(start),
-            '^' => self.lex_datatype_sep(start),
-            '_' if self.peek2() == Some(':') => self.lex_node_id(start),
-            ':' => {
+            DELIM_COMMENT_START => self.lex_comment(start),
+            DELIM_IRI_START => self.lex_full_iri(start),
+            DELIM_QUOTED_STRING => self.lex_quoted_string(start),
+            DELIM_LITERAL_LANGUAGE => self.lex_lang_tag(start),
+            DELIM_LITERAL_DATATYPE => self.lex_datatype_sep(start),
+            ANONYMOUS_NAMESPACE if self.peek2() == Some(NAMESPACE_NAME_SEPARATOR) => {
+                self.lex_node_id(start)
+            }
+            NAMESPACE_NAME_SEPARATOR => {
                 // Default-prefix bare namespace ":"
                 self.advance(); // consume ':'
                 if self.peek().map_or(false, is_pn_local_start) {
                     let local = self.read_pn_local();
                     Ok(self.make_token(
-                        TokenKind::PrefixedName(PrefixedIriRef { prefix: None, local }),
+                        TokenKind::PrefixedName(PrefixedIriRef {
+                            prefix: None,
+                            local,
+                        }),
                         start,
                     ))
                 } else {
@@ -147,7 +177,10 @@ impl Lexer {
             c if c.is_ascii_digit() => self.lex_integer(start),
             c => {
                 self.advance();
-                Err(ParseError::UnexpectedChar { ch: c, span: Span::at(start) })
+                Err(ParseError::UnexpectedChar {
+                    ch: c,
+                    span: Span::at(start),
+                })
             }
         }
     }
@@ -172,8 +205,12 @@ impl Lexer {
         let mut iri = String::new();
         loop {
             match self.peek() {
-                None => return Err(ParseError::UnclosedString { span: Span::at(start) }),
-                Some('>') => {
+                None => {
+                    return Err(ParseError::UnclosedString {
+                        span: Span::at(start),
+                    });
+                }
+                Some(DELIM_IRI_END) => {
                     self.advance();
                     break;
                 }
@@ -181,7 +218,11 @@ impl Lexer {
                     self.advance();
                     match self.advance() {
                         Some(c) => iri.push(c),
-                        None => return Err(ParseError::UnclosedString { span: Span::at(start) }),
+                        None => {
+                            return Err(ParseError::UnclosedString {
+                                span: Span::at(start),
+                            });
+                        }
                     }
                 }
                 Some(c) => {
@@ -198,8 +239,12 @@ impl Lexer {
         let mut s = String::new();
         loop {
             match self.peek() {
-                None => return Err(ParseError::UnclosedString { span: Span::at(start) }),
-                Some('"') => {
+                None => {
+                    return Err(ParseError::UnclosedString {
+                        span: Span::at(start),
+                    });
+                }
+                Some(DELIM_QUOTED_STRING) => {
                     self.advance();
                     break;
                 }
@@ -207,7 +252,9 @@ impl Lexer {
                     self.advance();
                     let escaped = match self.advance() {
                         None => {
-                            return Err(ParseError::UnclosedString { span: Span::at(start) })
+                            return Err(ParseError::UnclosedString {
+                                span: Span::at(start),
+                            });
                         }
                         Some('n') => '\n',
                         Some('t') => '\t',
@@ -273,11 +320,14 @@ impl Lexer {
     fn lex_datatype_sep(&mut self, start: Position) -> Result<Token, ParseError> {
         self.advance(); // consume first '^'
         match self.peek() {
-            Some('^') => {
+            Some(DELIM_LITERAL_DATATYPE) => {
                 self.advance();
                 Ok(self.make_token(TokenKind::DataTypeSep, start))
             }
-            Some(c) => Err(ParseError::UnexpectedChar { ch: c, span: self.current_span() }),
+            Some(c) => Err(ParseError::UnexpectedChar {
+                ch: c,
+                span: self.current_span(),
+            }),
             None => Err(ParseError::UnexpectedEof { expected: "^" }),
         }
     }
@@ -298,7 +348,7 @@ impl Lexer {
         let name = self.read_name();
 
         match self.peek() {
-            Some(':') => {
+            Some(NAMESPACE_NAME_SEPARATOR) => {
                 self.advance(); // consume ':'
                 // Decide: namespace or prefixed name
                 if self.peek().map_or(false, is_pn_local_start) {
@@ -370,7 +420,9 @@ impl Lexer {
     }
 }
 
-// ── Character classification ──────────────────────────────────────────────────
+// ------------------------------------------------------------------------------------------------
+// Private Functions  ❯ Character classification
+// ------------------------------------------------------------------------------------------------
 
 fn is_name_start(c: char) -> bool {
     c.is_alphabetic() || c == '_'

@@ -1,17 +1,22 @@
 //! This module provides builder types and traits for more complex constructs to make the
 //! process of ontology development more ergonomic.
 //!
+
 use crate::{
     Import, Ontology, OntologyDocument,
-    annotations::{self, Annotation},
+    annotations::Annotation,
     axioms::{
         AnnotationAxiom, Assertion, Axiom, ClassAxiom, DataPropertyAxiom, DatatypeDefinition,
         Declaration, HasKey, ObjectPropertyAxiom,
     },
     error::BuilderError,
+    things::{owl, rdfs, skos},
 };
 use core::cell::RefCell;
 use rdftk_iri::{Iri, IriPrefixMap, Namespace};
+
+#[cfg(not(feature = "std"))]
+use alloc::{string::ToString, vec::Vec};
 
 // ------------------------------------------------------------------------------------------------
 // Implementation Macros
@@ -25,7 +30,7 @@ macro_rules! with_this_annotation {
             Self: Sized,
         {
             self.with_annotation($crate::annotations::Annotation::new(
-                $ann_iri.clone(),
+                $ann_iri,
                 $crate::annotations::AnnotationValue::Literal(value.into()),
             ))
         }
@@ -118,23 +123,23 @@ pub trait AnnotationBuilder {
     ///
     fn with_annotations<I: IntoIterator<Item = Annotation>>(self, annotations: I) -> Self;
 
-    with_this_annotation!(with_rdfs_comment => annotations::ANN_RDFS_COMMENT);
-    with_this_annotation!(with_rdfs_label => annotations::ANN_RDFS_LABEL);
-    with_this_annotation!(with_rdfs_see_also => annotations::ANN_RDFS_SEE_ALSO);
-    with_this_annotation!(with_rdfs_is_defined_by => annotations::ANN_RDFS_IS_DEFINED_BY);
+    with_this_annotation!(with_rdfs_comment => rdfs::comment_iri());
+    with_this_annotation!(with_rdfs_label => rdfs::label_iri());
+    with_this_annotation!(with_rdfs_see_also => rdfs::see_also_iri());
+    with_this_annotation!(with_rdfs_is_defined_by => rdfs::is_defined_by_iri());
 
-    with_this_annotation!(with_owl_deprecated => annotations::ANN_OWL_DEPRECATED);
+    with_this_annotation!(with_owl_deprecated => owl::deprecated_iri());
 
-    with_this_annotation!(with_skos_pref_label => annotations::ANN_SKOS_PREF_LABEL);
-    with_this_annotation!(with_skos_alt_label => annotations::ANN_SKOS_ALT_LABEL);
-    with_this_annotation!(with_skos_hidden_label => annotations::ANN_SKOS_HIDDEN_LABEL);
-    with_this_annotation!(with_skos_note => annotations::ANN_SKOS_NOTE);
-    with_this_annotation!(with_skos_change_note => annotations::ANN_SKOS_CHANGE_NOTE);
-    with_this_annotation!(with_skos_definition => annotations::ANN_SKOS_DEFINITION);
-    with_this_annotation!(with_skos_editorial_note => annotations::ANN_SKOS_EDITORIAL_NOTE);
-    with_this_annotation!(with_skos_example => annotations::ANN_SKOS_EXAMPLE);
-    with_this_annotation!(with_skos_history_note => annotations::ANN_SKOS_HISTORY_NOTE);
-    with_this_annotation!(with_skos_scope_note => annotations::ANN_SKOS_SCOPE_NOTE);
+    with_this_annotation!(with_skos_pref_label => skos::pref_label_iri());
+    with_this_annotation!(with_skos_alt_label => skos::alt_label_iri());
+    with_this_annotation!(with_skos_hidden_label => skos::hidden_label_iri());
+    with_this_annotation!(with_skos_note => skos::note_iri());
+    with_this_annotation!(with_skos_change_note => skos::change_note_iri());
+    with_this_annotation!(with_skos_definition => skos::definition_iri());
+    with_this_annotation!(with_skos_editorial_note => skos::editorial_note_iri());
+    with_this_annotation!(with_skos_example => skos::example_iri());
+    with_this_annotation!(with_skos_history_note => skos::history_note_iri());
+    with_this_annotation!(with_skos_scope_note => skos::scope_note_iri());
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -227,10 +232,10 @@ impl OntologyBuilder {
         self
     }
 
-    with_this_annotation!(pub with_owl_backward_compatible_with => annotations::ANN_OWL_BACKWARD_COMPATIBLE_WITH);
-    with_this_annotation!(pub with_owl_incompatible_with => annotations::ANN_OWL_INCOMPATIBLE_WITH);
-    with_this_annotation!(pub with_owl_prior_version => annotations::ANN_OWL_PRIOR_VERSION);
-    with_this_annotation!(pub with_owl_version_info => annotations::ANN_OWL_VERSION_INFO);
+    with_this_annotation!(pub with_owl_backward_compatible_with => owl::backward_compatible_with_iri());
+    with_this_annotation!(pub with_owl_incompatible_with => owl::incompatible_with_iri());
+    with_this_annotation!(pub with_owl_prior_version => owl::prior_version_iri());
+    with_this_annotation!(pub with_owl_version_info => owl::version_info_iri());
 
     pub fn with_axioms(mut self, axioms: impl IntoIterator<Item = Axiom>) -> Self {
         self.axioms = axioms.into_iter().collect();

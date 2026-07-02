@@ -1,6 +1,12 @@
+//!
 //! Error types for the OWL 2 functional-style syntax reader.
+//!
+
 use crate::reader::ast::Span;
 use thiserror::Error;
+
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 /// A parse error from Stage 1 (lexer / syntactic parser) or Stage 2 (semantic converter).
 #[derive(Debug, Error)]
@@ -17,6 +23,9 @@ pub enum ParseError {
         expected: &'static str,
         span: Span,
     },
+
+    #[error("unexpected node at {span}; node: {got:?}")]
+    UnexpectedNode { got: String, span: Span },
 
     #[error("unclosed string literal starting at {span}")]
     UnclosedString { span: Span },

@@ -2,6 +2,7 @@
 //! This module provides the types to model OWL 2 expressions; object property, data property,
 //! and class expressions.
 //!
+
 use crate::{
     entities::{Class, DataProperty, Individual, ObjectProperty},
     fmt::DisplayPretty,
@@ -10,6 +11,9 @@ use crate::{
     values::UnlimitedNatural,
 };
 use strum::{EnumIs, EnumTryAs};
+
+#[cfg(not(feature = "std"))]
+use alloc::{boxed::Box, vec::Vec};
 
 // ------------------------------------------------------------------------------------------------
 // Public Types ❯ Property Expressions
@@ -375,6 +379,15 @@ pub struct ObjectHasSelf {
 // ------------------------------------------------------------------------------------------------
 
 ///
+/// Implemented by all expressions in Section §8.3
+///
+pub trait ObjectPropertyCardinalityRestriction {
+    fn cardinality(&self) -> UnlimitedNatural;
+    fn object_property_expression(&self) -> &ObjectPropertyExpression;
+    fn class_expression(&self) -> Option<&Box<ClassExpression>>;
+}
+
+///
 /// A minimum cardinality expression $ObjectMinCardinality( n \ OPE \ CE )$ consists of a
 /// nonnegative integer $n$, an object property expression $OPE$, and a class expression
 /// $CE$, and it contains all those individuals that are connected by $OPE$ to at least $n$
@@ -400,7 +413,7 @@ pub struct ObjectMinCardinality {
 }
 
 ///
-/// A maximum cardinality expression $ObjectMaxCardinality( n \ OPE \ CE ) consists of a
+/// A maximum cardinality expression $ObjectMaxCardinality( n \ OPE \ CE )$ consists of a
 /// nonnegative integer $n$, an object property expression $OPE$, and a class expression
 /// $CE$, and it contains all those individuals that are connected by $OPE$ to at most $n$
 /// different individuals that are instances of $CE$.
@@ -425,11 +438,30 @@ pub struct ObjectMaxCardinality {
 }
 
 ///
-/// TBD
+/// An exact cardinality expression $ObjectExactCardinality( n \ OPE \ CE )$ consists of a
+/// nonnegative integer $n$, an object property expression $OPE$, and a class expression $CE$,
+/// and it contains all those individuals that are connected by $OPE$ to exactly $n$ different
+/// individuals that are instances of $CE$.
 ///
-/// ## Specification (Section § -- )
+/// If $CE$ is missing, it is taken to be *owl:Thing*.
+///
+/// Such an expression is actually equivalent to the expression
+///
+/// ```owl
+/// ObjectIntersectionOf(
+///     ObjectMinCardinality( n OPE CE )
+///     ObjectMaxCardinality( n OPE CE )
+/// )
+/// ```
+///
+/// ## Specification (Section §8.3.3 -- Exact Cardinality)
 ///
 /// ```bnf
+/// ObjectExactCardinality :=
+///     'ObjectExactCardinality' '('
+///         nonNegativeInteger ObjectPropertyExpression
+///         [ ClassExpression ]
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -439,29 +471,28 @@ pub struct ObjectExactCardinality {
     class_expression: Option<Box<ClassExpression>>,
 }
 
-///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
-///
-pub trait ObjectCardinalityConstraint {
-    fn cardinality(&self) -> Option<usize>;
-    fn class_expression(&self) -> Option<&ClassExpression>;
-}
-
 // ------------------------------------------------------------------------------------------------
 // Public Types ❯ Class Expressions ❯ Data Property Restrictions
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
+/// An existential class expression $DataSomeValuesFrom( DPE_1 \cdots DPE_n \ DR )$ consists of $n$
+/// data property expressions $DPE_i, 1 \leq i \leq n$, and a data range $DR$ whose arity must be
+/// $n$.
 ///
-/// ## Specification (Section § -- )
+/// Such a class expression contains all those individuals that are connected by $DPE_i$ to literals
+/// $lt_i, 1 \leq i \leq n$, such that the tuple $( lt_1 , \cdots, lt_n )$ is in $DR$. A class
+/// expression of the form $DataSomeValuesFrom( DPE \ DR )$ can be seen as a syntactic shortcut
+/// for the class expression $DataMinCardinality( 1 \ DPE \ DR )$.
+///
+/// ## Specification (Section §8.4.1 -- Existential Quantification)
 ///
 /// ```bnf
+/// DataSomeValuesFrom :=
+///     'DataSomeValuesFrom' '('
+///         DataPropertyExpression { DataPropertyExpression }
+///         DataRange
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -471,11 +502,23 @@ pub struct DataSomeValuesFrom {
 }
 
 ///
-/// TBD
+/// A universal class expression $DataAllValuesFrom( DPE_1 \cdots DPE_n \ DR )$ consists of $n$
+/// data property expressions $DPE_i, 1 \leq i \leq n$, and a data range $DR$ whose arity must be
+/// $n$.
 ///
-/// ## Specification (Section § -- )
+/// Such a class expression contains all those individuals that are connected by $DPE_i$ only
+/// to literals $lt_i, 1 \leq i \leq n$, such that each tuple $( lt_1 , \cdots, lt_n )$ is in $DR$.
+/// A class expression of the form $DataAllValuesFrom( DPE \ DR )$ can be seen as a syntactic
+/// shortcut for the class expression $DataMaxCardinality( 0 \ DPE \ DataComplementOf( DR ) )$.
+///
+/// ## Specification (Section §8.4.2 -- Universal Quantification)
 ///
 /// ```bnf
+/// DataAllValuesFrom :=
+///     'DataAllValuesFrom' '('
+///         DataPropertyExpression { DataPropertyExpression }
+///         DataRange
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -485,11 +528,20 @@ pub struct DataAllValuesFrom {
 }
 
 ///
-/// TBD
+/// A has-value class expression $DataHasValue( DPE \ lt )$ consists of a data property expression
+/// $DPE$ and a literal $lt$, and it contains all those individuals that are connected by $DPE$
+/// to $lt$.
 ///
-/// ## Specification (Section § -- )
+/// Each such class expression can be seen as a syntactic shortcut for the class expression
+/// $DataSomeValuesFrom( DPE \ DataOneOf( lt ) )$.
+///
+/// ## Specification (Section §8.4.3 -- Literal Value Restriction)
 ///
 /// ```bnf
+/// DataHasValue := '
+///     DataHasValue' '('
+///         DataPropertyExpression Literal
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -503,26 +555,34 @@ pub struct DataHasValue {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
+/// Implemented by all expressions in Section §8.5
 ///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
-///
-#[derive(Clone, Debug, PartialEq)]
-pub struct DataMaxCardinality {
-    cardinality: UnlimitedNatural,
-    data_range: Option<DataRange>,
-    data_property_expression: DataPropertyExpression,
+pub trait DataPropertyCardinalityRestriction {
+    fn cardinality(&self) -> UnlimitedNatural;
+    fn data_property_expression(&self) -> &DataPropertyExpression;
+    fn data_range(&self) -> Option<&DataRange>;
 }
 
 ///
-/// TBD
+/// A minimum cardinality expression $DataMinCardinality( n \ DPE \ DR )$ consists of a nonnegative
+/// integer $n$, a data property expression $DPE$, and a unary data range $DR$, and it contains all
+/// those individuals that are connected by $DPE$ to at least n different literals in $DR$.
 ///
-/// ## Specification (Section § -- )
+/// If $DR$ is not present, it is taken to be *rdfs:Literal*.
+///
+/// Note that some datatypes from the OWL 2 datatype map distinguish between equal and identical
+/// data values, and that the semantics of cardinality restrictions in OWL 2 is defined with respect
+/// to the latter. For an example demonstrating the effects such such a definition, please refer to
+/// Section 9.3.6.
+///
+/// ## Specification (Section §8.5.1 -- Minimum Cardinality)
 ///
 /// ```bnf
+/// DataMinCardinality :=
+///     'DataMinCardinality' '('
+///         nonNegativeInteger DataPropertyExpression
+///         [ DataRange ]
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -533,11 +593,54 @@ pub struct DataMinCardinality {
 }
 
 ///
-/// TBD
+/// A maximum cardinality expression $DataMaxCardinality( n \ DPE \ DR )$ consists of a nonnegative
+/// integer $n$, a data property expression $DPE$, and a unary data range $DR$, and it contains all
+/// those individuals that are connected by $DPE$ to at most $n$ different literals in $DR$.
 ///
-/// ## Specification (Section § -- )
+/// If $DR$ is not present, it is taken to be *rdfs:Literal*.
+///
+/// Note that some datatypes from the OWL 2 datatype map distinguish between equal and identical data
+/// values, and that the semantics of cardinality restrictions in OWL 2 is defined with respect to the
+/// latter. For an example demonstrating the effects such such a definition, please refer to
+/// Section 9.3.6.
+///
+/// ## Specification (Section §8.5.2 -- Maximum Cardinality)
 ///
 /// ```bnf
+/// DataMaxCardinality :=
+///     'DataMaxCardinality' '('
+///         nonNegativeInteger DataPropertyExpression
+///         [ DataRange ]
+///     ')'
+/// ```
+///
+#[derive(Clone, Debug, PartialEq)]
+pub struct DataMaxCardinality {
+    cardinality: UnlimitedNatural,
+    data_range: Option<DataRange>,
+    data_property_expression: DataPropertyExpression,
+}
+
+///
+/// An exact cardinality expression $DataExactCardinality( n \ DPE \ DR )$ consists of a nonnegative
+/// integer $n$, a data property expression $DPE$, and a unary data range $DR$, and it contains all
+/// those individuals that are connected by $DPE$ to exactly $n$ different literals in $DR$.
+///
+/// If $DR$  is not present, it is taken to be *rdfs:Literal*.
+///
+/// Note that some datatypes from the OWL 2 datatype map distinguish between equal and identical data
+/// values, and that the semantics of cardinality restrictions in OWL 2 is defined with respect to the
+/// latter. For an example demonstrating the effects such such a definition, please refer to
+/// Section 9.3.6.
+///
+/// ## Specification (Section §8.5.3 -- Exact Cardinality)
+///
+/// ```bnf
+/// DataExactCardinality :=
+///     'DataExactCardinality' '('
+///         nonNegativeInteger DataPropertyExpression
+///         [ DataRange ]
+///     ')'
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -545,20 +648,6 @@ pub struct DataExactCardinality {
     cardinality: UnlimitedNatural,
     data_range: Option<DataRange>,
     data_property_expression: DataPropertyExpression,
-}
-
-///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
-///
-pub trait DataCardinalityConstraint {
-    fn cardinality(&self) -> UnlimitedNatural;
-    fn data_range(&self) -> Option<&DataRange>;
-    fn data_property_expression(&self) -> &DataPropertyExpression;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -639,7 +728,9 @@ impl_display_pretty!(ObjectIntersectionOf( @list class_expressions ));
 
 impl ObjectIntersectionOf {
     pub fn new<I: IntoIterator<Item = ClassExpression>>(expressions: I) -> Self {
-        Self { class_expressions: expressions.into_iter().collect() }
+        Self {
+            class_expressions: expressions.into_iter().collect(),
+        }
     }
 
     pub fn class_expressions(&self) -> impl Iterator<Item = &ClassExpression> {
@@ -653,7 +744,9 @@ impl_display_pretty!(ObjectUnionOf( @list class_expressions ));
 
 impl ObjectUnionOf {
     pub fn new<I: IntoIterator<Item = ClassExpression>>(expressions: I) -> Self {
-        Self { class_expressions: expressions.into_iter().collect() }
+        Self {
+            class_expressions: expressions.into_iter().collect(),
+        }
     }
 
     pub fn class_expressions(&self) -> impl Iterator<Item = &ClassExpression> {
@@ -667,7 +760,9 @@ impl_display_pretty!(ObjectComplementOf(class_expression));
 
 impl ObjectComplementOf {
     pub fn new(class_expression: ClassExpression) -> Self {
-        Self { class_expression: Box::new(class_expression) }
+        Self {
+            class_expression: Box::new(class_expression),
+        }
     }
 
     pub fn class_expression(&self) -> &ClassExpression {
@@ -681,7 +776,9 @@ impl_display_pretty!(ObjectOneOf( @list individuals ));
 
 impl ObjectOneOf {
     pub fn new<I: IntoIterator<Item = Individual>>(individuals: I) -> Self {
-        Self { individuals: individuals.into_iter().collect() }
+        Self {
+            individuals: individuals.into_iter().collect(),
+        }
     }
 
     pub fn individuals(&self) -> impl Iterator<Item = &Individual> {
@@ -700,7 +797,10 @@ impl_display_pretty!(ObjectSomeValuesFrom(
 
 impl ObjectSomeValuesFrom {
     pub fn new(ope: ObjectPropertyExpression, ce: ClassExpression) -> Self {
-        Self { object_property_expression: ope, class_expression: Box::new(ce) }
+        Self {
+            object_property_expression: ope,
+            class_expression: Box::new(ce),
+        }
     }
 
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
@@ -721,7 +821,10 @@ impl_display_pretty!(ObjectAllValuesFrom(
 
 impl ObjectAllValuesFrom {
     pub fn new(ope: ObjectPropertyExpression, ce: ClassExpression) -> Self {
-        Self { object_property_expression: ope, class_expression: Box::new(ce) }
+        Self {
+            object_property_expression: ope,
+            class_expression: Box::new(ce),
+        }
     }
 
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
@@ -739,7 +842,10 @@ impl_display_pretty!(ObjectHasValue(object_property_expression, individual));
 
 impl ObjectHasValue {
     pub fn new(ope: ObjectPropertyExpression, individual: Individual) -> Self {
-        Self { object_property_expression: ope, individual }
+        Self {
+            object_property_expression: ope,
+            individual,
+        }
     }
 
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
@@ -757,7 +863,9 @@ impl_display_pretty!(ObjectHasSelf(object_property_expression));
 
 impl ObjectHasSelf {
     pub fn new(ope: ObjectPropertyExpression) -> Self {
-        Self { object_property_expression: ope }
+        Self {
+            object_property_expression: ope,
+        }
     }
 
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
@@ -771,6 +879,20 @@ impl ObjectHasSelf {
 
 impl_display_pretty!(ObjectMinCardinality( @display cardinality, object_property_expression, @optional class_expression ));
 
+impl ObjectPropertyCardinalityRestriction for ObjectMinCardinality {
+    fn cardinality(&self) -> UnlimitedNatural {
+        self.cardinality
+    }
+
+    fn object_property_expression(&self) -> &ObjectPropertyExpression {
+        &self.object_property_expression
+    }
+
+    fn class_expression(&self) -> Option<&Box<ClassExpression>> {
+        self.class_expression.as_ref()
+    }
+}
+
 impl ObjectMinCardinality {
     pub fn new(
         cardinality: u32,
@@ -783,23 +905,25 @@ impl ObjectMinCardinality {
             class_expression: class_expression.map(Box::new),
         }
     }
-
-    pub fn cardinality(&self) -> UnlimitedNatural {
-        self.cardinality
-    }
-
-    pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
-        &self.object_property_expression
-    }
-
-    pub fn class_expression(&self) -> Option<&Box<ClassExpression>> {
-        self.class_expression.as_ref()
-    }
 }
 
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(ObjectMaxCardinality( @display cardinality, object_property_expression, @optional class_expression ));
+
+impl ObjectPropertyCardinalityRestriction for ObjectMaxCardinality {
+    fn cardinality(&self) -> UnlimitedNatural {
+        self.cardinality
+    }
+
+    fn object_property_expression(&self) -> &ObjectPropertyExpression {
+        &self.object_property_expression
+    }
+
+    fn class_expression(&self) -> Option<&Box<ClassExpression>> {
+        self.class_expression.as_ref()
+    }
+}
 
 impl ObjectMaxCardinality {
     pub fn new(
@@ -813,23 +937,25 @@ impl ObjectMaxCardinality {
             class_expression: class_expression.map(Box::new),
         }
     }
-
-    pub fn cardinality(&self) -> UnlimitedNatural {
-        self.cardinality
-    }
-
-    pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
-        &self.object_property_expression
-    }
-
-    pub fn class_expression(&self) -> Option<&Box<ClassExpression>> {
-        self.class_expression.as_ref()
-    }
 }
 
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(ObjectExactCardinality( @display cardinality, object_property_expression, @optional class_expression ));
+
+impl ObjectPropertyCardinalityRestriction for ObjectExactCardinality {
+    fn cardinality(&self) -> UnlimitedNatural {
+        self.cardinality
+    }
+
+    fn object_property_expression(&self) -> &ObjectPropertyExpression {
+        &self.object_property_expression
+    }
+
+    fn class_expression(&self) -> Option<&Box<ClassExpression>> {
+        self.class_expression.as_ref()
+    }
+}
 
 impl ObjectExactCardinality {
     pub fn new(
@@ -843,18 +969,6 @@ impl ObjectExactCardinality {
             class_expression: class_expression.map(Box::new),
         }
     }
-
-    pub fn cardinality(&self) -> UnlimitedNatural {
-        self.cardinality
-    }
-
-    pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
-        &self.object_property_expression
-    }
-
-    pub fn class_expression(&self) -> Option<&Box<ClassExpression>> {
-        self.class_expression.as_ref()
-    }
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -865,7 +979,10 @@ impl_display_pretty!(DataSomeValuesFrom( @list data_property_expressions, data_r
 
 impl DataSomeValuesFrom {
     pub fn new<I: IntoIterator<Item = DataPropertyExpression>>(dpes: I, dr: DataRange) -> Self {
-        Self { data_property_expressions: dpes.into_iter().collect(), data_range: dr }
+        Self {
+            data_property_expressions: dpes.into_iter().collect(),
+            data_range: dr,
+        }
     }
 
     pub fn data_range(&self) -> &DataRange {
@@ -883,7 +1000,10 @@ impl_display_pretty!(DataAllValuesFrom( @list data_property_expressions, data_ra
 
 impl DataAllValuesFrom {
     pub fn new<I: IntoIterator<Item = DataPropertyExpression>>(dpes: I, dr: DataRange) -> Self {
-        Self { data_property_expressions: dpes.into_iter().collect(), data_range: dr }
+        Self {
+            data_property_expressions: dpes.into_iter().collect(),
+            data_range: dr,
+        }
     }
 
     pub fn data_range(&self) -> &DataRange {
@@ -901,7 +1021,10 @@ impl_display_pretty!(DataHasValue(data_property_expression, literal));
 
 impl DataHasValue {
     pub fn new(dpe: DataPropertyExpression, literal: Literal) -> Self {
-        Self { data_property_expression: dpe, literal }
+        Self {
+            data_property_expression: dpe,
+            literal,
+        }
     }
 
     pub fn literal(&self) -> &Literal {
@@ -921,6 +1044,20 @@ impl_display_pretty!(
     DataMinCardinality( data_property_expression, @optional data_range, @display cardinality )
 );
 
+impl DataPropertyCardinalityRestriction for DataMinCardinality {
+    fn cardinality(&self) -> UnlimitedNatural {
+        self.cardinality
+    }
+
+    fn data_property_expression(&self) -> &DataPropertyExpression {
+        &self.data_property_expression
+    }
+
+    fn data_range(&self) -> Option<&DataRange> {
+        self.data_range.as_ref()
+    }
+}
+
 impl DataMinCardinality {
     pub fn new(n: u32, dpe: DataPropertyExpression, dr: Option<DataRange>) -> Self {
         Self {
@@ -928,18 +1065,6 @@ impl DataMinCardinality {
             data_property_expression: dpe,
             data_range: dr,
         }
-    }
-
-    pub fn cardinality(&self) -> UnlimitedNatural {
-        self.cardinality
-    }
-
-    pub fn data_range(&self) -> Option<&DataRange> {
-        self.data_range.as_ref()
-    }
-
-    pub fn data_property_expression(&self) -> &DataPropertyExpression {
-        &self.data_property_expression
     }
 }
 
@@ -949,6 +1074,20 @@ impl_display_pretty!(
     DataMaxCardinality( data_property_expression, @optional data_range, @display cardinality )
 );
 
+impl DataPropertyCardinalityRestriction for DataMaxCardinality {
+    fn cardinality(&self) -> UnlimitedNatural {
+        self.cardinality
+    }
+
+    fn data_property_expression(&self) -> &DataPropertyExpression {
+        &self.data_property_expression
+    }
+
+    fn data_range(&self) -> Option<&DataRange> {
+        self.data_range.as_ref()
+    }
+}
+
 impl DataMaxCardinality {
     pub fn new(n: u32, dpe: DataPropertyExpression, dr: Option<DataRange>) -> Self {
         Self {
@@ -956,18 +1095,6 @@ impl DataMaxCardinality {
             data_property_expression: dpe,
             data_range: dr,
         }
-    }
-
-    pub fn cardinality(&self) -> UnlimitedNatural {
-        self.cardinality
-    }
-
-    pub fn data_range(&self) -> Option<&DataRange> {
-        self.data_range.as_ref()
-    }
-
-    pub fn data_property_expression(&self) -> &DataPropertyExpression {
-        &self.data_property_expression
     }
 }
 
@@ -977,6 +1104,20 @@ impl_display_pretty!(
     DataExactCardinality( data_property_expression, @optional data_range, @display cardinality )
 );
 
+impl DataPropertyCardinalityRestriction for DataExactCardinality {
+    fn cardinality(&self) -> UnlimitedNatural {
+        self.cardinality
+    }
+
+    fn data_property_expression(&self) -> &DataPropertyExpression {
+        &self.data_property_expression
+    }
+
+    fn data_range(&self) -> Option<&DataRange> {
+        self.data_range.as_ref()
+    }
+}
+
 impl DataExactCardinality {
     pub fn new(n: u32, dpe: DataPropertyExpression, dr: Option<DataRange>) -> Self {
         Self {
@@ -984,17 +1125,5 @@ impl DataExactCardinality {
             data_property_expression: dpe,
             data_range: dr,
         }
-    }
-
-    pub fn cardinality(&self) -> UnlimitedNatural {
-        self.cardinality
-    }
-
-    pub fn data_range(&self) -> Option<&DataRange> {
-        self.data_range.as_ref()
-    }
-
-    pub fn data_property_expression(&self) -> &DataPropertyExpression {
-        &self.data_property_expression
     }
 }

@@ -2,6 +2,7 @@
 //! This module provides all the types corresponding to the axioms in OWL 2, found in sections
 //! 9 and 10.2.
 //!
+
 use crate::{
     annotations::{Annotation, AnnotationValue},
     entities::{AnnotationProperty, AnonymousIndividual, Class, Datatype, Entity, Individual},
@@ -14,6 +15,9 @@ use crate::{
 };
 use rdftk_iri::Iri;
 use strum::{EnumIs, EnumTryAs};
+
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -1278,6 +1282,13 @@ impl Declaration {
         }
     }
 
+    pub fn new_with_annotations(ann: Vec<Annotation>, entity: Entity) -> Self {
+        Self {
+            axiom_annotations: ann,
+            entity,
+        }
+    }
+
     pub fn entity(&self) -> &Entity {
         &self.entity
     }
@@ -1313,6 +1324,18 @@ impl SubClassOf {
     pub fn new(sub_class: ClassExpression, super_class: ClassExpression) -> Self {
         Self {
             axiom_annotations: Default::default(),
+            sub_class_expression: sub_class,
+            super_class_expression: super_class,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        sub_class: ClassExpression,
+        super_class: ClassExpression,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
             sub_class_expression: sub_class,
             super_class_expression: super_class,
         }
@@ -1487,7 +1510,10 @@ impl EquivalentObjectProperties {
         annotations: Vec<Annotation>,
         opes: I,
     ) -> Self {
-        Self { axiom_annotations: annotations, object_property_expressions: opes.into_iter().collect() }
+        Self {
+            axiom_annotations: annotations,
+            object_property_expressions: opes.into_iter().collect(),
+        }
     }
 
     pub fn object_property_expressions(&self) -> impl Iterator<Item = &ObjectPropertyExpression> {
@@ -1516,7 +1542,10 @@ impl DisjointObjectProperties {
         annotations: Vec<Annotation>,
         opes: I,
     ) -> Self {
-        Self { axiom_annotations: annotations, object_property_expressions: opes.into_iter().collect() }
+        Self {
+            axiom_annotations: annotations,
+            object_property_expressions: opes.into_iter().collect(),
+        }
     }
 
     pub fn object_property_expressions(&self) -> impl Iterator<Item = &ObjectPropertyExpression> {
@@ -1572,7 +1601,9 @@ impl_display_pretty!(
 
 impl PropertyExpressionChain {
     pub fn new<I: IntoIterator<Item = ObjectPropertyExpression>>(opes: I) -> Self {
-        Self { object_property_expressions: opes.into_iter().collect() }
+        Self {
+            object_property_expressions: opes.into_iter().collect(),
+        }
     }
 
     pub fn object_property_expressions(&self) -> impl Iterator<Item = &ObjectPropertyExpression> {
@@ -1589,7 +1620,11 @@ impl_has_annotations!(ObjectPropertyDomain, axiom_annotations);
 
 impl ObjectPropertyDomain {
     pub fn new(ope: ObjectPropertyExpression, domain: ClassExpression) -> Self {
-        Self { axiom_annotations: Default::default(), object_property_expression: ope, domain }
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+            domain,
+        }
     }
 
     pub fn new_with_annotations(
@@ -1597,7 +1632,11 @@ impl ObjectPropertyDomain {
         ope: ObjectPropertyExpression,
         domain: ClassExpression,
     ) -> Self {
-        Self { axiom_annotations: annotations, object_property_expression: ope, domain }
+        Self {
+            axiom_annotations: annotations,
+            object_property_expression: ope,
+            domain,
+        }
     }
 
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
@@ -1618,7 +1657,11 @@ impl_has_annotations!(ObjectPropertyRange, axiom_annotations);
 
 impl ObjectPropertyRange {
     pub fn new(ope: ObjectPropertyExpression, range: ClassExpression) -> Self {
-        Self { axiom_annotations: Default::default(), object_property_expression: ope, range }
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+            range,
+        }
     }
 
     pub fn new_with_annotations(
@@ -1626,7 +1669,11 @@ impl ObjectPropertyRange {
         ope: ObjectPropertyExpression,
         range: ClassExpression,
     ) -> Self {
-        Self { axiom_annotations: annotations, object_property_expression: ope, range }
+        Self {
+            axiom_annotations: annotations,
+            object_property_expression: ope,
+            range,
+        }
     }
 
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
@@ -1684,6 +1731,20 @@ impl_display_pretty!(
 impl_has_annotations!(FunctionalObjectProperty, axiom_annotations);
 
 impl FunctionalObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1697,6 +1758,20 @@ impl_display_pretty!(
 impl_has_annotations!(InverseFunctionalObjectProperty, axiom_annotations);
 
 impl InverseFunctionalObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1710,6 +1785,20 @@ impl_display_pretty!(
 impl_has_annotations!(ReflexiveObjectProperty, axiom_annotations);
 
 impl ReflexiveObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1723,6 +1812,20 @@ impl_display_pretty!(
 impl_has_annotations!(IrreflexiveObjectProperty, axiom_annotations);
 
 impl IrreflexiveObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1736,6 +1839,20 @@ impl_display_pretty!(
 impl_has_annotations!(SymmetricObjectProperty, axiom_annotations);
 
 impl SymmetricObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1749,6 +1866,20 @@ impl_display_pretty!(
 impl_has_annotations!(AsymmetricObjectProperty, axiom_annotations);
 
 impl AsymmetricObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1762,6 +1893,20 @@ impl_display_pretty!(
 impl_has_annotations!(TransitiveObjectProperty, axiom_annotations);
 
 impl TransitiveObjectProperty {
+    pub fn new(ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ope: ObjectPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+        }
+    }
+
     pub fn object_property_expression(&self) -> &ObjectPropertyExpression {
         &self.object_property_expression
     }
@@ -1803,6 +1948,28 @@ impl_display_pretty!(
 );
 impl_has_annotations!(SubDataPropertyOf, axiom_annotations);
 
+impl SubDataPropertyOf {
+    pub fn new(sub: DataPropertyExpression, sup: DataPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            sub_data_property_expression: sub,
+            super_data_property_expression: sup,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        sub: DataPropertyExpression,
+        sup: DataPropertyExpression,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            sub_data_property_expression: sub,
+            super_data_property_expression: sup,
+        }
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(
@@ -1811,6 +1978,23 @@ impl_display_pretty!(
 impl_has_annotations!(DisjointDataProperties, axiom_annotations);
 
 impl DisjointDataProperties {
+    pub fn new<I: IntoIterator<Item = DataPropertyExpression>>(dpes: I) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expressions: dpes.into_iter().collect(),
+        }
+    }
+
+    pub fn new_with_annotations<I: IntoIterator<Item = DataPropertyExpression>>(
+        ann: Vec<Annotation>,
+        dpes: I,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expressions: dpes.into_iter().collect(),
+        }
+    }
+
     pub fn data_property_expressions(&self) -> impl Iterator<Item = &DataPropertyExpression> {
         self.data_property_expressions.iter()
     }
@@ -1824,6 +2008,23 @@ impl_display_pretty!(
 impl_has_annotations!(EquivalentDataProperties, axiom_annotations);
 
 impl EquivalentDataProperties {
+    pub fn new<I: IntoIterator<Item = DataPropertyExpression>>(dpes: I) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expressions: dpes.into_iter().collect(),
+        }
+    }
+
+    pub fn new_with_annotations<I: IntoIterator<Item = DataPropertyExpression>>(
+        ann: Vec<Annotation>,
+        dpes: I,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expressions: dpes.into_iter().collect(),
+        }
+    }
+
     pub fn data_property_expressions(&self) -> impl Iterator<Item = &DataPropertyExpression> {
         self.data_property_expressions.iter()
     }
@@ -1836,6 +2037,22 @@ impl_display_pretty!(
 );
 impl_has_annotations!(FunctionalDataProperty, axiom_annotations);
 
+impl FunctionalDataProperty {
+    pub fn new(dpe: DataPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expression: dpe,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, dpe: DataPropertyExpression) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expression: dpe,
+        }
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(
@@ -1843,12 +2060,56 @@ impl_display_pretty!(
 );
 impl_has_annotations!(DataPropertyDomain, axiom_annotations);
 
+impl DataPropertyDomain {
+    pub fn new(dpe: DataPropertyExpression, domain: ClassExpression) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expression: dpe,
+            domain,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        dpe: DataPropertyExpression,
+        domain: ClassExpression,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expression: dpe,
+            domain,
+        }
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(
     DataPropertyRange( @list axiom_annotations, data_property_expression, range )
 );
 impl_has_annotations!(DataPropertyRange, axiom_annotations);
+
+impl DataPropertyRange {
+    pub fn new(dpe: DataPropertyExpression, range: DataRange) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expression: dpe,
+            range,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        dpe: DataPropertyExpression,
+        range: DataRange,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expression: dpe,
+            range,
+        }
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ DatatypeDefinition
@@ -1858,6 +2119,28 @@ impl_display_pretty!(
     DatatypeDefinition( @list axiom_annotations, datatype, data_range )
 );
 impl_has_annotations!(DatatypeDefinition, axiom_annotations);
+
+impl DatatypeDefinition {
+    pub fn new(datatype: Datatype, data_range: DataRange) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            datatype,
+            data_range,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        datatype: Datatype,
+        data_range: DataRange,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            datatype,
+            data_range,
+        }
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ HasKey
@@ -1874,6 +2157,37 @@ impl_display_pretty!(
 impl_has_annotations!(HasKey, axiom_annotations);
 
 impl HasKey {
+    pub fn new<I, J>(ce: ClassExpression, opes: I, dpes: J) -> Self
+    where
+        I: IntoIterator<Item = ObjectPropertyExpression>,
+        J: IntoIterator<Item = DataPropertyExpression>,
+    {
+        Self {
+            axiom_annotations: Default::default(),
+            class_expression: ce,
+            object_property_expressions: opes.into_iter().collect(),
+            data_property_expressions: dpes.into_iter().collect(),
+        }
+    }
+
+    pub fn new_with_annotations<I, J>(
+        ann: Vec<Annotation>,
+        ce: ClassExpression,
+        opes: I,
+        dpes: J,
+    ) -> Self
+    where
+        I: IntoIterator<Item = ObjectPropertyExpression>,
+        J: IntoIterator<Item = DataPropertyExpression>,
+    {
+        Self {
+            axiom_annotations: ann,
+            class_expression: ce,
+            object_property_expressions: opes.into_iter().collect(),
+            data_property_expressions: dpes.into_iter().collect(),
+        }
+    }
+
     pub fn class_expression(&self) -> &ClassExpression {
         &self.class_expression
     }
@@ -1923,6 +2237,23 @@ impl_display_pretty!(SameIndividual( @list axiom_annotations, @list individuals 
 impl_has_annotations!(SameIndividual, axiom_annotations);
 
 impl SameIndividual {
+    pub fn new<I: IntoIterator<Item = Individual>>(individuals: I) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            individuals: individuals.into_iter().collect(),
+        }
+    }
+
+    pub fn new_with_annotations<I: IntoIterator<Item = Individual>>(
+        ann: Vec<Annotation>,
+        individuals: I,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            individuals: individuals.into_iter().collect(),
+        }
+    }
+
     pub fn individuals(&self) -> impl Iterator<Item = &Individual> {
         self.individuals.iter()
     }
@@ -1934,6 +2265,23 @@ impl_display_pretty!(DifferentIndividuals( @list axiom_annotations, @list indivi
 impl_has_annotations!(DifferentIndividuals, axiom_annotations);
 
 impl DifferentIndividuals {
+    pub fn new<I: IntoIterator<Item = Individual>>(individuals: I) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            individuals: individuals.into_iter().collect(),
+        }
+    }
+
+    pub fn new_with_annotations<I: IntoIterator<Item = Individual>>(
+        ann: Vec<Annotation>,
+        individuals: I,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            individuals: individuals.into_iter().collect(),
+        }
+    }
+
     pub fn individuals(&self) -> impl Iterator<Item = &Individual> {
         self.individuals.iter()
     }
@@ -1944,6 +2292,28 @@ impl DifferentIndividuals {
 impl_display_pretty!(ClassAssertion( @list axiom_annotations, individual, class_expression ));
 impl_has_annotations!(ClassAssertion, axiom_annotations);
 
+impl ClassAssertion {
+    pub fn new(ce: ClassExpression, individual: Individual) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            class_expression: ce,
+            individual,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        ce: ClassExpression,
+        individual: Individual,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            class_expression: ce,
+            individual,
+        }
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(
@@ -1952,6 +2322,31 @@ impl_display_pretty!(
     )
 );
 impl_has_annotations!(ObjectPropertyAssertion, axiom_annotations);
+
+impl ObjectPropertyAssertion {
+    pub fn new(ope: ObjectPropertyExpression, source: Individual, target: Individual) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+            source_individual: source,
+            target_individual: target,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        ope: ObjectPropertyExpression,
+        source: Individual,
+        target: Individual,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+            source_individual: source,
+            target_individual: target,
+        }
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 
@@ -1962,6 +2357,31 @@ impl_display_pretty!(
 );
 impl_has_annotations!(NegativeObjectPropertyAssertion, axiom_annotations);
 
+impl NegativeObjectPropertyAssertion {
+    pub fn new(ope: ObjectPropertyExpression, source: Individual, target: Individual) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            object_property_expression: ope,
+            source_individual: source,
+            target_individual: target,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        ope: ObjectPropertyExpression,
+        source: Individual,
+        target: Individual,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            object_property_expression: ope,
+            source_individual: source,
+            target_individual: target,
+        }
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(
@@ -1971,6 +2391,31 @@ impl_display_pretty!(
 );
 impl_has_annotations!(DataPropertyAssertion, axiom_annotations);
 
+impl DataPropertyAssertion {
+    pub fn new(dpe: DataPropertyExpression, source: Individual, value: Literal) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expression: dpe,
+            source_individual: source,
+            target_value: value,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        dpe: DataPropertyExpression,
+        source: Individual,
+        value: Literal,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expression: dpe,
+            source_individual: source,
+            target_value: value,
+        }
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(
@@ -1979,6 +2424,31 @@ impl_display_pretty!(
     )
 );
 impl_has_annotations!(NegativeDataPropertyAssertion, axiom_annotations);
+
+impl NegativeDataPropertyAssertion {
+    pub fn new(dpe: DataPropertyExpression, source: Individual, value: Literal) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            data_property_expression: dpe,
+            source_individual: source,
+            target_value: value,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        dpe: DataPropertyExpression,
+        source: Individual,
+        value: Literal,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            data_property_expression: dpe,
+            source_individual: source,
+            target_value: value,
+        }
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ AnnotationAxiom
@@ -2013,6 +2483,26 @@ impl_display_pretty!(
 impl_has_annotations!(SubAnnotationOf, axiom_annotations);
 
 impl SubAnnotationOf {
+    pub fn new(sub: AnnotationProperty, sup: AnnotationProperty) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            sub_annotation_property: sub,
+            super_annotation_property: sup,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        sub: AnnotationProperty,
+        sup: AnnotationProperty,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            sub_annotation_property: sub,
+            super_annotation_property: sup,
+        }
+    }
+
     pub fn sub_annotation_property(&self) -> &AnnotationProperty {
         &self.sub_annotation_property
     }
@@ -2030,6 +2520,22 @@ impl_display_pretty!(
 impl_has_annotations!(AnnotationPropertyDomain, axiom_annotations);
 
 impl AnnotationPropertyDomain {
+    pub fn new(ap: AnnotationProperty, domain: Iri) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            annotation_property: ap,
+            domain,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ap: AnnotationProperty, domain: Iri) -> Self {
+        Self {
+            axiom_annotations: ann,
+            annotation_property: ap,
+            domain,
+        }
+    }
+
     pub fn annotation_property(&self) -> &AnnotationProperty {
         &self.annotation_property
     }
@@ -2047,6 +2553,22 @@ impl_display_pretty!(
 impl_has_annotations!(AnnotationPropertyRange, axiom_annotations);
 
 impl AnnotationPropertyRange {
+    pub fn new(ap: AnnotationProperty, range: Iri) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            annotation_property: ap,
+            range,
+        }
+    }
+
+    pub fn new_with_annotations(ann: Vec<Annotation>, ap: AnnotationProperty, range: Iri) -> Self {
+        Self {
+            axiom_annotations: ann,
+            annotation_property: ap,
+            range,
+        }
+    }
+
     pub fn annotation_property(&self) -> &AnnotationProperty {
         &self.annotation_property
     }
@@ -2066,6 +2588,29 @@ impl_display_pretty!(
 impl_has_annotations!(AnnotationAssertion, axiom_annotations);
 
 impl AnnotationAssertion {
+    pub fn new(ap: AnnotationProperty, subject: AnnotationSubject, value: AnnotationValue) -> Self {
+        Self {
+            axiom_annotations: Default::default(),
+            annotation_property: ap,
+            annotation_subject: subject,
+            annotation_value: value,
+        }
+    }
+
+    pub fn new_with_annotations(
+        ann: Vec<Annotation>,
+        ap: AnnotationProperty,
+        subject: AnnotationSubject,
+        value: AnnotationValue,
+    ) -> Self {
+        Self {
+            axiom_annotations: ann,
+            annotation_property: ap,
+            annotation_subject: subject,
+            annotation_value: value,
+        }
+    }
+
     pub fn annotation_property(&self) -> &AnnotationProperty {
         &self.annotation_property
     }

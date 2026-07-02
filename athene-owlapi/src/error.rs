@@ -7,9 +7,14 @@
 //!
 
 use crate::values::CardinalityConstraintViolation;
-use std::io::Error as IoError;
 use strum::EnumIs;
 use thiserror::Error;
+
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+
+#[cfg(feature = "std")]
+use std::io::Error as IoError;
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -29,6 +34,7 @@ pub enum ApiError {
     #[error("An error occured trying to parse a value into type `{0}`; error: {1}, input: '{2}'")]
     ValueParser(&'static str, String, String),
 
+    #[cfg(feature = "std")]
     #[error("An error occured performing standard I/O; error: {0}")]
     Io(#[from] IoError),
 }
@@ -36,7 +42,7 @@ pub enum ApiError {
 ///
 /// A `Result` type that specifically uses this crate's `Error`.
 ///
-pub type ApiResult<T> = std::result::Result<T, ApiError>;
+pub type ApiResult<T> = core::result::Result<T, ApiError>;
 
 ///
 /// An `Error` type for builder-specific.

@@ -2,6 +2,26 @@
 // Macros ❯ HasAnnotations
 // ------------------------------------------------------------------------------------------------
 
+#[cfg(feature = "std")]
+macro_rules! boxit {
+    (for $( $any:tt )+) => {
+        ::std::boxed::Box$( $any )+
+    };
+    (new ( $value:expr )) => {
+        ::std::boxed::Box::new($value)
+    }
+}
+
+#[cfg(not(feature = "std"))]
+macro_rules! boxit {
+    (for $( $any:tt )+) => {
+        ::alloc::boxed::Box$( $any )+
+    };
+    (new ( $value:expr )) => {
+        ::alloc::boxed::Box::new($value)
+    }
+}
+
 macro_rules! impl_has_annotations {
     ($type_name:ident, $member_name:ident) => {
         impl $crate::annotations::HasAnnotations for $type_name {
@@ -9,14 +29,14 @@ macro_rules! impl_has_annotations {
                 !self.$member_name.is_empty()
             }
 
-            fn annotations(&self) -> Box<dyn Iterator<Item = &$crate::annotations::Annotation> + '_> {
-                Box::new(self.$member_name.iter())
+            fn annotations(&self) -> boxit!(for <dyn Iterator<Item = &$crate::annotations::Annotation> + '_>) {
+                boxit!(new (self.$member_name.iter()))
             }
 
             fn annotations_mut(
                 &mut self,
-            ) -> Box<dyn Iterator<Item = &mut $crate::annotations::Annotation> + '_> {
-                Box::new(self.$member_name.iter_mut())
+            ) -> boxit!(for <dyn Iterator<Item = &mut $crate::annotations::Annotation> + '_>) {
+                boxit!(new(self.$member_name.iter_mut()))
             }
         }
     };
@@ -35,7 +55,7 @@ macro_rules! impl_has_annotations {
                     }
                }
 
-               fn annotations(&self) -> Box<dyn Iterator<Item = &$crate::annotations::Annotation> + '_> {
+               fn annotations(&self) -> boxit!(for <dyn Iterator<Item = &$crate::annotations::Annotation> + '_>) {
                     match self {
                     $(
                         Self::$var_name(v) => v.annotations(),
@@ -45,7 +65,7 @@ macro_rules! impl_has_annotations {
 
                fn annotations_mut(
                    &mut self,
-               ) -> Box<dyn Iterator<Item = &mut $crate::annotations::Annotation> + '_> {
+               ) -> boxit!(for <dyn Iterator<Item = &mut $crate::annotations::Annotation> + '_>) {
                     match self {
                     $(
                         Self::$var_name(v) => v.annotations_mut(),
@@ -199,11 +219,33 @@ macro_rules! impl_from_for_variant {
     ($enum_name:ident, $variant_and_type_name:ident) => {
         impl_from_for_variant!($enum_name, $variant_and_type_name($variant_and_type_name));
     };
+    ($enum_name:ident, $variant_name:ident ( from $from_type_name:ident )) => {
+        impl From<$from_type_name> for $enum_name {
+            fn from(value: $from_type_name) -> Self {
+                Self::$variant_name($variant_name::from(value))
+            }
+        }
+    };
     ($enum_name:ident, $variant_name:ident ( $variant_type_name:ident )) => {
         impl From<$variant_type_name> for $enum_name {
             fn from(value: $variant_type_name) -> Self {
                 Self::$variant_name(value)
             }
+        }
+    };
+}
+
+// ------------------------------------------------------------------------------------------------
+// IRI Constant functions
+// ------------------------------------------------------------------------------------------------
+
+macro_rules! make_iri_function {
+    ($fn_name:ident => $vocab_name:ident : $type_name:ident) => {
+        pub fn $fn_name() -> ::rdftk_iri::Iri {
+            $vocab_name
+                .iri_as_iri()
+                .make_name(::rdftk_iri::Name::new_unchecked(stringify!($type_name)))
+                .unwrap()
         }
     };
 }

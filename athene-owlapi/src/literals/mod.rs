@@ -1,13 +1,21 @@
 //!
 //! This module provides The `Literal` type and a number of conversions and constructors.
 //!
+
 use crate::{
     entities::Datatype,
     fmt::{DisplayPretty, Indenter},
+    syntax::DELIM_LITERAL_DATATYPE,
+    things::{rdf, xsd},
 };
 use core::fmt::{Display, Formatter, Result as FmtResult};
-use rdftk_iri::{Iri, IriPrefixMap, vocab::VOCABULARY_RDF};
-use std::sync::LazyLock;
+use rdftk_iri::{Iri, IriPrefixMap};
+
+#[cfg(not(feature = "std"))]
+use alloc::{
+    format,
+    string::{String, ToString},
+};
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -55,18 +63,9 @@ pub struct Literal {
     plain: bool, // saves IRI comparisons later.
 }
 
-///
-/// The IRI for the `rdf:PlainLiteral` datatype.
-///
-/// This datatype was introduced in it's own specification, [rdf:PlainLiteral: A
-/// Datatype for RDF Plain Literals](https://www.w3.org/TR/rdf-plain-literal/) and
-/// used in OWL 2.
-///
-pub static RDF_PLAIN_LITERAL_IRI: LazyLock<Iri> = LazyLock::new(|| {
-    VOCABULARY_RDF
-        .iri_as_iri()
-        .with_new_fragment("PlainLiteral")
-});
+// ------------------------------------------------------------------------------------------------
+// Public Functions
+// ------------------------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------------------------
 // Implementations Macro
@@ -129,7 +128,11 @@ impl DisplayPretty for Literal {
     fn fmt_pretty(&self, f: &mut Formatter<'_>, _: &Indenter, _: &IriPrefixMap) -> FmtResult {
         write!(f, "{:?}", self.lexical_form)?;
         if !self.plain {
-            write!(f, "^^{}", self.datatype)?;
+            write!(
+                f,
+                "{DELIM_LITERAL_DATATYPE}{DELIM_LITERAL_DATATYPE}{}",
+                self.datatype
+            )?;
         }
         Ok(())
     }
@@ -172,7 +175,7 @@ impl_into_literal!(Iri, anyURI);
 impl Literal {
     pub fn new<S: Into<String>, T: Into<Datatype>>(lexical_form: S, datatype: T) -> Self {
         let datatype = datatype.into();
-        let plain = datatype.entity_iri() == LazyLock::get(&RDF_PLAIN_LITERAL_IRI).unwrap();
+        let plain = datatype.entity_iri() == &rdf::plain_literal_iri();
         Self {
             lexical_form: lexical_form.into(),
             datatype,
@@ -186,7 +189,7 @@ impl Literal {
     pub fn plain<S: Into<String>>(lexical_form: S) -> Self {
         Self {
             lexical_form: lexical_form.into(),
-            datatype: Datatype::new(RDF_PLAIN_LITERAL_IRI.clone()),
+            datatype: Datatype::new(rdf::plain_literal_iri()),
             plain: true,
         }
     }
@@ -197,11 +200,7 @@ impl Literal {
                 .iter()
                 .map(|b| format!("{:02X}", b))
                 .collect::<String>(),
-            datatype: Datatype::new(
-                ::rdftk_iri::vocab::VOCABULARY_XML_SCHEMA
-                    .iri_as_iri()
-                    .with_new_fragment(stringify!("hexBinary")),
-            ),
+            datatype: Datatype::new(xsd::hex_binary()),
             plain: false,
         }
     }

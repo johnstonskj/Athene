@@ -1,70 +1,102 @@
+//!
+//! This module provides certain *value type* required by the OWL 2 specification, namely
+//! [`Natural`] and [`UnlimitedNatural`], and cardinality constraints defined by relationships
+//! in the specification.
+//!
+//! The type `UnlimitedNatural` (which implies `Natural`) is described in the UML diagrams
+//! as the type of the common field `arity` on data ranges. However, as it does not appear
+//! in the grammar there is no representation specified and therefore no syntax for
+//! *unbounded* other than the UML notation adopted by the types herein.
+//!
+//! Both the grammar and UML model make clear the cardinality of relationships through
+//! different notation, `1`, `0..1`, `1..*`, `2..*`, etc. These are captured in
+//! `CardinalityConstraint` instances which can then be used to quickly test collection
+//! types and which will return a `CardinalityConstraintViolation` error if the collection
+//! is out of bounds.
+//!
+
 use crate::{
     error::ApiError,
     fmt::{DisplayPretty, Indenter},
 };
 use core::{
     fmt::{Display, Formatter, Result as FmtResult},
-    ops::Add,
+    ops::{Range, RangeFrom, RangeFull, RangeTo},
     str::FromStr,
 };
 use num_traits::{One, Zero};
 use rdftk_iri::{Iri, IriPrefixMap, IriRef, LocalName, Name, Namespace, PrefixedName};
 use strum::{EnumIs, EnumTryAs};
 
+#[cfg(not(feature = "std"))]
+use alloc::{format, string::ToString, vec::Vec};
+
 // ------------------------------------------------------------------------------------------------
 // Public Types
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
+/// While no upper bound is defined on the natural number in the OWL 2 specification the
+/// choice to limit the number to 128 bits here seems like enough for about most any
+/// reasonable usage.
 ///
 pub type Natural = u128;
 
 ///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
+/// An `UnlimitedNatural` is either unlimited, i.e. can be any value without any constraint
+/// whatsoever, or limited to a specific value.
 ///
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash, EnumIs, EnumTryAs)]
 pub enum UnlimitedNatural {
+    ///
+    /// The value is *unlimited*, or in some circumstances *unknown*.
+    ///
     #[default]
     Unlimited,
+    ///
+    /// The value is limited to the specified `Natural`.
+    ///
     Limited(Natural),
 }
 
 ///
-/// TBD
+/// Represents a constraint on some element's cardinality.
 ///
-/// ## Specification (Section § -- )
+/// Usually this is a collection type and while the collection itself has no bounds
+/// checking this represents the bounds allowed by the specification for the collection
+/// in the context of it's usage.
 ///
-/// ```bnf
-/// ```
-///
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash, EnumIs, EnumTryAs)]
 pub enum CardinalityConstraint {
-    #[default]
-    Unlimited,
-    MinLimited(Natural),
-    MaxLimited(Natural),
-    MinMaxLimited(Natural, Natural),
+    /// Unlimited, there is no upper or lower bounds.
+    Unlimited(RangeFull),
+    /// The lower, or minimum, bound has been set but no upper bound has been set.
+    MinLimited(RangeFrom<Natural>),
+    /// The upper, or maximum, bound has been set but no lower bound has been set.
+    MaxLimited(RangeTo<Natural>),
+    /// The lower, or minimum, bound **and**, the upper, or maximum, bound has been set.
+    MinMaxLimited(Range<Natural>),
+    /// The collection must have **exactly** this number of elements.
     Exactly(Natural),
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+///
+/// A simple enum used by [`CardinalityConstraintViolation`] to denote the cause of
+/// a constraint violation.
+///
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, EnumIs)]
 pub enum CardinalityBound {
+    /// Lower, or Minimum, bound exceeded.
     Min,
+    /// Upper, or Maximum, bound exceeded.
     Max,
+    /// Exact bound not met.
     Exact,
 }
 
+///
+/// An error type used to signal a violation of a [`CardinalityConstraint`].
+///
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct CardinalityConstraintViolation {
     bound: CardinalityBound,
@@ -160,17 +192,6 @@ impl From<u128> for UnlimitedNatural {
     }
 }
 
-impl Add<Natural> for UnlimitedNatural {
-    type Output = Option<Self>;
-
-    fn add(self, rhs: Natural) -> Self::Output {
-        match self {
-            Self::Unlimited => None,
-            Self::Limited(lhs) => Some(Self::Limited(lhs + rhs)),
-        }
-    }
-}
-
 impl UnlimitedNatural {
     #[inline(always)]
     pub fn unbounded() -> Self {
@@ -215,10 +236,10 @@ impl Display for CardinalityConstraint {
             f,
             "{}",
             match self {
-                Self::Unlimited => UNLIMITED_STR.to_string(),
-                Self::MinLimited(v) => format!("{v}{UNLIMITED_MAX_STR}"),
-                Self::MaxLimited(v) => format!("{UNLIMITED_MIN_STR}{v}"),
-                Self::MinMaxLimited(v, k) => format!("{v}{LIMITED_STR}{k}"),
+                Self::Unlimited(_) => UNLIMITED_STR.to_string(),
+                Self::MinLimited(v) => format!("{}{UNLIMITED_MAX_STR}", v.start),
+                Self::MaxLimited(v) => format!("{UNLIMITED_MIN_STR}{}", v.end),
+                Self::MinMaxLimited(v) => format!("{}{LIMITED_STR}{}", v.start, v.end),
                 Self::Exactly(v) => format!("{v}"),
             }
         )
@@ -230,15 +251,19 @@ impl FromStr for CardinalityConstraint {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         if s == "*" {
-            Ok(Self::Unlimited)
+            Ok(Self::Unlimited(RangeFull::default()))
         } else if let Some(bound) = s.strip_suffix(UNLIMITED_MAX_STR) {
-            Ok(Self::MinLimited(u128::from_str(bound).map_err(|e| {
-                ApiError::ValueParser("CardinalityConstraint", e.to_string(), s.to_string())
-            })?))
+            Ok(Self::MinLimited(
+                u128::from_str(bound).map_err(|e| {
+                    ApiError::ValueParser("CardinalityConstraint", e.to_string(), s.to_string())
+                })?..,
+            ))
         } else if let Some(bound) = s.strip_prefix(UNLIMITED_MIN_STR) {
-            Ok(Self::MaxLimited(u128::from_str(bound).map_err(|e| {
-                ApiError::ValueParser("CardinalityConstraint", e.to_string(), s.to_string())
-            })?))
+            Ok(Self::MaxLimited(
+                ..u128::from_str(bound).map_err(|e| {
+                    ApiError::ValueParser("CardinalityConstraint", e.to_string(), s.to_string())
+                })?,
+            ))
         } else {
             let parts = s.split(LIMITED_STR).collect::<Vec<_>>();
             if parts.len() == 1 {
@@ -249,8 +274,7 @@ impl FromStr for CardinalityConstraint {
                 Ok(Self::MinMaxLimited(
                     u128::from_str(s).map_err(|e| {
                         ApiError::ValueParser("CardinalityConstraint", e.to_string(), s.to_string())
-                    })?,
-                    u128::from_str(s).map_err(|e| {
+                    })?..u128::from_str(s).map_err(|e| {
                         ApiError::ValueParser("CardinalityConstraint", e.to_string(), s.to_string())
                     })?,
                 ))
@@ -266,78 +290,86 @@ impl FromStr for CardinalityConstraint {
 }
 
 impl CardinalityConstraint {
+    /// Construct a new, unlimited constraint; this allows **any** number of elements.
     #[inline(always)]
-    pub fn unbounded() -> Self {
-        Self::Unlimited
+    pub fn unlimited() -> Self {
+        Self::Unlimited(RangeFull::default())
     }
 
+    /// Construct a new, zero-limited constraint; this allows **zero** elements.
     #[inline(always)]
     pub fn zero() -> Self {
         Self::Exactly(0)
     }
 
+    /// Construct a new, zero-or-one constraint; this allows optional elements.
     #[inline(always)]
     pub fn zero_or_one() -> Self {
-        Self::MinMaxLimited(0, 1)
+        Self::MinMaxLimited(0..1)
     }
 
+    /// Construct a new, zero-or-more constraint; this allows optionally many elements.
     #[inline(always)]
     pub fn zero_or_more() -> Self {
-        Self::MinLimited(0)
+        Self::MinLimited(0..)
     }
 
+    /// Construct a new, one-limited constraint; this requires an element.
     #[inline(always)]
     pub fn one() -> Self {
         Self::Exactly(1)
     }
 
+    /// Construct a new, one-or-more constraint; this requires one or many elements.
     #[inline(always)]
     pub fn one_or_more() -> Self {
-        Self::MinLimited(1)
+        Self::MinLimited(1..)
     }
 
+    /// Construct a new, two-limited constraint; this requires exactly two elements.
     #[inline(always)]
     pub fn two() -> Self {
         Self::Exactly(2)
     }
 
+    /// Construct a new, two-or-more constraint; this requires two or many elements.
     #[inline(always)]
     pub fn two_or_more() -> Self {
-        Self::MinLimited(2)
+        Self::MinLimited(2..)
     }
 
-    pub fn is_bounded(&self) -> bool {
-        !matches!(self, Self::Unlimited)
+    pub fn assert_valid_length(&self, length: usize) -> Result<(), ApiError> {
+        self.assert_valid(UnlimitedNatural::Limited(length as Natural))
     }
 
-    pub fn validate(&self, value: UnlimitedNatural) -> Result<(), ApiError> {
+    pub fn assert_valid(&self, value: UnlimitedNatural) -> Result<(), ApiError> {
         match self {
-            Self::Unlimited => Ok(()),
+            Self::Unlimited(_) => Ok(()),
             Self::MinLimited(expecting) => {
                 if let UnlimitedNatural::Limited(given) = value
-                    && given >= *expecting
+                    && expecting.contains(&given)
                 {
                     Ok(())
                 } else {
-                    Err(CardinalityConstraintViolation::min_fail(*expecting, value).into())
+                    Err(CardinalityConstraintViolation::min_fail(expecting.start, value).into())
                 }
             }
             Self::MaxLimited(expecting) => {
                 if let UnlimitedNatural::Limited(given) = value
-                    && given <= *expecting
+                    && expecting.contains(&given)
                 {
                     Ok(())
                 } else {
-                    Err(CardinalityConstraintViolation::max_fail(*expecting, value).into())
+                    Err(CardinalityConstraintViolation::max_fail(expecting.end, value).into())
                 }
             }
-            Self::MinMaxLimited(expecting_min, expecting_max) => match value {
+            Self::MinMaxLimited(expecting) => match value {
                 UnlimitedNatural::Unlimited => todo!(),
                 UnlimitedNatural::Limited(given) => {
-                    if given < *expecting_min {
-                        Err(CardinalityConstraintViolation::min_fail(*expecting_min, value).into())
-                    } else if given > *expecting_max {
-                        Err(CardinalityConstraintViolation::max_fail(*expecting_max, value).into())
+                    if given < expecting.start {
+                        Err(CardinalityConstraintViolation::min_fail(expecting.start, value).into())
+                    } else if given > expecting.end {
+                        Err(CardinalityConstraintViolation::max_fail(expecting.end, value).into())
                     } else {
                         Ok(())
                     }
@@ -388,7 +420,7 @@ impl Display for CardinalityConstraintViolation {
     }
 }
 
-impl std::error::Error for CardinalityConstraintViolation {}
+impl core::error::Error for CardinalityConstraintViolation {}
 
 impl CardinalityConstraintViolation {
     #[inline(always)]

@@ -3,6 +3,7 @@
 //!
 //! ![**Figure 6**. Data Ranges in OWL 2](https://www.w3.org/TR/owl2-syntax/C_datarange.gif)
 //!
+
 use crate::{
     entities::Datatype,
     error::ApiError,
@@ -13,6 +14,9 @@ use crate::{
 use core::str::FromStr;
 use rdftk_iri::Iri;
 use strum::{EnumIs, EnumTryAs};
+
+#[cfg(not(feature = "std"))]
+use alloc::{boxed::Box, vec::Vec};
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -227,24 +231,15 @@ pub struct FacetRestriction {
 // ------------------------------------------------------------------------------------------------
 
 ///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
+/// Trait for all `DataRange` types that have an `arity` field, see Section §7 -- Data Ranges.
 ///
 pub trait HasArity {
     fn arity(&self) -> UnlimitedNatural;
 }
 
 ///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
+/// Trait for all `DataRange` types that have a `dataRange` field (with a cardinality
+/// of `1`), see Section §7 -- Data Ranges.
 ///
 pub trait HasDataRange {
     fn data_range(&self) -> &DataRange;
@@ -252,12 +247,8 @@ pub trait HasDataRange {
 }
 
 ///
-/// TBD
-///
-/// ## Specification (Section § -- )
-///
-/// ```bnf
-/// ```
+/// Trait for all `DataRange` types that have a `dataRanges` field (with a cardinality
+/// of `1..*`), see Section §7 -- Data Ranges.
 ///
 pub trait HasDataRanges {
     fn has_data_ranges(&self) -> bool;
@@ -283,6 +274,19 @@ impl_from_for_variant!(DataRange, DataUnionOf);
 impl_from_for_variant!(DataRange, DataOneOf);
 impl_from_for_variant!(DataRange, Datatype);
 impl_from_for_variant!(DataRange, DatatypeRestriction);
+
+impl HasArity for DataRange {
+    fn arity(&self) -> UnlimitedNatural {
+        match self {
+            Self::DataComplementOf(v) => v.arity(),
+            Self::DataIntersectionOf(v) => v.arity(),
+            Self::DataUnionOf(v) => v.arity(),
+            Self::DataOneOf(v) => v.arity(),
+            Self::Datatype(v) => v.arity(),
+            Self::DatatypeRestriction(v) => v.arity(),
+        }
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // Implementation ❯ DataComplementOf

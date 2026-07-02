@@ -35,7 +35,7 @@ licenses:
 > limitations under the License.
 > ```
 
-See the enclosed file [LICENSE-Apache](https://github.com/johnstonskj/rust-zsh-plugin/blob/main/LICENSE-Apache).
+See the enclosed file [LICENSE-Apache](https://github.com/johnstonskj/Athene/blob/main/LICENSE-Apache).
 
 ### MIT
 
@@ -60,4 +60,4 @@ See the enclosed file [LICENSE-Apache](https://github.com/johnstonskj/rust-zsh-p
 > SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 > ```
 
-See the enclosed file [LICENSE-MIT](https://github.com/johnstonskj/rust-zsh-plugin/blob/main/LICENSE-MIT).
+See the enclosed file [LICENSE-MIT](https://github.com/johnstonskj/Athene/blob/main/LICENSE-MIT).

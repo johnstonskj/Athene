@@ -11,12 +11,13 @@
 //! the use of annotations is left to the applications that use OWL 2. For example, a
 //! graphical user interface might choose to visualize a class using one of its labels.
 //!
+
 use crate::{entities::AnonymousIndividual, fmt::DisplayPretty, literals::Literal};
-use rdftk_iri::{
-    Iri,
-    vocab::{VOCABULARY_OWL, VOCABULARY_RDF_SCHEMA, VOCABULARY_SKOS},
-};
+use rdftk_iri::{Iri, Name};
 use strum::{EnumIs, EnumTryAs};
+
+#[cfg(not(feature = "std"))]
+use alloc::{boxed::Box, string::String, vec::Vec};
 
 // ------------------------------------------------------------------------------------------------
 // Public Types
@@ -30,7 +31,10 @@ use strum::{EnumIs, EnumTryAs};
 /// ## Specification (Section §10.1 -- Annotations of Ontologies, Axioms, and other Annotations)
 ///
 /// ```bnf
-/// Annotation := 'Annotation' '(' annotationAnnotations AnnotationProperty AnnotationValue ')'
+/// Annotation :=
+///     'Annotation' '('
+///         annotationAnnotations AnnotationProperty AnnotationValue
+///     ')'
 ///
 /// annotationAnnotations  := { Annotation }
 ///
@@ -41,7 +45,7 @@ use strum::{EnumIs, EnumTryAs};
 pub struct Annotation {
     property: Iri,
     value: AnnotationValue,
-    annotations: Vec<Annotation>,
+    annotations: Vec<Annotation>, //0..*
 }
 
 ///
@@ -50,7 +54,8 @@ pub struct Annotation {
 /// ## Specification (Section §10.1 -- Annotations of Ontologies, Axioms, and other Annotations)
 ///
 /// ```bnf
-/// AnnotationValue := AnonymousIndividual | IRI | Literal
+/// AnnotationValue :=
+///     AnonymousIndividual | IRI | Literal
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq, EnumIs, EnumTryAs)]
@@ -59,43 +64,6 @@ pub enum AnnotationValue {
     Literal(Literal),
     AnonymousIndividual(AnonymousIndividual),
 }
-
-// ------------------------------------------------------------------------------------------------
-// Public Constants
-// ------------------------------------------------------------------------------------------------
-
-macro_rules! make_static_annotation_iri {
-    ($name:ident => $vocab_name:ident : $type_name:ident) => {
-        #[doc = "Constant IRI for common annotation property."]
-        pub static $name: ::std::sync::LazyLock<Iri> = ::std::sync::LazyLock::new(|| {
-            $vocab_name
-                .iri_as_iri()
-                .with_new_fragment(stringify!($type_name))
-        });
-    };
-}
-
-make_static_annotation_iri!(ANN_RDFS_COMMENT => VOCABULARY_RDF_SCHEMA:comment);
-make_static_annotation_iri!(ANN_RDFS_IS_DEFINED_BY => VOCABULARY_RDF_SCHEMA:isDefinedBy);
-make_static_annotation_iri!(ANN_RDFS_LABEL => VOCABULARY_RDF_SCHEMA:label);
-make_static_annotation_iri!(ANN_RDFS_SEE_ALSO => VOCABULARY_RDF_SCHEMA:seeAlso);
-
-make_static_annotation_iri!(ANN_OWL_DEPRECATED => VOCABULARY_OWL:deprecated);
-make_static_annotation_iri!(ANN_OWL_BACKWARD_COMPATIBLE_WITH => VOCABULARY_OWL:deprecated);
-make_static_annotation_iri!(ANN_OWL_INCOMPATIBLE_WITH => VOCABULARY_OWL:incompatibleWith);
-make_static_annotation_iri!(ANN_OWL_PRIOR_VERSION => VOCABULARY_OWL:priorVersion);
-make_static_annotation_iri!(ANN_OWL_VERSION_INFO => VOCABULARY_OWL:versionInfo);
-
-make_static_annotation_iri!(ANN_SKOS_ALT_LABEL => VOCABULARY_SKOS:altLabel);
-make_static_annotation_iri!(ANN_SKOS_PREF_LABEL => VOCABULARY_SKOS:prefLabel);
-make_static_annotation_iri!(ANN_SKOS_HIDDEN_LABEL => VOCABULARY_SKOS:hiddenLabel);
-make_static_annotation_iri!(ANN_SKOS_NOTE => VOCABULARY_SKOS:note);
-make_static_annotation_iri!(ANN_SKOS_CHANGE_NOTE => VOCABULARY_SKOS:changeNote);
-make_static_annotation_iri!(ANN_SKOS_EDITORIAL_NOTE => VOCABULARY_SKOS:editorialNote);
-make_static_annotation_iri!(ANN_SKOS_HISTORY_NOTE => VOCABULARY_SKOS:historyNote);
-make_static_annotation_iri!(ANN_SKOS_SCOPE_NOTE => VOCABULARY_SKOS:scopeNote);
-make_static_annotation_iri!(ANN_SKOS_DEFINITION => VOCABULARY_SKOS:definition);
-make_static_annotation_iri!(ANN_SKOS_EXAMPLE => VOCABULARY_SKOS:example);
 
 // ------------------------------------------------------------------------------------------------
 // Public Types ❯ Traits
@@ -116,19 +84,18 @@ impl_has_annotations!(Annotation);
 
 impl Annotation {
     pub fn new(property: Iri, value: AnnotationValue) -> Self {
+        Self::new_with_annotations(property, value, Vec::default())
+    }
+
+    pub fn new_with_annotations<I>(property: Iri, value: AnnotationValue, annotations: I) -> Self
+    where
+        I: IntoIterator<Item = Annotation>,
+    {
         Self {
             property,
             value,
-            annotations: Default::default(),
+            annotations: annotations.into_iter().collect(),
         }
-    }
-
-    pub fn new_with_annotations(
-        property: Iri,
-        value: AnnotationValue,
-        annotations: Vec<Annotation>,
-    ) -> Self {
-        Self { property, value, annotations }
     }
 
     pub fn property(&self) -> &Iri {
@@ -145,3 +112,9 @@ impl Annotation {
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(AnnotationValue enum Iri, Literal, AnonymousIndividual);
+
+impl_from_for_variant!(AnnotationValue, Iri);
+impl_from_for_variant!(AnnotationValue, Literal);
+impl_from_for_variant!(AnnotationValue, Literal(from String));
+impl_from_for_variant!(AnnotationValue, AnonymousIndividual);
+impl_from_for_variant!(AnnotationValue, AnonymousIndividual(from Name));
