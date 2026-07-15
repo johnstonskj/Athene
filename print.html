@@ -197,6 +197,179 @@
 <p><img src="introduction/./Athene-cunicularia.jpg" alt="Athene cunicularia" /></p>
 <p><span class="figure caption">Athene cunicularia -- Burrowing Owl</span></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cli-tools"><a class="header" href="#cli-tools">CLI Tools</a></h1>
+<p><img src="cli/./Strix-varia-005.jpg" alt="Nocturn" /></p>
+<p><span class="figure caption">Strix Varia -- Barred Owl</span></p>
+<!-- Wikipedia 2026-07-13 -->
+<p>The primary command-line tool is named <code>hoot</code> and</p>
+<blockquote>
+<p><em>The barred owl, also known as the northern barred owl, striped owl or, more
+informally, hoot owl or eight-hooter owl, is a North American large species
+of owl. A member of the true owl family, Strigidae, they belong to the genus</em>
+Strix, <em>which is also the origin of the family's name under Linnaean
+taxonomy.</em> -- <a href="https://en.wikipedia.org/wiki/Barred_owl">Wikipedia</a></p>
+</blockquote>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<h2 id="basic-usage"><a class="header" href="#basic-usage">Basic Usage</a></h2>
+<pre><code class="language-bash">❯ hoot --help
+Hoot: the quick tool for OWL(s)
+
+Usage: hoot [OPTIONS] &lt;COMMAND&gt;
+
+Commands:
+  check        Check one or more OWL documents for syntax correctness
+  statistics   Compute statistics for the Ontology in an OWL document
+  describe     Describe an OWL function
+  completions  Generate command completions for a number of shells
+  help         Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose...    Increase logging verbosity by one level per occurance
+      --quiet...      Decrease logging verbosity by one level per occurance
+      --color &lt;WHEN&gt;  Controls when to use color [default: auto] [possible values: auto, always, never]
+  -h, --help          Print help
+</code></pre>
+<h3 id="help"><a class="header" href="#help">Help</a></h3>
+<h3 id="completions"><a class="header" href="#completions">Completions</a></h3>
+<pre><code class="language-bash">❯ hoot completions ( bash | elvish | fish | powershell | zsh )
+</code></pre>
+<h3 id="common-arguments"><a class="header" href="#common-arguments">Common Arguments</a></h3>
+<ul>
+<li><code>verbose</code> (-v); increase logging verbosity by one level per occurance.</li>
+<li><code>quiet</code>; decrease logging verbosity by one level per occurance.</li>
+<li><code>color</code><em><code>when</code></em>; controls when to use color; possible values: auto (default), always, never.</li>
+<li><code>help</code> (-h); print help.</li>
+</ul>
+<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
+<ul>
+<li><a href="cli/./check/index.html">Check</a></li>
+<li><a href="cli/./describe/index.html">Describe</a></li>
+<li><a href="cli/./stats/index.html">Statistics</a></li>
+<li><a href="cli/./document/index.html">Document</a></li>
+<li><a href="cli/./draw/index.html">Draw</a></li>
+<li>Help -- See above.</li>
+<li>Completions -- See above.</li>
+<li>External commands -- See below.</li>
+</ul>
+<h3 id="external-commands"><a class="header" href="#external-commands">External Commands</a></h3>
+<p>TBD</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="check"><a class="header" href="#check">Check</a></h1>
+<pre><code class="language-bash">❯ hoot check --help
+Check one or more OWL documents for syntax correctness
+
+Usage: hoot check [OPTIONS] [DOCUMENTS]...
+
+Arguments:
+  [DOCUMENTS]...  One or more documents to check
+
+Options:
+  -d &lt;IMPORT_DEPTH&gt;   If non-zero, process imported ontologies transitively to this depth [default: 0]
+  -v, --verbose...    Increase logging verbosity by one level per occurance
+      --quiet...      Decrease logging verbosity by one level per occurance
+      --color &lt;WHEN&gt;  Controls when to use color [default: auto] [possible values: auto, always, never]
+  -h, --help          Print help
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="describe"><a class="header" href="#describe">Describe</a></h1>
+<pre><code class="language-bash">❯ hoot describe --help
+Describe an OWL function
+
+Usage: hoot describe [OPTIONS] &lt;FUNCTION_NAME&gt;
+
+Arguments:
+  &lt;FUNCTION_NAME&gt;  The name of the function to describe
+
+Options:
+      --no-render              If true this will display the raw markdown without using the built-in renderer.
+  -v, --verbose...             Increase logging verbosity by one level per occurance
+      --quiet...               Decrease logging verbosity by one level per occurance
+  -s, --skin-file &lt;SKIN_FILE&gt;  Name of a JSON file containing a termimad serialized skin file [env: TERMIMAD_SKIN_FILE=]
+      --color &lt;WHEN&gt;           Controls when to use color [default: auto] [possible values: auto, always, never]
+  -h, --help                   Print help
+</code></pre>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<pre><code class="language-bash">❯ hoot describe Annotation
+
+# Function Annotation (Section §10.1)
+
+**Summary.** OWL 2 applications often need ways to associate additional information 
+with ontologies, entities, and axioms. To this end, OWL 2 provides for annotations
+on ontologies, axioms, and entities.
+
+## Syntax
+
+~~~bnf
+Annotation :=                                                    
+    'Annotation' '('                                             
+        annotationAnnotations AnnotationProperty AnnotationValue 
+    ')'                                                          
+                                                                 
+annotationAnnotations  := { Annotation }                         
+AnnotationValue := AnonymousIndividual | IRI | Literal           
+~~~
+
+## Description
+
+Ontologies, axioms, and annotations themselves can be annotated using annotations.
+Such annotations consist of an annotation property and an annotation value, where
+the latter can be anonymous individuals, IRIs, and literals.
+
+## See Also
+
+**AnnotationProperty**
+
+## Source
+
+Content from [OWL 2 Web Ontology Language Structural Specification and 
+Functional-Style Syntax (Second Edition)](https://www.w3.org/TR/owl2-syntax/).
+
+Copyright © 2012 W3C® (MIT, ERCIM, Keio), All Rights Reserved. W3C liability, 
+trademark and document use rules apply.
+</code></pre>
+<h2 id="no-render-option"><a class="header" href="#no-render-option">No-Render Option</a></h2>
+<p>TBD</p>
+<h2 id="skin-file-option"><a class="header" href="#skin-file-option">Skin-File Option</a></h2>
+<p>TBD</p>
+<pre><code class="language-json">{
+  "bold": "Yellow Bold",
+  "italic": "Magenta rgb(30, 30, 40) Italic Underlined OverLined",
+  "strikeout": "CrossedOut",
+  "inline_code": "ansi(249) ansi(235) Reverse",
+  "ellipsis": "",
+  "bullet": "⟡ Yellow",
+  "quote": "▐ Yellow Bold",
+  "horizontal_rule": "― ansi(238)",
+  "scrollbar": "▐ ansi(178) ansi(237)",
+  "paragraph": "Magenta center 4 4",
+  "code_block": "ansi(249) ansi(235) 4",
+  "table": "ansi(239) center",
+  "headers": [
+    "ansi(178) ansi(129) Bold Underlined center",
+    "ansi(178) Bold Underlined ",
+    "ansi(254) Underlined ",
+    "ansi(178) Underlined ",
+    "ansi(178) Underlined ",
+    "ansi(178) Underlined ",
+    "ansi(178) Underlined ",
+    "ansi(178) Underlined "
+  ],
+  "table_border_chars": "rounded"
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="statistics"><a class="header" href="#statistics">Statistics</a></h1>
+<pre><code class="language-bash">❯ hoot statistics --help
+Compute statistics for the Ontology in an OWL document
+
+Usage: hoot statistics [OPTIONS] &lt;DOCUMENT&gt;
+
+Arguments:
+  &lt;DOCUMENT&gt;  The documents to load
+
+Options:
+  -d &lt;IMPORT_DEPTH&gt;   If non-zero, process imported ontologies transitively to this depth [default: 0]
+  -v, --verbose...    Increase logging verbosity by one level per occurance
+      --quiet...      Decrease logging verbosity by one level per occurance
+      --color &lt;WHEN&gt;  Controls when to use color [default: auto] [possible values: auto, always, never]
+  -h, --help          Print help
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="document"><a class="header" href="#document">Document</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="draw"><a class="header" href="#draw">Draw</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ui-tools"><a class="header" href="#ui-tools">UI Tools</a></h1>
@@ -226,7 +399,7 @@ these will be non-normative thoughts on tool implementations for supporting
 Nocturn. These may be suggestions on interaction with the visual representation,
 possible ways of scaling to multi-ontology editing, and so on, but may
 provide useful insights beyond the language definition itself.</p>
-<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<h2 id="example-1"><a class="header" href="#example-1">Example</a></h2>
 <p>The following is a simple model showing three classes, <code>Person</code>, <code>Employee</code>,
 and <code>Organization</code> along with a new datatype <code>Identifier</code>. Through the rest of
 this book, we will use the smaller, green, italic, type to indicate the
@@ -974,9 +1147,13 @@ but the edge target <strong>must</strong> be be another AnnotationProperty node.
 <h2 id="edges"><a class="header" href="#edges">Edges</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><!-- markdownlint-disable-file MD033 -->
 <h1 id="appendix-owl-api-for-rust"><a class="header" href="#appendix-owl-api-for-rust">Appendix: OWL API for Rust</a></h1>
-<p>The <a href="appendix/owlapi/"><code>athene-owlapi</code></a> package is a Rust OWL API that provides an implementation
-as close as possible to the <em>OWL 2 Web Ontology Language
+<p>The <a href="https://crates.io/crates/athene-owlapi"><code>athene-owlapi</code></a> package is a Rust
+OWL API that provides an implementation as close as possible to the <em>OWL 2 Web
+Ontology Language
 <a href="https://www.w3.org/TR/owl2-syntax/">Structural Specification</a></em>.</p>
+<p><img src="appendix/owlapi/./Coruja-listrada_(Strix_hylophila)_no_Parque_Estadual_Intervales.jpg" alt="The Rusty-Barred Owl: Strix hylophila" /></p>
+<!-- By Nortondefeis - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=49829508 -->
+<p><span class="figure caption">Strix hylophila -- Rusty-Barred Owl (By Nortondefeis - Own work, CC BY-SA 4.0)</span></p>
 <p>As the structural specification relies heavily on an object-oriented model with
 inheritence of key concepts there has had to be a mapping from the modeling in
 the specification to the API herein. That mapping can be describe as follows.</p>
@@ -984,7 +1161,7 @@ the specification to the API herein. That mapping can be describe as follows.</p
 <li>Parent types, which are usually abstract, in the OWL 2 specification are
 present in the API as enumerated types.
 <ol>
-<li>The <code>strum</code> crate provides <code>is_{variant}</code> and <code>trye_as_{variant}</code>
+<li>The <code>strum</code> crate provides <code>is_{variant}</code> and <code>try_as_{variant}</code>
 methods on the enum to access sub-types.</li>
 <li>As all sub-types are distinct each super-type provides implementations
 of <code>From</code> between parent and each child type.</li>
@@ -1001,10 +1178,7 @@ structural specification, rather than writing documentation from scratch we will
 text of the OWL specification. Each section of Rust documentation will have a sub-section
 titled <strong>Specification (Section X.Y)</strong> denoting the source location. Examples in the Rust
 documentation will reference examples in the same section of the source, with the OWL
-/
-<img src="appendix/owlapi/./Coruja-listrada_(Strix_hylophila)_no_Parque_Estadual_Intervales.jpg" alt="The Rusty-Barred Owl: Strix hylophila" /></p>
-<!-- By Nortondefeis - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=49829508 -->
-<p><span class="figure caption">Strix hylophila -- Rusty-Barred Owl (By Nortondefeis - Own work, CC BY-SA 4.0)</span></p>
+functional syntax shown with Rust equivalent when relevant.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="appendix-uml"><a class="header" href="#appendix-uml">Appendix: UML</a></h1>
 <h2 id="ontologies"><a class="header" href="#ontologies">Ontologies</a></h2>
 <p><img src="appendix/uml/./ontology.svg" alt="Ontologies" /></p>

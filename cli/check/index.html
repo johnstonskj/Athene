@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>CLI Tools - Athene - OWL Tools</title>
+        <title>Check - Athene - OWL Tools</title>
 
 
         <!-- Custom HTML head -->
@@ -22,35 +22,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../src/athene.css">
+        <link rel="stylesheet" href="../../src/athene.css">
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex.js";
+            window.path_to_searchindex_js = "../../searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -117,7 +117,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -152,7 +152,7 @@
                     <h1 class="menu-title">Athene - OWL Tools</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/johnstonskj/Athene" title="Git repository" aria-label="Git repository">
@@ -189,72 +189,32 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="cli-tools"><a class="header" href="#cli-tools">CLI Tools</a></h1>
-<p><img src="./Strix-varia-005.jpg" alt="Nocturn" /></p>
-<p><span class="figure caption">Strix Varia -- Barred Owl</span></p>
-<!-- Wikipedia 2026-07-13 -->
-<p>The primary command-line tool is named <code>hoot</code> and</p>
-<blockquote>
-<p><em>The barred owl, also known as the northern barred owl, striped owl or, more
-informally, hoot owl or eight-hooter owl, is a North American large species
-of owl. A member of the true owl family, Strigidae, they belong to the genus</em>
-Strix, <em>which is also the origin of the family's name under Linnaean
-taxonomy.</em> -- <a href="https://en.wikipedia.org/wiki/Barred_owl">Wikipedia</a></p>
-</blockquote>
-<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
-<h2 id="basic-usage"><a class="header" href="#basic-usage">Basic Usage</a></h2>
-<pre><code class="language-bash">❯ hoot --help
-Hoot: the quick tool for OWL(s)
+                        <h1 id="check"><a class="header" href="#check">Check</a></h1>
+<pre><code class="language-bash">❯ hoot check --help
+Check one or more OWL documents for syntax correctness
 
-Usage: hoot [OPTIONS] &lt;COMMAND&gt;
+Usage: hoot check [OPTIONS] [DOCUMENTS]...
 
-Commands:
-  check        Check one or more OWL documents for syntax correctness
-  statistics   Compute statistics for the Ontology in an OWL document
-  describe     Describe an OWL function
-  completions  Generate command completions for a number of shells
-  help         Print this message or the help of the given subcommand(s)
+Arguments:
+  [DOCUMENTS]...  One or more documents to check
 
 Options:
+  -d &lt;IMPORT_DEPTH&gt;   If non-zero, process imported ontologies transitively to this depth [default: 0]
   -v, --verbose...    Increase logging verbosity by one level per occurance
       --quiet...      Decrease logging verbosity by one level per occurance
       --color &lt;WHEN&gt;  Controls when to use color [default: auto] [possible values: auto, always, never]
   -h, --help          Print help
 </code></pre>
-<h3 id="help"><a class="header" href="#help">Help</a></h3>
-<h3 id="completions"><a class="header" href="#completions">Completions</a></h3>
-<pre><code class="language-bash">❯ hoot completions ( bash | elvish | fish | powershell | zsh )
-</code></pre>
-<h3 id="common-arguments"><a class="header" href="#common-arguments">Common Arguments</a></h3>
-<ul>
-<li><code>verbose</code> (-v); increase logging verbosity by one level per occurance.</li>
-<li><code>quiet</code>; decrease logging verbosity by one level per occurance.</li>
-<li><code>color</code><em><code>when</code></em>; controls when to use color; possible values: auto (default), always, never.</li>
-<li><code>help</code> (-h); print help.</li>
-</ul>
-<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
-<ul>
-<li><a href="./check/index.html">Check</a></li>
-<li><a href="./describe/index.html">Describe</a></li>
-<li><a href="./stats/index.html">Statistics</a></li>
-<li><a href="./document/index.html">Document</a></li>
-<li><a href="./draw/index.html">Draw</a></li>
-<li>Help -- See above.</li>
-<li>Completions -- See above.</li>
-<li>External commands -- See below.</li>
-</ul>
-<h3 id="external-commands"><a class="header" href="#external-commands">External Commands</a></h3>
-<p>TBD</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../introduction/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../cli/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../cli/check/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cli/describe/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -264,11 +224,11 @@ Options:
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../introduction/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../cli/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../cli/check/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cli/describe/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -283,13 +243,13 @@ Options:
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
