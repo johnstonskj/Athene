@@ -8,14 +8,21 @@
 //!
 //! 1. Parent types, which are usually abstract, in the OWL 2 specification are present in the
 //!    API as enumerated types.
-//!    1. The `strum` crate provides `is_{variant}` and `trye_as_{variant}` methods on the enum
-//!       to access sub-types.
-//!    2. As all sub-types are distinct each super-type provides implementations of `From`
-//!       between parent and each child type.
+//!    1. The [`strum`](https://crates.io/crates/strum) crate provides `is_{variant}` and
+//!       `try_as_{variant}` methods on the enum to access sub-type variants.
+//!    2. As all sub-types are distinct, each super-type provides implementations of `From`
+//!       between parent and each child type. This also has to be implemented transitively.
+//!    3. API methods taking parent types do so using generics `T: Into<Parent>`.
 //! 2. Attributes present on parent types are pushed down (replicated) on all sub-types; however,
 //!    accessors are present on the enumeration for these attributes.
+//!    1. Where it makes sense, this is then extracted to a trait implemented by all child
+//!       types *and* the parent enumeration.
 //! 3. Constructors, usually `new(...)`, are provided for simple cases such as `Declaration`
 //!    with more complex cases using a builder pattern.
+//!    1. For the simplest cases where a type, say `Declaration`, only contains a single other
+//!       value, in this case an `Entity`, a `From` implementation will be provided.
+//!    2. Addition constructors of the form `new_with_annotations(...)` are provided for those
+//!       types that may be annotated.
 //!
 //! As the primary goal in the design of the package interface is consistency with the OWL 2
 //! structural specification, rather than writing documentation from scratch we will rely on the
@@ -61,8 +68,10 @@ extern crate alloc;
 
 use crate::{
     annotations::Annotation,
-    axioms::Axiom,
-    builders::{OntologyBuilder, OntologyDocumentBuilder},
+    axioms::{
+        AnnotationAxiom, Assertion, Axiom, ClassAxiom, DataPropertyAxiom, DatatypeDefinition,
+        Declaration, HasKey, ObjectPropertyAxiom,
+    },
     fmt::{DisplayPretty, Indenter},
     syntax::{DELIM_FN_ARGS_END, DELIM_FN_ARGS_START, FN_PREFIX},
 };
@@ -115,8 +124,8 @@ mod macros;
 /// ```rust
 /// use athene_owlapi::{
 ///     Ontology, OntologyDocument,
-///     axioms::SubClassOf,
-///     builders::{AnnotationBuilder, Builder},
+///     axioms::classes::SubClassOf,
+///     builders::{AnnotationBuilder, Builder, HasBuilder},
 ///     entities::{Class, EntityTrait},
 ///     things::owl,
 /// };
@@ -124,14 +133,14 @@ mod macros;
 /// use std::str::FromStr;
 ///
 /// let document = OntologyDocument::builder()
-///    .with_default_namespace(Iri::from_str("http://www.example.com/ontology1#").unwrap())
-///    .with_ontology(Ontology::builder()
-///        .with_ontology_iri(Iri::from_str("http://www.example.com/ontology1").unwrap())
-///        .with_direct_import(Iri::from_str("http://www.example.com/ontology2").unwrap())
-///        .with_rdfs_label("An example")
-///        .with_class_axiom(SubClassOf::new(
+///    .default_prefix(Iri::from_str("http://www.example.com/ontology1#").unwrap())
+///    .ontology(Ontology::builder()
+///        .ontology_iri(Iri::from_str("http://www.example.com/ontology1").unwrap())
+///        .import(Iri::from_str("http://www.example.com/ontology2").unwrap())
+///        .rdfs_label("An example")
+///        .axiom(SubClassOf::new(
 ///            Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()),
-///            Class::new(owl::thing_iri()),
+///            Class::new(owl::thing()),
 ///        ))
 ///        .build()
 ///        .expect("could not build Ontology"))
@@ -142,11 +151,12 @@ mod macros;
 #[derive(Clone, Debug, PartialEq)]
 pub struct OntologyDocument {
     prefix_map: RefCell<IriPrefixMap>,
+    reserved_len: usize,
     ontology: Ontology,
 }
 
 ///
-/// An OWL 2 *ontology& is an instance $O$ of the **Ontology** UML class from the structural
+/// An OWL 2 *ontology* is an instance $O$ of the **Ontology** UML class from the structural
 /// specification of OWL 2 shown in Figure 1 that satisfies certain conditions given below.
 ///
 /// The main component of an OWL 2 ontology is its set of axioms, the structure of which is
@@ -190,16 +200,16 @@ pub struct OntologyDocument {
 /// ```
 ///
 /// ```rust
-/// use athene_owlapi::{Ontology, OntologyDocument, builders::Builder};
+/// use athene_owlapi::{Ontology, OntologyDocument, builders::{Builder, HasBuilder}};
 /// use rdftk_iri::Iri;
 /// use std::str::FromStr;
 ///
 /// let document = OntologyDocument::builder()
-///     .with_default_namespace(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
-///     .with_ontology(
+///     .default_prefix(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+///     .ontology(
 ///         Ontology::builder()
-///             .with_ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
-///             .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+///             .ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+///             .import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
 ///             .build()
 ///             .expect("could not build Ontology"))
 ///     .build()
@@ -250,27 +260,6 @@ pub fn reserved_prefix_map() -> IriPrefixMap {
 // Implementations ❯ OntologyDocument
 // ------------------------------------------------------------------------------------------------
 
-impl OntologyDocument {
-    ///
-    /// Returns a new builder object to construct an ontology document.
-    ///
-    pub fn builder() -> OntologyDocumentBuilder {
-        OntologyDocumentBuilder::default()
-    }
-
-    pub fn has_prefix_mappings(&self) -> bool {
-        !self.prefix_map.borrow().is_empty()
-    }
-
-    pub fn prefix_mappings(&self) -> Ref<'_, IriPrefixMap> {
-        self.prefix_map.borrow()
-    }
-
-    pub fn ontology(&self) -> &Ontology {
-        &self.ontology
-    }
-}
-
 impl Display for OntologyDocument {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         self.fmt_pretty(f, &Indenter::default(), &self.prefix_map.borrow())
@@ -319,6 +308,44 @@ impl DisplayPretty for OntologyDocument {
     }
 }
 
+impl OntologyDocument {
+    pub fn has_prefix_mappings(&self) -> bool {
+        !self.prefix_map.borrow().is_empty()
+    }
+
+    pub fn prefix_mappings(&self) -> Ref<'_, IriPrefixMap> {
+        self.prefix_map.borrow()
+    }
+
+    pub fn set_prefix_mappings(&mut self, prefix_mappings: IriPrefixMap) {
+        self.prefix_map = RefCell::new(prefix_mappings);
+    }
+
+    pub fn clear_prefix_mappings(&mut self) {
+        self.prefix_map = RefCell::new(IriPrefixMap::default());
+    }
+
+    pub fn prefix_mapping_count(&self) -> usize {
+        self.prefix_map.borrow().len()
+    }
+
+    pub fn user_prefix_mapping_count(&self) -> usize {
+        self.prefix_map.borrow().len() - self.reserved_len
+    }
+
+    pub fn is_user_prefix_mapping_empty(&self) -> bool {
+        self.user_prefix_mapping_count() == 0
+    }
+
+    pub fn ontology(&self) -> &Ontology {
+        &self.ontology
+    }
+
+    pub fn set_ontology(&mut self, ontology: Ontology) {
+        self.ontology = ontology;
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ Ontology
 // ------------------------------------------------------------------------------------------------
@@ -335,16 +362,20 @@ Ontology(
 impl_has_annotations!(Ontology);
 
 impl Ontology {
-    pub fn builder() -> OntologyBuilder {
-        OntologyBuilder::default()
-    }
-
     pub fn has_ontology_iri(&self) -> bool {
         self.ontology_iri.is_some()
     }
 
     pub fn ontology_iri(&self) -> Option<&Iri> {
         self.ontology_iri.as_ref()
+    }
+
+    pub fn set_ontology_iri(&mut self, ontology_iri: Iri) {
+        self.ontology_iri = Some(ontology_iri);
+    }
+
+    pub fn unset_ontology_iri(&mut self) {
+        self.ontology_iri = None;
     }
 
     pub fn has_version_iri(&self) -> bool {
@@ -355,12 +386,45 @@ impl Ontology {
         self.version_iri.as_ref()
     }
 
+    pub fn set_version_iri(&mut self, version_iri: Iri) {
+        self.version_iri = Some(version_iri);
+    }
+
+    pub fn unset_version_iri(&mut self) {
+        self.version_iri = None;
+    }
+
     pub fn has_direct_imports(&self) -> bool {
         !self.direct_imports.is_empty()
     }
 
+    pub fn direct_import_count(&self) -> usize {
+        self.direct_imports.len()
+    }
+
     pub fn direct_imports(&self) -> impl Iterator<Item = &Import> {
         self.direct_imports.iter()
+    }
+
+    pub fn add_direct_import<I>(&mut self, direct_import: I)
+    where
+        I: Into<Import>,
+    {
+        self.direct_imports.push(direct_import.into());
+    }
+
+    pub fn set_direct_imports<I>(&mut self, direct_imports: I)
+    where
+        I: IntoIterator<Item = Import>,
+    {
+        self.direct_imports = direct_imports.into_iter().collect();
+    }
+
+    pub fn extend_direct_imports<I>(&mut self, direct_imports: I)
+    where
+        I: IntoIterator<Item = Import>,
+    {
+        self.direct_imports.extend(direct_imports);
     }
 
     pub fn has_axioms(&self) -> bool {
@@ -369,6 +433,118 @@ impl Ontology {
 
     pub fn axioms(&self) -> impl Iterator<Item = &Axiom> {
         self.axioms.iter()
+    }
+
+    ///
+    /// A query returning only `Declaration` axioms in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn declarations(&self) -> impl Iterator<Item = &Declaration> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::Declaration(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `ClassAxiom`s in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn classes(&self) -> impl Iterator<Item = &ClassAxiom> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::ClassAxiom(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `ObjectPropertyAxiom`s in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn object_properties(&self) -> impl Iterator<Item = &ObjectPropertyAxiom> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::ObjectPropertyAxiom(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `DataPropertyAxiom`s in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn data_properties(&self) -> impl Iterator<Item = &DataPropertyAxiom> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::DataPropertyAxiom(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `DatatypeDefinition`s in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn datatypes(&self) -> impl Iterator<Item = &DatatypeDefinition> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::DatatypeDefinition(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `HasKey` axioms in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn has_keys(&self) -> impl Iterator<Item = &HasKey> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::HasKey(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `Assertion` axioms in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn assertions(&self) -> impl Iterator<Item = &Assertion> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::Assertion(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
+    }
+
+    ///
+    /// A query returning only `AnnotationAxiom`s in this Ontology.
+    ///
+    #[inline(always)]
+    pub fn annotation_axioms(&self) -> impl Iterator<Item = &AnnotationAxiom> {
+        self.axioms().filter_map(|axiom| {
+            if let Axiom::AnnotationAxiom(axiom) = axiom {
+                Some(axiom)
+            } else {
+                None
+            }
+        })
     }
 }
 
@@ -407,20 +583,19 @@ impl Import {
 // ------------------------------------------------------------------------------------------------
 
 pub mod error;
-pub mod fmt;
 
 pub mod annotations;
 pub mod axioms;
+pub mod builders;
 pub mod entities;
 pub mod expressions;
+pub mod fmt;
 pub mod literals;
 pub mod ranges;
-
-pub mod values;
-
-pub mod builders;
-
 pub mod reader;
 pub mod syntax;
-
 pub mod things;
+pub mod values;
+
+#[cfg(feature = "help")]
+pub mod help;

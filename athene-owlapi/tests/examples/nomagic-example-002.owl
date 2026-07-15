@@ -1,0 +1,7 @@
+ Prefix( : = <http://nomagic.com/ontology/example-case/case-01> )
+ Ontology(<http://nomagic.com/ontology/example-case/case-01>
+ 		Declaration(
+ 				Class(:Person)
+ 		)
+ 		AnnotationAssertion(rdfs:label :Person "Person"@en)
+ )

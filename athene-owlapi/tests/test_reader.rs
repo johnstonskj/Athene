@@ -4,30 +4,37 @@ use athene_owlapi::{axioms::Axiom, reader::parse_str};
 fn wrap(axiom: &str) -> String {
     format!(
         "Prefix(:=<http://example.org/>)\n\
-         Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n\
-         Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\
-         Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n\
-         Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n\
          Ontology(<http://example.org/>\n{axiom}\n)",
     )
 }
 
 fn parse_one(axiom: &str) -> Axiom {
     let input = wrap(axiom);
-    let doc = parse_str(&input).unwrap_or_else(|e| panic!("parse failed: {e}\n---\n{input}"));
-    doc.ontology().axioms().next().cloned().expect("no axiom produced")
+    let doc =
+        parse_str(&input, false).unwrap_or_else(|e| panic!("parse failed: {e}\n---\n{input}"));
+    doc.ontology()
+        .axioms()
+        .next()
+        .cloned()
+        .expect("no axiom produced")
 }
 
 // ── Declarations ──────────────────────────────────────────────────────────────
 
 #[test]
 fn declaration_class() {
-    assert!(matches!(parse_one("Declaration( Class( :MyClass ) )"), Axiom::Declaration(_)));
+    assert!(matches!(
+        parse_one("Declaration( Class( :MyClass ) )"),
+        Axiom::Declaration(_)
+    ));
 }
 
 #[test]
 fn declaration_datatype() {
-    assert!(matches!(parse_one("Declaration( Datatype( :MyDatatype ) )"), Axiom::Declaration(_)));
+    assert!(matches!(
+        parse_one("Declaration( Datatype( :MyDatatype ) )"),
+        Axiom::Declaration(_)
+    ));
 }
 
 #[test]
@@ -40,7 +47,10 @@ fn declaration_object_property() {
 
 #[test]
 fn declaration_data_property() {
-    assert!(matches!(parse_one("Declaration( DataProperty( :myProp ) )"), Axiom::Declaration(_)));
+    assert!(matches!(
+        parse_one("Declaration( DataProperty( :myProp ) )"),
+        Axiom::Declaration(_)
+    ));
 }
 
 #[test]
@@ -63,22 +73,34 @@ fn declaration_named_individual() {
 
 #[test]
 fn sub_class_of() {
-    assert!(matches!(parse_one("SubClassOf( :Child :Parent )"), Axiom::ClassAxiom(_)));
+    assert!(matches!(
+        parse_one("SubClassOf( :Child :Parent )"),
+        Axiom::ClassAxiom(_)
+    ));
 }
 
 #[test]
 fn equivalent_classes() {
-    assert!(matches!(parse_one("EquivalentClasses( :A :B )"), Axiom::ClassAxiom(_)));
+    assert!(matches!(
+        parse_one("EquivalentClasses( :A :B )"),
+        Axiom::ClassAxiom(_)
+    ));
 }
 
 #[test]
 fn disjoint_classes() {
-    assert!(matches!(parse_one("DisjointClasses( :A :B )"), Axiom::ClassAxiom(_)));
+    assert!(matches!(
+        parse_one("DisjointClasses( :A :B )"),
+        Axiom::ClassAxiom(_)
+    ));
 }
 
 #[test]
 fn disjoint_union() {
-    assert!(matches!(parse_one("DisjointUnion( :A :B :C )"), Axiom::ClassAxiom(_)));
+    assert!(matches!(
+        parse_one("DisjointUnion( :A :B :C )"),
+        Axiom::ClassAxiom(_)
+    ));
 }
 
 // ── Object property axioms ────────────────────────────────────────────────────
@@ -199,7 +221,10 @@ fn transitive_object_property() {
 
 #[test]
 fn sub_data_property_of() {
-    assert!(matches!(parse_one("SubDataPropertyOf( :dp1 :dp2 )"), Axiom::DataPropertyAxiom(_)));
+    assert!(matches!(
+        parse_one("SubDataPropertyOf( :dp1 :dp2 )"),
+        Axiom::DataPropertyAxiom(_)
+    ));
 }
 
 #[test]
@@ -285,17 +310,26 @@ fn has_key_only_opes() {
 
 #[test]
 fn same_individual() {
-    assert!(matches!(parse_one("SameIndividual( :alice :bob )"), Axiom::Assertion(_)));
+    assert!(matches!(
+        parse_one("SameIndividual( :alice :bob )"),
+        Axiom::Assertion(_)
+    ));
 }
 
 #[test]
 fn different_individuals() {
-    assert!(matches!(parse_one("DifferentIndividuals( :alice :bob )"), Axiom::Assertion(_)));
+    assert!(matches!(
+        parse_one("DifferentIndividuals( :alice :bob )"),
+        Axiom::Assertion(_)
+    ));
 }
 
 #[test]
 fn class_assertion() {
-    assert!(matches!(parse_one("ClassAssertion( :MyClass :alice )"), Axiom::Assertion(_)));
+    assert!(matches!(
+        parse_one("ClassAssertion( :MyClass :alice )"),
+        Axiom::Assertion(_)
+    ));
 }
 
 #[test]
@@ -539,9 +573,7 @@ fn dr_data_complement_of() {
 #[test]
 fn dr_data_one_of() {
     assert!(matches!(
-        parse_one(
-            "DataPropertyRange( :dp DataOneOf( \"1\"^^xsd:integer \"2\"^^xsd:integer ) )"
-        ),
+        parse_one("DataPropertyRange( :dp DataOneOf( \"1\"^^xsd:integer \"2\"^^xsd:integer ) )"),
         Axiom::DataPropertyAxiom(_)
     ));
 }

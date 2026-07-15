@@ -72,8 +72,6 @@ impl Indenter {
     }
 
     pub fn indent_prefix_string_for(&self, indentation: usize) -> String {
-        core::iter::repeat(INDENTATION_CHAR)
-            .take(indentation)
-            .collect()
+        core::iter::repeat_n(INDENTATION_CHAR, indentation).collect()
     }
 }

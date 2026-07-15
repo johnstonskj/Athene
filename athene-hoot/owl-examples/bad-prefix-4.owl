@@ -1,0 +1,5 @@
+Ontology(
+    <http://example.org/replication-data-factory/Ontology>
+
+    Declaration( Class( ex:Person ) )
+)

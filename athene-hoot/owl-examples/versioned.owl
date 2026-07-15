@@ -1,0 +1,8 @@
+Ontology( <https://example.org/ns/>
+    <https://example.org/ns-v/2026/06/13/>
+
+    Annotation( owl:versionInfo "2026-06-13" )
+    Annotation( owl:backwardCompatibleWith "2026-02-10" )
+    Annotation( owl:incmpatibleWith "2024-10-05" )
+
+)

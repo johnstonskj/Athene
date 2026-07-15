@@ -1,7 +1,7 @@
 use athene_owlapi::{
     Ontology, OntologyDocument,
-    axioms::{Declaration, SubClassOf},
-    builders::{AnnotationBuilder, Builder},
+    axioms::{Declaration, classes::SubClassOf},
+    builders::{AnnotationBuilder, Builder, HasBuilder},
     entities::{Class, EntityTrait},
 };
 use rdftk_iri::Iri;
@@ -10,8 +10,8 @@ use std::str::FromStr;
 #[test]
 fn test_section_3p4_example_ontology() {
     let example = Ontology::builder()
-        .with_ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
-        .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+        .ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
         .build()
         .unwrap();
 
@@ -34,14 +34,14 @@ fn test_section_3p4_example_ontology() {
 #[test]
 fn test_section_3p4_example_ontology_document() {
     let example = Ontology::builder()
-        .with_ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
-        .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+        .ontology_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
         .build()
         .unwrap();
 
     let doc = OntologyDocument::builder()
-        .with_default_namespace(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
-        .with_ontology(example)
+        .default_prefix(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .ontology(example)
         .build()
         .unwrap();
 
@@ -67,10 +67,10 @@ Ontology(
 #[test]
 fn test_section_3p7_example_ontology_document() {
     let example = Ontology::builder()
-        .with_ontology_iri(Iri::from_str("http://www.example.com/ontology1").unwrap())
-        .with_direct_import(Iri::from_str("http://www.example.com/ontology2").unwrap())
-        .with_rdfs_label("An example")
-        .with_class_axiom(SubClassOf::new(
+        .ontology_iri(Iri::from_str("http://www.example.com/ontology1").unwrap())
+        .import(Iri::from_str("http://www.example.com/ontology2").unwrap())
+        .rdfs_label("An example")
+        .class(SubClassOf::new(
             Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()),
             Class::new(Iri::from_str("http://www.w3.org/2002/07/owl#Thing").unwrap()),
         ))
@@ -78,8 +78,8 @@ fn test_section_3p7_example_ontology_document() {
         .unwrap();
 
     let doc = OntologyDocument::builder()
-        .with_default_namespace(Iri::from_str("http://www.example.com/ontology1#").unwrap())
-        .with_ontology(example)
+        .default_prefix(Iri::from_str("http://www.example.com/ontology1#").unwrap())
+        .ontology(example)
         .build()
         .unwrap();
 
@@ -113,8 +113,8 @@ Ontology(
 #[test]
 fn test_ontology_version_without_ontology_iri_error() {
     let result = Ontology::builder()
-        .with_version_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
-        .with_direct_import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
+        .version_iri(Iri::from_str("http://www.example.com/importing-ontology").unwrap())
+        .import(Iri::from_str("http://www.example.com/my/2.0").unwrap())
         .build();
     assert!(result.is_err());
 }
@@ -122,9 +122,9 @@ fn test_ontology_version_without_ontology_iri_error() {
 #[test]
 fn test_simple_ontology_with_declaration() {
     let example = Ontology::builder()
-        .with_ontology_iri(Iri::from_str("http://www.example.com/ex-ontology/").unwrap())
-        .with_declaration(Declaration::new(
-            Class::new(Iri::from_str("http://www.example.com/ex-ontology/Car").unwrap()).into(),
+        .ontology_iri(Iri::from_str("http://www.example.com/ex-ontology/").unwrap())
+        .declaration(Declaration::new(
+            Class::new(Iri::from_str("http://www.example.com/ex-ontology/Car").unwrap()),
         ))
         .build()
         .unwrap();

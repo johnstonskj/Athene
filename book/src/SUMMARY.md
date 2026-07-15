@@ -2,6 +2,9 @@
 
 - [Introduction](./introduction/index.md)
 - [CLI Tools](./cli/index.md)
+  - [Check](./cli/check/index.md)
+  - [Describe](./cli/describe/index.md)
+  - [Statistics](./cli/stats/index.md)
   - [Document](./cli/document/index.md)
   - [Draw](./cli/draw/index.md)
 - [UI Tools](./ui/index.md)

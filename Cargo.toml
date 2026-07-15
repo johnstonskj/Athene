@@ -1,7 +1,7 @@
 [workspace]
 resolver = "3"
 
-members = ["athene-owlapi"]
+members = ["athene-hoot","athene-owlapi"]
 
 [workspace.package]
 edition = "2024"

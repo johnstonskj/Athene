@@ -1,0 +1,11 @@
+Prefix( skos: = <http://www.w3.org/2004/02/skos/core#> )
+
+Ontology( <https://example.org/ns/>
+
+    Import( skos: )
+
+    AnnotationProperty( <https://example.org/ns/disallowedLabel> )
+
+    SubAnnotationPropertyOf( <https://example.org/ns/disallowedLabel> skos:hiddenLabel )
+
+)

@@ -6,7 +6,7 @@
 //! into the `ApiError`.
 //!
 
-use crate::values::CardinalityConstraintViolation;
+use crate::{reader::error::ReaderError, values::CardinalityConstraintViolation};
 use strum::EnumIs;
 use thiserror::Error;
 
@@ -25,30 +25,6 @@ use std::io::Error as IoError;
 ///
 #[derive(Debug, Error, EnumIs)]
 pub enum ApiError {
-    #[error("An error occured in one of the builder objects; error: {0}")]
-    Builder(#[from] BuilderError),
-
-    #[error("A collection cardinality constraint violation occured; error: {0}")]
-    CardinalityConstraintViolation(#[from] CardinalityConstraintViolation),
-
-    #[error("An error occured trying to parse a value into type `{0}`; error: {1}, input: '{2}'")]
-    ValueParser(&'static str, String, String),
-
-    #[cfg(feature = "std")]
-    #[error("An error occured performing standard I/O; error: {0}")]
-    Io(#[from] IoError),
-}
-
-///
-/// A `Result` type that specifically uses this crate's `Error`.
-///
-pub type ApiResult<T> = core::result::Result<T, ApiError>;
-
-///
-/// An `Error` type for builder-specific.
-///
-#[derive(Debug, Error, EnumIs)]
-pub enum BuilderError {
     #[error("The required field named *{name}* is missing")]
     MissingField { name: String },
 
@@ -67,4 +43,22 @@ pub enum BuilderError {
         antecedent: String,
         dependent: String,
     },
+
+    #[error("A collection cardinality constraint violation occured; error: {0}")]
+    CardinalityConstraintViolation(#[from] CardinalityConstraintViolation),
+
+    #[error("An error occured trying to parse an OWL document; error: {0}")]
+    Reader(#[from] ReaderError),
+
+    #[error("An error occured trying to parse a value into type `{0}`; error: {1}, input: '{2}'")]
+    ValueParser(&'static str, String, String),
+
+    #[cfg(feature = "std")]
+    #[error("An error occured performing standard I/O; error: {0}")]
+    Io(#[from] IoError),
 }
+
+///
+/// A `Result` type that specifically uses this crate's `Error`.
+///
+pub type ApiResult<T> = core::result::Result<T, ApiError>;

@@ -1,0 +1,18 @@
+# This is an example ontology, useful to test the hoot CLI.
+
+Ontology(
+    # This is the Ontology's identity IRI
+    <https://example.org/ns/>
+
+    # Declare this IRI as a Class
+    Declaration( Class( <https://example.org/ns/Person> ) )
+    
+    # Declare Alice and Bob as named individuals
+    Declaration( NamedIndividual( <https://example.org/ns/Alice> ) )
+    Declaration( NamedIndividual( <https://example.org/ns/Bob> ) )
+
+    # Now assert that both Alice and Bob are members of the class Person
+    ClassAssertion( <https://example.org/ns/Person> <https://example.org/ns/Alice> )
+    ClassAssertion( <https://example.org/ns/Person> <https://example.org/ns/Bob> )
+)
+# That's it.

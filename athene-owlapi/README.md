@@ -16,10 +16,10 @@ API herein. That mapping can be describe as follows.
 
 1. Parent types, which are usually abstract, in the OWL 2 specification are present in the
    API as enumerated types.
-   1. The `strum` crate provides `is_{variant}` and `trye_as_{variant}` methods on the enum
+   1. The `strum` crate provides `is_{variant}` and `try_as_{variant}` methods on the enum
       to access sub-types.
    2. As all sub-types are distinct each super-type provides implementations of `From`
-      between parent and each child type.
+      between parent and each child type. This also has to be implemented transitively.
 2. Attributes present on parent types are pushed down (replicated) on all sub-types; however,
    accessors are present on the enumeration for these attributes.
 3. Constructors, usually `new(...)`, are provided for simple cases such as `Declaration`
@@ -59,12 +59,12 @@ use rdftk_iri::Iri;
 use std::str::FromStr;
 
 let document = OntologyDocument::builder()
-   .with_default_namespace(Iri::from_str("http://www.example.com/ontology1#").unwrap())
-   .with_ontology(Ontology::builder()
-       .with_ontology_iri(Iri::from_str("http://www.example.com/ontology1").unwrap())
-       .with_direct_import(Iri::from_str("http://www.example.com/ontology2").unwrap())
-       .with_rdfs_label("An example")
-       .with_class_axiom(SubClassOf::new(
+   .default_prefix(Iri::from_str("http://www.example.com/ontology1#").unwrap())
+   .ontology(Ontology::builder()
+       .ontology_iri(Iri::from_str("http://www.example.com/ontology1").unwrap())
+       .import(Iri::from_str("http://www.example.com/ontology2").unwrap())
+       .rdfs_label("An example")
+       .axiom(SubClassOf::new(
            Class::new(Iri::from_str("http://www.example.com/ontology1#Child").unwrap()),
            Class::new(owl::thing_iri()),
        ))
@@ -74,6 +74,44 @@ let document = OntologyDocument::builder()
    .expect("could not build OntologyDocument");
 ```
 
+The library provides an extended form of the `Display` trait, `DisplayPretty` whose output is
+similar to the `Debug` trait. Specifically, if you use the usual display/to_string output
+you will get functional syntax in a single line, as follows.
+
+```rust
+assert_eq!(
+    "Prefix(:=<http://www.example.com/ontology1#>) Ontology( <http://www.example.com/ontology1> Import( <http://www.example.com/ontology2> ) Annotation( rdfs:label "An example" ) SubClassOf( :Child owl:Thing ) )".to_string(),
+    format!("{document}"),
+);
+```
+
+If you use the formatter's alternate flag you get a structured, indented form as shown below.
+This is not an intelligent indendation, it doesn't take into account any optimizations for
+line width or style, it indents all arguments and closing parenthesis.
+
+```rust
+assert_eq!(
+    "Prefix(
+    : = <http://www.example.com/ontology1#>
+)
+Ontology( 
+    <http://www.example.com/ontology1>
+    Import(
+        <http://www.example.com/ontology2>
+    )
+    Annotation(
+        rdfs:label
+        "An example"
+    )
+    SubClassOf(
+        :Child 
+        owl:Thing
+    )
+)".to_string(),
+    format!("{document:#}"),
+);
+```
+
 ## Status
 
 ### API Coverage
@@ -81,6 +119,24 @@ let document = OntologyDocument::builder()
 Currently **all** of the OWL 2 structural specification is covered.
 
 ### Builders/Erognomics
+
+- [X] `OntologyDocument`; completed.
+- [X] `Ontology`; completed.
+- [ ] Annotations; not started.
+- [ ] Axioms
+  - [X] `Declaration`; completed.
+  - [X] Classes; completed.
+  - [ ] Object Properties; in progress.
+  - [ ] Data Properties; not started.
+  - [ ] Datatypes; not started.
+  - [ ] Has Key; not started.
+  - [ ] Assertions; not started.
+  - [ ] Annotations; not started.
+- [X] Entities; not required, just interact directly with IRI.
+- [ ] Expressions; not started.
+- [X] Literals; not required, add more constructors to `Literal` directly.
+- [ ] Ranges; not started.
+- [X] Values; not required.
 
 ### Reader Robustness
 

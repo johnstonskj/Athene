@@ -384,6 +384,7 @@ pub struct ObjectHasSelf {
 pub trait ObjectPropertyCardinalityRestriction {
     fn cardinality(&self) -> UnlimitedNatural;
     fn object_property_expression(&self) -> &ObjectPropertyExpression;
+    #[allow(clippy::borrowed_box)]
     fn class_expression(&self) -> Option<&Box<ClassExpression>>;
 }
 
@@ -656,9 +657,21 @@ pub struct DataExactCardinality {
 
 impl_display_pretty!(ObjectPropertyExpression enum ObjectProperty, InverseObjectProperty);
 
+impl ObjectProperty {
+    pub fn to_inverse(&self) -> InverseObjectProperty {
+        InverseObjectProperty::from(self.clone())
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 
 impl_display_pretty!(InverseObjectProperty(object_property));
+
+impl From<ObjectProperty> for InverseObjectProperty {
+    fn from(object_property: ObjectProperty) -> Self {
+        Self::new(object_property)
+    }
+}
 
 impl InverseObjectProperty {
     pub fn new(object_property: ObjectProperty) -> Self {
@@ -667,6 +680,10 @@ impl InverseObjectProperty {
 
     pub fn object_property(&self) -> &ObjectProperty {
         &self.object_property
+    }
+
+    pub fn to_direct(&self) -> ObjectProperty {
+        self.object_property.clone()
     }
 }
 

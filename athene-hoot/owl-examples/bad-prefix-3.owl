@@ -1,0 +1,4 @@
+Prefix( rdf: = <http://example.org/replication-data-factory/> )
+Ontology(
+    <http://example.org/replication-data-factory/Ontology>
+)

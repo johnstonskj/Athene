@@ -1,0 +1,6 @@
+Ontology(
+    <https://example.org/ns/>
+
+    Declaration( Class( <https://example.org/ns/Person> ) )
+    
+)

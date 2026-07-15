@@ -1,0 +1,11 @@
+Ontology(
+    <https://example.org/ns/>
+
+    Declaration( Class( <https://example.org/ns/Person> ) )
+    
+    Declaration( NamedIndividual( <https://example.org/ns/Alice> ) )
+    Declaration( NamedIndividual( <https://example.org/ns/Bob> ) )
+
+    ClassAssertion( <https://example.org/ns/Person> <https://example.org/ns/Alice> )
+    ClassAssertion( <https://example.org/ns/Person> <https://example.org/ns/Bob> )
+)

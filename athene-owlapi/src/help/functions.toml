@@ -1,0 +1,134 @@
+[functions.Prefix]
+section = "3.7"
+description = "A **prefixDeclaration** production declares a prefix name and associates it with a prefix IRI."
+bnf = """prefixDeclaration := 
+    'Prefix' '(' 
+        prefixName '=' fullIRI 
+    ')'
+
+fullIRI := an IRI as defined in [RFC3987], enclosed in a pair of `<` (U+3C) and `>` (U+3E) characters
+prefixName := a finite sequence of characters matching the as PNAME_NS production of [SPARQL]
+abbreviatedIRI := a finite sequence of characters matching the PNAME_LN production of [SPARQL]
+IRI := fullIRI | abbreviatedIRI"""
+long_description = """Each part of the ontology document matching the **prefixDeclaration** production declares a prefix name and associates it with a prefix IRI. Prefix declarations are used during parsing to expand abbreviated IRIs in the ontology document — that is, parts of the ontology document matching the **abbreviatedIRI** production — into full IRIs. This is done as follows:
+
+* The abbreviated IRI is split into a prefix name *pn:* — the part up to and including the `:` (U+3A) character — and the remaining part *rp* following the `:` (U+3A) character.
+* If *pn:* is not one of the standard prefix names listed in Table 2, then the prefix declarations of the ontology document being parsed *must* contain a declaration for *pn:* associating it with a prefix IRI *PI*.
+* The resulting full IRI is obtained by concatenating the string representation of *PI* with *rp*. The resulting IRI must be a valid IRI.
+
+### Well-formedness
+
+An ontology document *must* contain at most one such declaration per prefix name, and it *must not* declare a prefix name listed in Table 2. 
+
+**Table 2**. Declarations of the Standard Prefix Names
+
+| Prefix name | Prefix IRI                                    |
+| ----------- | --------------------------------------------- |
+| rdf:        | <http://www.w3.org/1999/02/22-rdf-syntax-ns#> |
+| rdfs:       | <http://www.w3.org/2000/01/rdf-schema#>       |
+| xsd:        | <http://www.w3.org/2001/XMLSchema#>           |
+| owl:        | <http://www.w3.org/2002/07/owl#>              |
+"""
+
+
+[functions.Ontology]
+section = "3"
+description = "The main component of an OWL 2 ontology is its set of axioms, the structure of which is described in more detail in Section 9."
+bnf = """Ontology :=
+    'Ontology' '(' [ ontologyIRI [ versionIRI ] ]
+       directlyImportsDocuments
+       ontologyAnnotations
+       axioms
+    ')'
+
+ontologyIRI := IRI
+versionIRI := IRI
+directlyImportsDocuments := { 'Import' '(' IRI ')' }
+ontologyAnnotations := { Annotation }
+axioms := { Axiom }"""
+long_description = """Because the association between an ontology and its axioms is a set, an ontology cannot contain two axioms that are structurally equivalent. Apart from axioms, ontologies can also contain ontology annotations (as described in more detail in Section 3.5), and they can also import other ontologies (as described in Section 3.4).
+
+An OWL 2 ontology is an abstract notion defined in terms of the structural specification. Each ontology is associated with an *ontology document*, which physically contains the ontology stored in a particular way. The name "ontology document" reflects the expectation that a large number of ontologies will be stored in physical text documents written in one of the syntaxes of OWL 2. OWL 2 tools, however, are free to devise other types of ontology documents — that is, to introduce other ways of physically storing ontologies.
+
+### Well-Formedness
+
+Each ontology *may* have an *ontology IRI*, which is used to identify an ontology. If an ontology has an ontology IRI, the ontology *may* additionally have a *version IRI*, which is used to identify the version of the ontology. The version IRI *may* be, but need not be, equal to the ontology IRI. An ontology without an ontology IRI *must not* contain a version IRI.
+
+IRIs from the reserved vocabulary must not be used as an ontology IRI or a version IRI of an OWL 2 DL ontology.
+
+The following list summarizes all the conditions that *O* is required to satisfy to be an OWL 2 ontology.
+
+* *O* must satisfy the restrictions on the presence of the ontology IRI and version IRI from Section 3.1.
+* Each **DataIntersectionOf and **DataUnionOf** in *O* must satisfy the restrictions from Section 7.1 and Section 7.2, respectively.
+* Each **DataSomeValuesFrom** and **DataAllValuesFrom** class expression in *O* must satisfy the restrictions from Section 8.4.1 and Section 8.4.2, respectively.
+* Each **DataPropertyRange** axiom in *O* must satisfy the restriction from Section 9.3.5.
+* Each **DatatypeDefinition** axiom in *O* must satisfy the restrictions from Section 9.4.
+* Each **HasKey** axiom in *O* must satisfy the restriction from Section 9.5.
+* Each *O'* directly imported into *O* must satisfy all of these restrictions as well.
+
+The following list summarizes all the conditions that an OWL 2 ontology *O* is required to satisfy to be an OWL 2 DL ontology.
+
+* The ontology IRI and the version IRI (if present) of *O* must satisfy the restrictions on usage of the reserved vocabulary from Section 3.1.
+* Each datatype and each literal in *O* must satisfy the restrictions from Section 5.2 and Section 5.7, respectively.
+* Each entity in *O* must have an IRI satisfying the restrictions on the usage of the reserved vocabulary from Sections 5.1–5.6.
+* *O* must satisfy the typing constraints from Section 5.8.1.
+* Each **DatatypeRestriction** in *O* must satisfy the restriction on the usage of constraining facets from Section 7.5, respectively.
+* *O* must satisfy the global restriction from Section 11.
+* Each *O'* directly imported into *O* must satisfy all of these restrictions as well."""
+see_also = ["Import", "Annotation", "Axiom"]
+
+
+[functions.Import]
+section = "3.4"
+description = "An OWL 2 ontology can import other ontologies in order to gain access to their entities, expressions, and axioms, thus providing the basic facility for ontology modularization."
+bnf = """directlyImportsDocuments := { 
+    'Import' '(' 
+        IRI 
+    ')' 
+}"""
+long_description = "From a physical point of view, an ontology contains a set of IRIs as the **directlyImportsDocuments** association; these IRIs identify the ontology documents of the directly imported ontologies as specified in Section 3.2. The *logical directly* imports relation between ontologies as the **directlyImports** association, is obtained by accessing the directly imported ontology documents and converting them into OWL 2 ontologies. The logical *imports* relation between ontologies as the **imports** association, is the transitive closure of directly imports. Ontology documents usually store the **directlyImportsDocuments** association. In contrast, the **directlyImports** and **imports** associations are typically not stored in ontology documents, but are determined during parsing as specified in Section 3.6."
+
+[functions.Annotation]
+section = "10.1"
+description = "OWL 2 applications often need ways to associate additional information with ontologies, entities, and axioms. To this end, OWL 2 provides for annotations on ontologies, axioms, and entities."
+bnf = """Annotation := 
+    'Annotation' '(' 
+        annotationAnnotations AnnotationProperty AnnotationValue 
+    ')'
+
+annotationAnnotations  := { Annotation }
+AnnotationValue := AnonymousIndividual | IRI | Literal"""
+long_description = "Ontologies, axioms, and annotations themselves can be annotated using annotations. Such annotations consist of an annotation property and an annotation value, where the latter can be anonymous individuals, IRIs, and literals."
+see_also = ["AnnotationProperty"]
+
+
+[functions.AnnotationProperty]
+section = ""
+description = ""
+
+
+[functions.Axiom]
+section = ""
+description = ""
+
+
+[functions.Declaration]
+section = "5.8"
+description = "In OWL 2, declarations are a type of axiom; thus, to declare an entity in an ontology, one can simply include the appropriate axiom in the ontology."
+bnf = """Declaration := 
+    'Declaration' '(' 
+        axiomAnnotations Entity 
+    ')'
+Entity :=
+    'Class' '(' Class ')' |
+    'Datatype' '(' Datatype ')' |
+    'ObjectProperty' '(' ObjectProperty ')' |
+    'DataProperty' '(' DataProperty ')' |
+    'AnnotationProperty' '(' AnnotationProperty ')' |
+    'NamedIndividual' '(' NamedIndividual ')'"""
+long_description = """Each IRI I used in an OWL 2 ontology *O* can be, and sometimes even needs to be, declared in *O*; roughly speaking, this means that the axiom closure of *O* must contain an appropriate declaration for *I*. A declaration for *I* in *O* serves two purposes:
+
+* A declaration says that *I* exists — that is, it says that *I* is part of the vocabulary of *O*.
+* A declaration associates with *I* an entity type — that is, it says whether *I* is used in *O* as a class, datatype, object property, data property, annotation property, an individual, or a combination thereof.
+
+These axioms are nonlogical in the sense that they do not affect the consequences of an OWL 2 ontology."""

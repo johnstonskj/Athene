@@ -235,14 +235,54 @@ impl Display for CardinalityConstraint {
         write!(
             f,
             "{}",
-            match self {
-                Self::Unlimited(_) => UNLIMITED_STR.to_string(),
-                Self::MinLimited(v) => format!("{}{UNLIMITED_MAX_STR}", v.start),
-                Self::MaxLimited(v) => format!("{UNLIMITED_MIN_STR}{}", v.end),
-                Self::MinMaxLimited(v) => format!("{}{LIMITED_STR}{}", v.start, v.end),
-                Self::Exactly(v) => format!("{v}"),
+            if f.alternate() {
+                match self {
+                    Self::Unlimited(_) => "zero or more".to_string(),
+                    Self::MinLimited(v) => format!("at least {}", v.start),
+                    Self::MaxLimited(v) => format!("at most {}", v.end),
+                    Self::MinMaxLimited(v) => format!("between {} and {}", v.start, v.end),
+                    Self::Exactly(v) => format!("exactly {v}"),
+                }
+            } else {
+                match self {
+                    Self::Unlimited(_) => UNLIMITED_STR.to_string(),
+                    Self::MinLimited(v) => format!("{}{UNLIMITED_MAX_STR}", v.start),
+                    Self::MaxLimited(v) => format!("{UNLIMITED_MIN_STR}{}", v.end),
+                    Self::MinMaxLimited(v) => format!("{}{LIMITED_STR}{}", v.start, v.end),
+                    Self::Exactly(v) => format!("{v}"),
+                }
             }
         )
+    }
+}
+
+impl From<RangeFull> for CardinalityConstraint {
+    fn from(range: RangeFull) -> Self {
+        Self::Unlimited(range)
+    }
+}
+
+impl From<RangeFrom<Natural>> for CardinalityConstraint {
+    fn from(range: RangeFrom<Natural>) -> Self {
+        Self::MinLimited(range)
+    }
+}
+
+impl From<RangeTo<Natural>> for CardinalityConstraint {
+    fn from(range: RangeTo<Natural>) -> Self {
+        Self::MaxLimited(range)
+    }
+}
+
+impl From<Range<Natural>> for CardinalityConstraint {
+    fn from(range: Range<Natural>) -> Self {
+        Self::MinMaxLimited(range)
+    }
+}
+
+impl From<Natural> for CardinalityConstraint {
+    fn from(range: Natural) -> Self {
+        Self::Exactly(range)
     }
 }
 
@@ -251,7 +291,7 @@ impl FromStr for CardinalityConstraint {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         if s == "*" {
-            Ok(Self::Unlimited(RangeFull::default()))
+            Ok(Self::Unlimited(RangeFull))
         } else if let Some(bound) = s.strip_suffix(UNLIMITED_MAX_STR) {
             Ok(Self::MinLimited(
                 u128::from_str(bound).map_err(|e| {
@@ -293,7 +333,7 @@ impl CardinalityConstraint {
     /// Construct a new, unlimited constraint; this allows **any** number of elements.
     #[inline(always)]
     pub fn unlimited() -> Self {
-        Self::Unlimited(RangeFull::default())
+        Self::Unlimited(RangeFull)
     }
 
     /// Construct a new, zero-limited constraint; this allows **zero** elements.
@@ -340,6 +380,26 @@ impl CardinalityConstraint {
 
     pub fn assert_valid_length(&self, length: usize) -> Result<(), ApiError> {
         self.assert_valid(UnlimitedNatural::Limited(length as Natural))
+    }
+
+    pub fn min_limit(&self) -> Option<Natural> {
+        match self {
+            Self::Unlimited(_) => None,
+            Self::MinLimited(range) => Some(range.start),
+            Self::MaxLimited(_) => None,
+            Self::MinMaxLimited(range) => Some(range.start),
+            Self::Exactly(min) => Some(*min),
+        }
+    }
+
+    pub fn max_limit(&self) -> Option<Natural> {
+        match self {
+            Self::Unlimited(_) => None,
+            Self::MinLimited(_) => None,
+            Self::MaxLimited(range) => Some(range.end),
+            Self::MinMaxLimited(range) => Some(range.end),
+            Self::Exactly(min) => Some(*min),
+        }
     }
 
     pub fn assert_valid(&self, value: UnlimitedNatural) -> Result<(), ApiError> {

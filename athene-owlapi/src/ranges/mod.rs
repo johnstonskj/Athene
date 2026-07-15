@@ -466,7 +466,7 @@ impl DatatypeRestriction {
     ) -> Result<Self, ApiError> {
         let restrictions: Vec<FacetRestriction> = restrictions.into_iter().collect();
 
-        if restrictions.len() >= 1 {
+        if !restrictions.is_empty() {
             Ok(Self {
                 arity: Default::default(),
                 datatype,

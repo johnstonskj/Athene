@@ -30,6 +30,7 @@ use crate::{
         FN_ANONYMOUS_INDIVIDUAL, FN_CLASS, FN_DATA_PROPERTY, FN_DATATYPE, FN_NAMED_INDIVIDUAL,
         FN_OBJECT_PROPERTY, NAMESPACE_NAME_SEPARATOR,
     },
+    things::{owl, rdf, rdfs, skos},
     values::UnlimitedNatural,
 };
 use core::{
@@ -82,6 +83,42 @@ use alloc::{format, string::ToString};
 /// Declaration( NamedIndividual( a:Peter ) )
 /// ```
 ///
+/// ```rust
+/// use athene_owlapi::{
+///     entities::{Class, EntityTrait, IriAsEntity, NamedIndividual},
+///     things::rdfs,
+/// };
+/// use rdftk_iri::Iri;
+/// use std::str::FromStr;
+///
+/// let person = Iri::from_str("https://example.com/ns/Person").unwrap();
+/// let peter = Iri::from_str("https://example.com/ns/Peter").unwrap();
+///
+/// // Using EntityTrait::new
+/// assert_eq!(
+///     "Declaration( Class( <https://example.com/ns/Person> ) )".to_string(),
+///     Class::new(person.clone()).as_declaration().to_string()
+/// );
+///
+/// // Using IriAsEntity::as_class
+/// assert_eq!(
+///     "Declaration( Class( <https://example.com/ns/Person> ) )".to_string(),
+///     person.as_class().as_declaration().to_string()
+/// );
+///
+/// // Using EntityTrait::new
+/// assert_eq!(
+///     "Declaration( NamedIndividual( <https://example.com/ns/Peter> ) )".to_string(),
+///     NamedIndividual::new(peter.clone()).as_declaration().to_string()
+/// );
+///
+/// // Using IriAsEntity::as_class
+/// assert_eq!(
+///     "Declaration( NamedIndividual( <https://example.com/ns/Peter> ) )".to_string(),
+///     peter.as_named_individual().as_declaration().to_string()
+/// );
+// ```
+///
 #[derive(Clone, Debug, PartialEq, EnumIs, EnumTryAs)]
 pub enum Entity {
     AnnotationProperty(AnnotationProperty),
@@ -110,6 +147,43 @@ pub enum Entity {
 ///
 /// ```owl
 /// Class := IRI
+/// ```
+///
+/// ## Examples
+///
+/// ```rust
+/// use athene_owlapi::{
+///     entities::{Class, EntityTrait, IriAsEntity},
+///     things::rdfs,
+/// };
+/// use rdftk_iri::Iri;
+/// use std::str::FromStr;
+///
+/// let iri = Iri::from_str("https://example.com/ns/Foo").unwrap();
+///
+/// // Using EntityTrait::new
+/// assert_eq!(
+///     "<https://example.com/ns/Foo>".to_string(),
+///     Class::new(iri.clone()).to_string()
+/// );
+///
+/// // Using From<Iri>
+/// assert_eq!(
+///     "<https://example.com/ns/Foo>".to_string(),
+///     Class::from(iri.clone()).to_string()
+/// );
+///
+/// // Using IriAsEntity::as_class
+/// assert_eq!(
+///     "<https://example.com/ns/Foo>".to_string(),
+///     iri.as_class().to_string()
+/// );
+///
+/// // Using a predefined IRI
+/// assert_eq!(
+///     "rdfs:Resource".to_string(),
+///     rdfs::resource().as_class().to_string()
+/// );
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -141,6 +215,43 @@ pub struct Class {
 ///
 /// ```owl
 /// Datatype := IRI
+/// ```
+///
+/// ## Examples
+///
+/// ```rust
+/// use athene_owlapi::{
+///     entities::{Datatype, EntityTrait, IriAsEntity},
+///     things::rdf,
+/// };
+/// use rdftk_iri::Iri;
+/// use std::str::FromStr;
+///
+/// let iri = Iri::from_str("https://example.com/ns/Foo").unwrap();
+///
+/// // Using EntityTrait::new
+/// assert_eq!(
+///     "<https://example.com/ns/Foo>".to_string(),
+///     Datatype::new(iri.clone()).to_string()
+/// );
+///
+/// // Using From<Iri>
+/// assert_eq!(
+///     "<https://example.com/ns/Foo>".to_string(),
+///     Datatype::from(iri.clone()).to_string()
+/// );
+///
+/// // Using IriAsEntity::as_datatype
+/// assert_eq!(
+///     "<https://example.com/ns/Foo>".to_string(),
+///     iri.as_datatype().to_string()
+/// );
+///
+/// // Using a predefined IRI
+/// assert_eq!(
+///     "rdf:PlainLiteral".to_string(),
+///     rdf::plain_literal().as_datatype().to_string()
+/// );
 /// ```
 ///
 #[derive(Clone, Debug, PartialEq)]
@@ -300,7 +411,7 @@ pub trait IriAsEntity {
     fn as_annotation_property(&self) -> AnnotationProperty;
     fn as_class(&self) -> Class;
     fn as_data_property(&self) -> DataProperty;
-    fn as_adatatype(&self) -> Datatype;
+    fn as_datatype(&self) -> Datatype;
     fn as_object_property(&self) -> ObjectProperty;
     fn as_named_individual(&self) -> NamedIndividual;
 }
@@ -334,15 +445,13 @@ macro_rules! impl_entity {
 
         impl From<Iri> for $type_name {
             fn from(entity_iri: Iri) -> Self {
-                Self { entity_iri }
+                Self::new(entity_iri)
             }
         }
 
         impl From<&Iri> for $type_name {
             fn from(entity_iri: &Iri) -> Self {
-                Self {
-                    entity_iri: entity_iri.clone(),
-                }
+                Self::new(entity_iri.clone())
             }
         }
 
@@ -362,7 +471,7 @@ macro_rules! impl_entity {
             }
 
             fn as_declaration(&self) -> Declaration {
-                Declaration::new(self.clone().into())
+                Declaration::new(self.clone())
             }
         }
     };
@@ -400,7 +509,7 @@ impl DisplayPretty for Entity {
             }
         )?;
         if f.alternate() {
-            let _ = indenter.indent();
+            indenter.indent();
         }
         let entity_iri = match self {
             Self::AnnotationProperty(v) => v.entity_iri(),
@@ -413,7 +522,7 @@ impl DisplayPretty for Entity {
         write!(f, "{}", indenter.separator_string(f.alternate()))?;
         entity_iri.fmt_pretty(f, indenter, prefix_map)?;
         if f.alternate() {
-            let _ = indenter.outdent();
+            indenter.outdent();
         }
         write!(
             f,
@@ -423,41 +532,12 @@ impl DisplayPretty for Entity {
     }
 }
 
-impl From<AnnotationProperty> for Entity {
-    fn from(value: AnnotationProperty) -> Self {
-        Self::AnnotationProperty(value)
-    }
-}
-
-impl From<Class> for Entity {
-    fn from(value: Class) -> Self {
-        Self::Class(value)
-    }
-}
-
-impl From<DataProperty> for Entity {
-    fn from(value: DataProperty) -> Self {
-        Self::DataProperty(value)
-    }
-}
-
-impl From<Datatype> for Entity {
-    fn from(value: Datatype) -> Self {
-        Self::Datatype(value)
-    }
-}
-
-impl From<ObjectProperty> for Entity {
-    fn from(value: ObjectProperty) -> Self {
-        Self::ObjectProperty(value)
-    }
-}
-
-impl From<NamedIndividual> for Entity {
-    fn from(value: NamedIndividual) -> Self {
-        Self::NamedIndividual(value)
-    }
-}
+impl_from_for_variant!(Entity, Class);
+impl_from_for_variant!(Entity, AnnotationProperty);
+impl_from_for_variant!(Entity, DataProperty);
+impl_from_for_variant!(Entity, Datatype);
+impl_from_for_variant!(Entity, ObjectProperty);
+impl_from_for_variant!(Entity, NamedIndividual);
 
 impl Entity {
     pub fn entity_iri(&self) -> &Iri {
@@ -482,11 +562,110 @@ impl Entity {
 
 impl_entity!(AnnotationProperty);
 
+impl AnnotationProperty {
+    #[inline(always)]
+    pub fn rdfs_label() -> Self {
+        rdfs::label().into()
+    }
+
+    #[inline(always)]
+    pub fn rdfs_comment() -> Self {
+        rdfs::comment().into()
+    }
+
+    #[inline(always)]
+    pub fn rdfs_see_also() -> Self {
+        rdfs::see_also().into()
+    }
+
+    #[inline(always)]
+    pub fn rdfs_is_defined_by() -> Self {
+        rdfs::is_defined_by().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_deprecated() -> Self {
+        owl::deprecated().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_backward_compatible_with() -> Self {
+        owl::backward_compatible_with().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_incompatible_with() -> Self {
+        owl::incompatible_with().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_prior_version() -> Self {
+        owl::prior_version().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_version_info() -> Self {
+        owl::version_info().into()
+    }
+
+    #[inline(always)]
+    pub fn skos_alt_label() -> Self {
+        skos::alt_label().into()
+    }
+}
+
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ Class
 // ------------------------------------------------------------------------------------------------
 
 impl_entity!(Class);
+
+impl Class {
+    #[inline(always)]
+    pub fn rdfs_resource() -> Self {
+        rdfs::resource().into()
+    }
+
+    #[inline(always)]
+    pub fn rdfs_literal() -> Self {
+        rdfs::literal().into()
+    }
+
+    #[inline(always)]
+    pub fn rdfs_datatype() -> Self {
+        rdfs::datatype().into()
+    }
+
+    #[inline(always)]
+    pub fn rdfs_class() -> Self {
+        rdfs::class().into()
+    }
+
+    #[inline(always)]
+    pub fn rdf_property() -> Self {
+        rdf::property().into()
+    }
+
+    #[inline(always)]
+    pub fn rdf_list() -> Self {
+        rdf::list().into()
+    }
+
+    #[inline(always)]
+    pub fn rdf_statement() -> Self {
+        rdf::statement().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_thing() -> Self {
+        owl::thing().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_nothing() -> Self {
+        owl::nothing().into()
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 // Implementations ❯ DataProperty
@@ -498,8 +677,21 @@ impl_entity!(DataProperty);
 // Implementation ❯ Datatype
 // ------------------------------------------------------------------------------------------------
 
-// TODO: !! This is now invalid!
-impl_display_pretty!(Datatype(entity_iri));
+impl Display for Datatype {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        self.fmt_pretty(f, &Indenter::default(), &IriPrefixMap::default())
+    }
+}
+impl DisplayPretty for Datatype {
+    fn fmt_pretty(
+        &self,
+        f: &mut Formatter<'_>,
+        indenter: &Indenter,
+        prefix_map: &IriPrefixMap,
+    ) -> FmtResult {
+        self.entity_iri.fmt_pretty(f, indenter, prefix_map)
+    }
+}
 
 impl HasArity for Datatype {
     fn arity(&self) -> UnlimitedNatural {
@@ -513,6 +705,18 @@ impl From<Iri> for Datatype {
     }
 }
 
+impl From<&Iri> for Datatype {
+    fn from(entity_iri: &Iri) -> Datatype {
+        Self::new(entity_iri.clone())
+    }
+}
+
+impl From<Datatype> for Iri {
+    fn from(value: Datatype) -> Self {
+        value.entity_iri
+    }
+}
+
 impl Datatype {
     pub fn new(entity_iri: Iri) -> Self {
         Self {
@@ -521,12 +725,34 @@ impl Datatype {
         }
     }
 
+    #[inline(always)]
+    pub fn owl_real() -> Self {
+        owl::real().into()
+    }
+
+    #[inline(always)]
+    pub fn owl_rational() -> Self {
+        owl::rational().into()
+    }
+
+    #[inline(always)]
+    pub fn rdf_plain_literal() -> Self {
+        rdf::plain_literal().into()
+    }
+
+    #[inline(always)]
+    pub fn rdf_lang_string() -> Self {
+        rdf::lang_string().into()
+    }
+
+    #[inline(always)]
     pub fn entity_iri(&self) -> &Iri {
         &self.entity_iri
     }
 
+    #[inline(always)]
     pub fn as_declaration(&self) -> Declaration {
-        Declaration::new(self.clone().into())
+        Declaration::new(self)
     }
 }
 
@@ -605,7 +831,7 @@ impl IriAsEntity for Iri {
         DataProperty::new(self.clone())
     }
 
-    fn as_adatatype(&self) -> Datatype {
+    fn as_datatype(&self) -> Datatype {
         Datatype::new(self.clone())
     }
 

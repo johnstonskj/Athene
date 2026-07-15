@@ -4,7 +4,8 @@
 use crate::{
     reader::{
         ast::{Position, PrefixedIriRef, Span},
-        error::ParseError,
+        error::ReaderError,
+        reporter::Reporter,
     },
     syntax::{
         ANONYMOUS_NAMESPACE, DELIM_COMMENT_START, DELIM_FN_ARGS_END, DELIM_FN_ARGS_START,
@@ -12,6 +13,7 @@ use crate::{
         DELIM_PREFIX_ASSIGN, DELIM_QUOTED_STRING, NAMESPACE_NAME_SEPARATOR,
     },
 };
+use strum::{AsRefStr, EnumIs, EnumTryAs};
 
 #[cfg(not(feature = "std"))]
 use alloc::{borrow::ToOwned, format, string::String, vec::Vec};
@@ -20,7 +22,7 @@ use alloc::{borrow::ToOwned, format, string::String, vec::Vec};
 // Crate Public Types
 // ------------------------------------------------------------------------------------------------
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, AsRefStr, EnumIs, EnumTryAs)]
 pub(crate) enum TokenKind {
     /// `<http://example.org/>`
     FullIri(String),
@@ -60,7 +62,11 @@ pub(crate) struct Lexer {
     pos: usize,
     /// Byte offset of `chars[pos]` from the start of the input.
     byte_offset: u32,
+    /// Character offset of `chars[pos]` from the start of the input.
+    char_offset: u32,
+    /// Number of lines
     line: u32,
+    /// Number of characters
     column: u32,
 }
 
@@ -74,6 +80,7 @@ impl Lexer {
             chars: input.chars().collect(),
             pos: 0,
             byte_offset: 0,
+            char_offset: 0,
             line: 1,
             column: 1,
         }
@@ -85,7 +92,8 @@ impl Lexer {
         Position {
             line: self.line,
             column: self.column,
-            offset: self.byte_offset,
+            byte_offset: self.byte_offset,
+            char_offset: self.char_offset,
         }
     }
 
@@ -102,6 +110,7 @@ impl Lexer {
         let ch = self.chars.get(self.pos).copied()?;
         self.pos += 1;
         self.byte_offset += ch.len_utf8() as u32;
+        self.char_offset += 1;
         if ch == '\n' {
             self.line += 1;
             self.column = 1;
@@ -126,7 +135,7 @@ impl Lexer {
 
     // ── Public interface ──────────────────────────────────────────────────────
 
-    pub(super) fn next_token(&mut self) -> Result<Token, ParseError> {
+    pub(super) fn next_token(&mut self, reporter: &dyn Reporter) -> Result<Token, ReaderError> {
         self.skip_whitespace();
 
         let start = self.current_position();
@@ -152,7 +161,7 @@ impl Lexer {
             DELIM_COMMENT_START => self.lex_comment(start),
             DELIM_IRI_START => self.lex_full_iri(start),
             DELIM_QUOTED_STRING => self.lex_quoted_string(start),
-            DELIM_LITERAL_LANGUAGE => self.lex_lang_tag(start),
+            DELIM_LITERAL_LANGUAGE => self.lex_lang_tag(start, reporter),
             DELIM_LITERAL_DATATYPE => self.lex_datatype_sep(start),
             ANONYMOUS_NAMESPACE if self.peek2() == Some(NAMESPACE_NAME_SEPARATOR) => {
                 self.lex_node_id(start)
@@ -160,7 +169,7 @@ impl Lexer {
             NAMESPACE_NAME_SEPARATOR => {
                 // Default-prefix bare namespace ":"
                 self.advance(); // consume ':'
-                if self.peek().map_or(false, is_pn_local_start) {
+                if self.peek().is_some_and(is_pn_local_start) {
                     let local = self.read_pn_local();
                     Ok(self.make_token(
                         TokenKind::PrefixedName(PrefixedIriRef {
@@ -177,7 +186,7 @@ impl Lexer {
             c if c.is_ascii_digit() => self.lex_integer(start),
             c => {
                 self.advance();
-                Err(ParseError::UnexpectedChar {
+                Err(ReaderError::UnexpectedChar {
                     ch: c,
                     span: Span::at(start),
                 })
@@ -187,7 +196,7 @@ impl Lexer {
 
     // ── Lexer sub-routines ────────────────────────────────────────────────────
 
-    fn lex_comment(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_comment(&mut self, start: Position) -> Result<Token, ReaderError> {
         self.advance(); // consume '#'
         let mut text = String::new();
         while let Some(c) = self.peek() {
@@ -200,13 +209,13 @@ impl Lexer {
         Ok(self.make_token(TokenKind::Comment(text.trim().to_owned()), start))
     }
 
-    fn lex_full_iri(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_full_iri(&mut self, start: Position) -> Result<Token, ReaderError> {
         self.advance(); // consume '<'
         let mut iri = String::new();
         loop {
             match self.peek() {
                 None => {
-                    return Err(ParseError::UnclosedString {
+                    return Err(ReaderError::UnclosedString {
                         span: Span::at(start),
                     });
                 }
@@ -219,7 +228,7 @@ impl Lexer {
                     match self.advance() {
                         Some(c) => iri.push(c),
                         None => {
-                            return Err(ParseError::UnclosedString {
+                            return Err(ReaderError::UnclosedString {
                                 span: Span::at(start),
                             });
                         }
@@ -234,13 +243,13 @@ impl Lexer {
         Ok(self.make_token(TokenKind::FullIri(iri), start))
     }
 
-    fn lex_quoted_string(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_quoted_string(&mut self, start: Position) -> Result<Token, ReaderError> {
         self.advance(); // consume '"'
         let mut s = String::new();
         loop {
             match self.peek() {
                 None => {
-                    return Err(ParseError::UnclosedString {
+                    return Err(ReaderError::UnclosedString {
                         span: Span::at(start),
                     });
                 }
@@ -252,7 +261,7 @@ impl Lexer {
                     self.advance();
                     let escaped = match self.advance() {
                         None => {
-                            return Err(ParseError::UnclosedString {
+                            return Err(ReaderError::UnclosedString {
                                 span: Span::at(start),
                             });
                         }
@@ -276,7 +285,7 @@ impl Lexer {
         Ok(self.make_token(TokenKind::QuotedString(s), start))
     }
 
-    fn read_unicode_escape(&mut self, start: Position, digits: usize) -> Result<char, ParseError> {
+    fn read_unicode_escape(&mut self, start: Position, digits: usize) -> Result<char, ReaderError> {
         let mut code = 0u32;
         for _ in 0..digits {
             match self.advance() {
@@ -284,20 +293,24 @@ impl Lexer {
                     code = code * 16 + c.to_digit(16).unwrap();
                 }
                 _ => {
-                    return Err(ParseError::InvalidArgument {
+                    return Err(ReaderError::InvalidArgument {
                         message: "invalid unicode escape".to_owned(),
                         span: Span::at(start),
                     });
                 }
             }
         }
-        char::from_u32(code).ok_or_else(|| ParseError::InvalidArgument {
+        char::from_u32(code).ok_or_else(|| ReaderError::InvalidArgument {
             message: format!("invalid unicode code point U+{code:X}"),
             span: Span::at(start),
         })
     }
 
-    fn lex_lang_tag(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_lang_tag(
+        &mut self,
+        start: Position,
+        reporter: &dyn Reporter,
+    ) -> Result<Token, ReaderError> {
         self.advance(); // consume '@'
         let mut tag = String::new();
         while let Some(c) = self.peek() {
@@ -309,30 +322,27 @@ impl Lexer {
             }
         }
         if tag.is_empty() {
-            return Err(ParseError::InvalidArgument {
-                message: "empty language tag".to_owned(),
-                span: Span::at(start),
-            });
+            return Err(reporter.empty_language_tag(Span::at(start)));
         }
         Ok(self.make_token(TokenKind::LangTag(tag), start))
     }
 
-    fn lex_datatype_sep(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_datatype_sep(&mut self, start: Position) -> Result<Token, ReaderError> {
         self.advance(); // consume first '^'
         match self.peek() {
             Some(DELIM_LITERAL_DATATYPE) => {
                 self.advance();
                 Ok(self.make_token(TokenKind::DataTypeSep, start))
             }
-            Some(c) => Err(ParseError::UnexpectedChar {
+            Some(c) => Err(ReaderError::UnexpectedChar {
                 ch: c,
                 span: self.current_span(),
             }),
-            None => Err(ParseError::UnexpectedEof { expected: "^" }),
+            None => Err(ReaderError::UnexpectedEof { expected: "^" }),
         }
     }
 
-    fn lex_node_id(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_node_id(&mut self, start: Position) -> Result<Token, ReaderError> {
         self.advance(); // '_'
         self.advance(); // ':'
         let name = self.read_pn_local();
@@ -344,14 +354,14 @@ impl Lexer {
     /// - `prefix:` (no local) → `Namespace`
     /// - `name` (no colon) → `Name`
     /// - a non-negative integer → `Integer`
-    fn lex_name_or_prefixed(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_name_or_prefixed(&mut self, start: Position) -> Result<Token, ReaderError> {
         let name = self.read_name();
 
         match self.peek() {
             Some(NAMESPACE_NAME_SEPARATOR) => {
                 self.advance(); // consume ':'
                 // Decide: namespace or prefixed name
-                if self.peek().map_or(false, is_pn_local_start) {
+                if self.peek().is_some_and(is_pn_local_start) {
                     let local = self.read_pn_local();
                     Ok(self.make_token(
                         TokenKind::PrefixedName(PrefixedIriRef {
@@ -368,7 +378,7 @@ impl Lexer {
         }
     }
 
-    fn lex_integer(&mut self, start: Position) -> Result<Token, ParseError> {
+    fn lex_integer(&mut self, start: Position) -> Result<Token, ReaderError> {
         let mut s = String::new();
         while let Some(c) = self.peek() {
             if c.is_ascii_digit() {
@@ -378,7 +388,7 @@ impl Lexer {
                 break;
             }
         }
-        let n: u32 = s.parse().map_err(|_| ParseError::InvalidArgument {
+        let n: u32 = s.parse().map_err(|_| ReaderError::InvalidArgument {
             message: format!("integer {s:?} out of range"),
             span: Span::at(start),
         })?;

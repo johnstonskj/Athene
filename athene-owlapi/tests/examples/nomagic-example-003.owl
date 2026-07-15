@@ -1,0 +1,12 @@
+Prefix( : = <http://nomagic.com/ontology/example-case/case-04> )
+Ontology(<http://nomagic.com/ontology/example-case/case-04>
+ 		Declaration(
+ 				Class(:FutsalTeam)
+		)
+		Declaration(
+				Class(:SoccerTeam)
+		)
+		AnnotationAssertion(rdfs:label :FutsalTeam "Futsal Team"@en)
+		SubClassOf(:FutsalTeam :SoccerTeam)
+		AnnotationAssertion(rdfs:label :SoccerTeam "Soccer Team"@en)
+) 

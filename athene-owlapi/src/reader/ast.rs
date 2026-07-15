@@ -3,7 +3,8 @@
 //!
 
 use core::fmt;
-use strum::{EnumIs, EnumTryAs};
+use std::ops::Range;
+use strum::{AsRefStr, EnumIs, EnumTryAs};
 
 #[cfg(not(feature = "std"))]
 use alloc::{string::String, vec::Vec};
@@ -24,10 +25,12 @@ pub struct Span {
 pub struct Position {
     /// 1-based line number.
     pub line: u32,
-    /// 1-based byte column within the line.
+    /// 1-based character column within the line.
     pub column: u32,
+    /// Character offset from the start of the input.
+    pub char_offset: u32,
     /// Byte offset from the start of the input.
-    pub offset: u32,
+    pub byte_offset: u32,
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -98,7 +101,7 @@ pub struct FunctionNode {
 }
 
 /// The kind of a node in the Stage 1 syntactic tree.
-#[derive(Clone, Debug, PartialEq, EnumIs, EnumTryAs)]
+#[derive(Clone, Debug, PartialEq, EnumIs, EnumTryAs, AsRefStr)]
 pub enum SyntaxNodeKind {
     /// A line comment — text after `#`, trimmed.
     Comment(String),
@@ -209,7 +212,7 @@ impl SyntaxNode {
 
     pub fn try_as_integer(&self) -> Option<u32> {
         match &self.kind {
-            SyntaxNodeKind::Atom(v) => v.try_as_integer_ref().map(|v| *v),
+            SyntaxNodeKind::Atom(v) => v.try_as_integer_ref().copied(),
             _ => None,
         }
     }
@@ -226,5 +229,19 @@ impl SyntaxNode {
             SyntaxNodeKind::Atom(v) => v.try_as_node_id_ref(),
             _ => None,
         }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Implementations ❯ Span
+// ------------------------------------------------------------------------------------------------
+
+impl Span {
+    pub fn byte_range(&self) -> Range<usize> {
+        (self.start.byte_offset as usize)..(self.end.byte_offset as usize)
+    }
+
+    pub fn char_range(&self) -> Range<usize> {
+        (self.start.char_offset as usize)..(self.end.char_offset as usize)
     }
 }

@@ -1,0 +1,51 @@
+Prefix( : = <http://example.com/ontology/uniondemo> )
+Ontology( <http://example.com/ontology/uniondemo>
+    
+    Declaration(Class(:A))
+    Declaration(Class(:B))
+    Declaration(Class(:C))
+    Declaration(Class(:D))
+    Declaration(Class(:P))
+    Declaration(Class(:Q))
+    Declaration(ObjectProperty(:hasP))
+    Declaration(ObjectProperty(:hasQ))
+    
+    ############################
+    #   Object Properties
+    ############################
+    
+    # Object Property: :hasP (has p)
+    
+    AnnotationAssertion(rdfs:label :hasP "has p"^^xsd:string)
+    ObjectPropertyDomain(:hasP ObjectUnionOf(:A :B))
+    ObjectPropertyRange(:hasP :P)
+    
+    # Object Property: :hasQ (has q)
+    
+    AnnotationAssertion(rdfs:label :hasQ "has q"^^xsd:string)
+    ObjectPropertyDomain(:hasQ ObjectUnionOf(:C :D))
+    ObjectPropertyRange(:hasQ :Q)
+    
+    ############################
+    #   Classes
+    ############################
+    
+    # Class: :A (a)
+    AnnotationAssertion(rdfs:label :A "a"^^xsd:string)
+    
+    # Class: :B (b)
+    AnnotationAssertion(rdfs:label :B "b"^^xsd:string)
+    
+    # Class: :C (c)
+    AnnotationAssertion(rdfs:label :C "c"^^xsd:string)
+    
+    # Class: :D (d)
+    AnnotationAssertion(rdfs:label :D "d"^^xsd:string)
+    
+    # Class: :P (p)
+    AnnotationAssertion(rdfs:label :P "p"^^xsd:string)
+    
+    # Class: :Q (q)
+    AnnotationAssertion(rdfs:label :Q "q"^^xsd:string)
+    
+)

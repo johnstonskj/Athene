@@ -71,6 +71,7 @@ pub enum AnnotationValue {
 
 pub trait HasAnnotations {
     fn has_annotations(&self) -> bool;
+    fn annotation_count(&self) -> usize;
     fn annotations(&self) -> Box<dyn Iterator<Item = &Annotation> + '_>;
     fn annotations_mut(&mut self) -> Box<dyn Iterator<Item = &mut Annotation> + '_>;
 }
@@ -83,17 +84,21 @@ impl_display_pretty!(Annotation(property, value, @list annotations));
 impl_has_annotations!(Annotation);
 
 impl Annotation {
-    pub fn new(property: Iri, value: AnnotationValue) -> Self {
-        Self::new_with_annotations(property, value, Vec::default())
+    pub fn new<AV>(property: Iri, value: AV) -> Self
+    where
+        AV: Into<AnnotationValue>,
+    {
+        Self::new_with_annotations(Vec::default(), property, value)
     }
 
-    pub fn new_with_annotations<I>(property: Iri, value: AnnotationValue, annotations: I) -> Self
+    pub fn new_with_annotations<IA, AV>(annotations: IA, property: Iri, value: AV) -> Self
     where
-        I: IntoIterator<Item = Annotation>,
+        IA: IntoIterator<Item = Annotation>,
+        AV: Into<AnnotationValue>,
     {
         Self {
             property,
-            value,
+            value: value.into(),
             annotations: annotations.into_iter().collect(),
         }
     }

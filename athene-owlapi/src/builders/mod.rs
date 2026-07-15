@@ -9,7 +9,8 @@ use crate::{
         AnnotationAxiom, Assertion, Axiom, ClassAxiom, DataPropertyAxiom, DatatypeDefinition,
         Declaration, HasKey, ObjectPropertyAxiom,
     },
-    error::BuilderError,
+    error::ApiError,
+    reserved_prefix_map,
     things::{owl, rdfs, skos},
 };
 use core::cell::RefCell;
@@ -19,45 +20,6 @@ use rdftk_iri::{Iri, IriPrefixMap, Namespace};
 use alloc::{string::ToString, vec::Vec};
 
 // ------------------------------------------------------------------------------------------------
-// Implementation Macros
-// ------------------------------------------------------------------------------------------------
-
-macro_rules! with_this_annotation {
-    ($vis:vis $fn_name:ident => $ann_iri:expr) => {
-        #[doc = "Add this annotation to the accumulated set within the builder."]
-        $vis fn $fn_name<T: Into<$crate::literals::Literal>>(self, value: T) -> Self
-        where
-            Self: Sized,
-        {
-            self.with_annotation($crate::annotations::Annotation::new(
-                $ann_iri,
-                $crate::annotations::AnnotationValue::Literal(value.into()),
-            ))
-        }
-    };
-}
-macro_rules! impl_annotation_builder {
-    ($type_name:ident, $member_name:ident) => {
-        impl $crate::builders::AnnotationBuilder for $type_name {
-            fn with_annotation(mut self, $member_name: $crate::annotations::Annotation) -> Self {
-                self.$member_name.push($member_name);
-                self
-            }
-            fn with_annotations<I>(mut self, $member_name: I) -> Self
-            where
-                I: IntoIterator<Item = $crate::annotations::Annotation>,
-            {
-                self.$member_name.extend($member_name.into_iter());
-                self
-            }
-        }
-    };
-    ($type_name:ident) => {
-        impl_annotation_builder!($type_name, annotations);
-    };
-}
-
-// ------------------------------------------------------------------------------------------------
 // Public Traits
 // ------------------------------------------------------------------------------------------------
 
@@ -65,7 +27,7 @@ macro_rules! impl_annotation_builder {
 /// This trait is implemented by all builder objects, call `build` to create an instance
 /// of the type `Output`
 ///
-pub trait Builder {
+pub trait Builder: Default + TryInto<Self::Output, Error = ApiError> {
     ///
     /// The type of the object created by this builder.
     ///
@@ -81,7 +43,7 @@ pub trait Builder {
     /// self is an immutable reference, allowing the same builder to build multiple
     /// objects, or to build one, modify and build another.
     ///
-    fn build(&self) -> Result<Self::Output, BuilderError>;
+    fn build(&self) -> Result<Self::Output, ApiError>;
 }
 
 ///
@@ -116,30 +78,30 @@ pub trait AnnotationBuilder {
     ///
     /// Add this annotation to the accumulated set within the builder.
     ///
-    fn with_annotation(self, annotation: Annotation) -> Self;
+    fn annotation(self, annotation: Annotation) -> Self;
 
     ///
     /// Add all these annotations to the accumulated set within the builder.
     ///
-    fn with_annotations<I: IntoIterator<Item = Annotation>>(self, annotations: I) -> Self;
+    fn annotations<I: IntoIterator<Item = Annotation>>(self, annotations: I) -> Self;
 
-    with_this_annotation!(with_rdfs_comment => rdfs::comment_iri());
-    with_this_annotation!(with_rdfs_label => rdfs::label_iri());
-    with_this_annotation!(with_rdfs_see_also => rdfs::see_also_iri());
-    with_this_annotation!(with_rdfs_is_defined_by => rdfs::is_defined_by_iri());
+    with_this_annotation!(rdfs_comment => rdfs::comment());
+    with_this_annotation!(rdfs_label => rdfs::label());
+    with_this_annotation!(rdfs_see_also => rdfs::see_also());
+    with_this_annotation!(rdfs_is_defined_by => rdfs::is_defined_by());
 
-    with_this_annotation!(with_owl_deprecated => owl::deprecated_iri());
+    with_this_annotation!(owl_deprecated => owl::deprecated());
 
-    with_this_annotation!(with_skos_pref_label => skos::pref_label_iri());
-    with_this_annotation!(with_skos_alt_label => skos::alt_label_iri());
-    with_this_annotation!(with_skos_hidden_label => skos::hidden_label_iri());
-    with_this_annotation!(with_skos_note => skos::note_iri());
-    with_this_annotation!(with_skos_change_note => skos::change_note_iri());
-    with_this_annotation!(with_skos_definition => skos::definition_iri());
-    with_this_annotation!(with_skos_editorial_note => skos::editorial_note_iri());
-    with_this_annotation!(with_skos_example => skos::example_iri());
-    with_this_annotation!(with_skos_history_note => skos::history_note_iri());
-    with_this_annotation!(with_skos_scope_note => skos::scope_note_iri());
+    with_this_annotation!(skos_pref_label => skos::pref_label());
+    with_this_annotation!(skos_alt_label => skos::alt_label());
+    with_this_annotation!(skos_hidden_label => skos::hidden_label());
+    with_this_annotation!(skos_note => skos::note());
+    with_this_annotation!(skos_change_note => skos::change_note());
+    with_this_annotation!(skos_definition => skos::definition());
+    with_this_annotation!(skos_editorial_note => skos::editorial_note());
+    with_this_annotation!(skos_example => skos::example());
+    with_this_annotation!(skos_history_note => skos::history_note());
+    with_this_annotation!(skos_scope_note => skos::scope_note());
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -171,37 +133,51 @@ pub struct OntologyBuilder {
 // Implementations ❯ OntologyDocumentBuilder
 // ------------------------------------------------------------------------------------------------
 
+impl_has_builder!(OntologyDocument, OntologyDocumentBuilder);
+
+impl TryFrom<OntologyDocumentBuilder> for OntologyDocument {
+    type Error = ApiError;
+
+    fn try_from(builder: OntologyDocumentBuilder) -> Result<Self, Self::Error> {
+        if let Some(ontology) = builder.ontology {
+            Ok(OntologyDocument {
+                prefix_map: RefCell::new(builder.mappings),
+                reserved_len: reserved_prefix_map().len(),
+                ontology,
+            })
+        } else {
+            Err(ApiError::MissingField {
+                name: "ontology".to_string(),
+            })
+        }
+    }
+}
+
+impl_builder_try_from!(OntologyDocument, OntologyDocumentBuilder);
+
 impl OntologyDocumentBuilder {
-    pub fn with_default_namespace(mut self, namespace_iri: Iri) -> Self {
+    ///
+    /// Set the default prefix for this document.
+    ///
+    pub fn default_prefix(mut self, namespace_iri: Iri) -> Self {
         self.mappings.set_default_namespace(namespace_iri);
         self
     }
 
-    pub fn with_namespace_prefix(mut self, prefix: Namespace, namespace_iri: Iri) -> Self {
+    ///
+    /// Set a `name: iri` prefix mapping for this document.
+    ///
+    pub fn prefix(mut self, prefix: Namespace, namespace_iri: Iri) -> Self {
         self.mappings.insert(prefix, namespace_iri);
         self
     }
 
-    pub fn with_ontology(mut self, ontology: Ontology) -> Self {
+    ///
+    /// Set the ontology embedded in this document.
+    ///
+    pub fn ontology(mut self, ontology: Ontology) -> Self {
         self.ontology = Some(ontology);
         self
-    }
-}
-
-impl Builder for OntologyDocumentBuilder {
-    type Output = OntologyDocument;
-
-    fn build(&self) -> Result<Self::Output, BuilderError> {
-        if self.ontology.is_none() {
-            Err(BuilderError::MissingField {
-                name: "ontology".to_string(),
-            })
-        } else {
-            Ok(OntologyDocument {
-                prefix_map: RefCell::new(self.mappings.clone()),
-                ontology: self.ontology.as_ref().map(|v| v.clone()).unwrap(),
-            })
-        }
     }
 }
 
@@ -209,100 +185,138 @@ impl Builder for OntologyDocumentBuilder {
 // Implementations ❯ OntologyBuilder
 // ------------------------------------------------------------------------------------------------
 
-impl_annotation_builder!(OntologyBuilder);
+impl_has_builder!(Ontology, OntologyBuilder);
 
-impl OntologyBuilder {
-    pub fn with_ontology_iri(mut self, ontology_iri: Iri) -> Self {
-        self.ontology_iri = Some(ontology_iri);
-        self
-    }
+impl TryFrom<OntologyBuilder> for Ontology {
+    type Error = ApiError;
 
-    pub fn with_version_iri(mut self, version_iri: Iri) -> Self {
-        self.version_iri = Some(version_iri);
-        self
-    }
-
-    pub fn with_direct_imports(mut self, direct_imports: impl IntoIterator<Item = Import>) -> Self {
-        self.direct_imports = direct_imports.into_iter().collect();
-        self
-    }
-
-    pub fn with_direct_import<I: Into<Import>>(mut self, direct_import: I) -> Self {
-        self.direct_imports.push(direct_import.into());
-        self
-    }
-
-    with_this_annotation!(pub with_owl_backward_compatible_with => owl::backward_compatible_with_iri());
-    with_this_annotation!(pub with_owl_incompatible_with => owl::incompatible_with_iri());
-    with_this_annotation!(pub with_owl_prior_version => owl::prior_version_iri());
-    with_this_annotation!(pub with_owl_version_info => owl::version_info_iri());
-
-    pub fn with_axioms(mut self, axioms: impl IntoIterator<Item = Axiom>) -> Self {
-        self.axioms = axioms.into_iter().collect();
-        self
-    }
-
-    pub fn with_axiom(mut self, axiom: Axiom) -> Self {
-        self.axioms.push(axiom);
-        self
-    }
-
-    pub fn with_declaration<D: Into<Declaration>>(self, declaration: D) -> Self {
-        self.with_axiom(Axiom::from(declaration.into()))
-    }
-
-    pub fn with_class_axiom<A: Into<ClassAxiom>>(self, class_axiom: A) -> Self {
-        self.with_axiom(Axiom::ClassAxiom(class_axiom.into()))
-    }
-
-    pub fn with_object_property_axiom<A: Into<ObjectPropertyAxiom>>(
-        self,
-        object_property_axiom: A,
-    ) -> Self {
-        self.with_axiom(Axiom::ObjectPropertyAxiom(object_property_axiom.into()))
-    }
-
-    pub fn with_data_property_axiom<A: Into<DataPropertyAxiom>>(
-        self,
-        data_property_axiom: A,
-    ) -> Self {
-        self.with_axiom(Axiom::DataPropertyAxiom(data_property_axiom.into()))
-    }
-
-    pub fn with_datatype_definition(self, datatype_definition: DatatypeDefinition) -> Self {
-        self.with_axiom(datatype_definition.into())
-    }
-
-    pub fn with_has_key(self, has_key: HasKey) -> Self {
-        self.with_axiom(has_key.into())
-    }
-
-    pub fn with_assertion<A: Into<Assertion>>(self, assertion: A) -> Self {
-        self.with_axiom(Axiom::Assertion(assertion.into()))
-    }
-
-    pub fn with_annotation_axiom<A: Into<AnnotationAxiom>>(self, annotation_axiom: A) -> Self {
-        self.with_axiom(Axiom::AnnotationAxiom(annotation_axiom.into()))
-    }
-}
-
-impl Builder for OntologyBuilder {
-    type Output = Ontology;
-
-    fn build(&self) -> Result<Self::Output, BuilderError> {
-        if self.version_iri.is_some() && self.ontology_iri.is_none() {
-            Err(BuilderError::UnexpectedDependentField {
+    fn try_from(builder: OntologyBuilder) -> Result<Self, Self::Error> {
+        if builder.version_iri.is_some() && builder.ontology_iri.is_none() {
+            Err(ApiError::UnexpectedDependentField {
                 antecedent: "ontology_iri".to_string(),
                 dependent: "version_iri".to_string(),
             })
         } else {
             Ok(Ontology {
-                ontology_iri: self.ontology_iri.clone(),
-                version_iri: self.version_iri.clone(),
-                direct_imports: self.direct_imports.clone(),
-                annotations: self.annotations.clone(),
-                axioms: self.axioms.clone(),
+                ontology_iri: builder.ontology_iri,
+                version_iri: builder.version_iri,
+                direct_imports: builder.direct_imports,
+                annotations: builder.annotations,
+                axioms: builder.axioms,
             })
         }
     }
 }
+
+impl_builder_try_from!(Ontology, OntologyBuilder);
+impl_annotation_builder!(OntologyBuilder);
+
+impl OntologyBuilder {
+    pub fn ontology_iri(mut self, ontology_iri: Iri) -> Self {
+        self.ontology_iri = Some(ontology_iri);
+        self
+    }
+
+    pub fn version_iri(mut self, version_iri: Iri) -> Self {
+        self.version_iri = Some(version_iri);
+        self
+    }
+
+    pub fn imports<I>(mut self, direct_imports: I) -> Self
+    where
+        I: IntoIterator<Item = Import>,
+    {
+        self.direct_imports = direct_imports.into_iter().collect();
+        self
+    }
+
+    pub fn import<T>(mut self, direct_import: T) -> Self
+    where
+        T: Into<Import>,
+    {
+        self.direct_imports.push(direct_import.into());
+        self
+    }
+
+    with_this_annotation!(pub with_owl_backward_compatible_with => owl::backward_compatible_with());
+    with_this_annotation!(pub with_owl_incompatible_with => owl::incompatible_with());
+    with_this_annotation!(pub with_owl_prior_version => owl::prior_version());
+    with_this_annotation!(pub with_owl_version_info => owl::version_info());
+
+    pub fn axioms<I>(mut self, axioms: I) -> Self
+    where
+        I: IntoIterator<Item = Axiom>,
+    {
+        self.axioms = axioms.into_iter().collect();
+        self
+    }
+
+    pub fn axiom<T>(mut self, axiom: T) -> Self
+    where
+        T: Into<Axiom>,
+    {
+        self.axioms.push(axiom.into());
+        self
+    }
+
+    pub fn declaration<T>(self, declaration: T) -> Self
+    where
+        T: Into<Declaration>,
+    {
+        self.axiom(Axiom::from(declaration.into()))
+    }
+
+    pub fn class<T>(self, class_axiom: T) -> Self
+    where
+        T: Into<ClassAxiom>,
+    {
+        self.axiom(Axiom::ClassAxiom(class_axiom.into()))
+    }
+
+    pub fn object_property<T>(self, object_property_axiom: T) -> Self
+    where
+        T: Into<ObjectPropertyAxiom>,
+    {
+        self.axiom(Axiom::ObjectPropertyAxiom(object_property_axiom.into()))
+    }
+
+    pub fn data_property<T>(self, data_property_axiom: T) -> Self
+    where
+        T: Into<DataPropertyAxiom>,
+    {
+        self.axiom(Axiom::DataPropertyAxiom(data_property_axiom.into()))
+    }
+
+    pub fn datatype_definition(self, datatype_definition: DatatypeDefinition) -> Self {
+        self.axiom(datatype_definition)
+    }
+
+    pub fn has_key(self, has_key: HasKey) -> Self {
+        self.axiom(has_key)
+    }
+
+    pub fn assertion<T>(self, assertion: T) -> Self
+    where
+        T: Into<Assertion>,
+    {
+        self.axiom(Axiom::Assertion(assertion.into()))
+    }
+
+    pub fn annotation_axiom<T>(self, annotation_axiom: T) -> Self
+    where
+        T: Into<AnnotationAxiom>,
+    {
+        self.axiom(Axiom::AnnotationAxiom(annotation_axiom.into()))
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Modules
+// ------------------------------------------------------------------------------------------------
+
+mod axioms;
+pub use axioms::*;
+
+mod expressions;
+
+mod ranges;

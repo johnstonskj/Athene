@@ -1,4 +1,60 @@
 // ------------------------------------------------------------------------------------------------
+// Macros ❯ AnnotationBuilder
+// ------------------------------------------------------------------------------------------------
+
+#[doc(hidden)]
+macro_rules! with_this_annotation {
+    ($vis:vis $fn_name:ident => $ann_iri:expr) => {
+        #[doc = "Add this annotation to the accumulated set within the builder."]
+        $vis fn $fn_name<T: Into<$crate::literals::Literal>>(self, value: T) -> Self
+        where
+            Self: Sized,
+        {
+            self.annotation($crate::annotations::Annotation::new(
+                $ann_iri,
+                $crate::annotations::AnnotationValue::Literal(value.into()),
+            ))
+        }
+    };
+}
+macro_rules! impl_annotation_builder {
+    ($type_name:ident, $member_name:ident) => {
+        impl $crate::builders::AnnotationBuilder for $type_name {
+            fn annotation(mut self, $member_name: $crate::annotations::Annotation) -> Self {
+                self.$member_name.push($member_name);
+                self
+            }
+            fn annotations<I>(mut self, $member_name: I) -> Self
+            where
+                I: IntoIterator<Item = $crate::annotations::Annotation>,
+            {
+                self.$member_name.extend($member_name.into_iter());
+                self
+            }
+        }
+    };
+    ($type_name:ident) => {
+        impl_annotation_builder!($type_name, annotations);
+    };
+}
+
+// ------------------------------------------------------------------------------------------------
+// Macros ❯ Builder (TryFrom)
+// ------------------------------------------------------------------------------------------------
+
+macro_rules! impl_builder_try_from {
+    ($type_name:ident, $builder_name:ident) => {
+        impl $crate::builders::Builder for $builder_name {
+            type Output = $type_name;
+
+            fn build(&self) -> Result<Self::Output, $crate::error::ApiError> {
+                $type_name::try_from(self.clone())
+            }
+        }
+    };
+}
+
+// ------------------------------------------------------------------------------------------------
 // Macros ❯ HasAnnotations
 // ------------------------------------------------------------------------------------------------
 
@@ -29,6 +85,10 @@ macro_rules! impl_has_annotations {
                 !self.$member_name.is_empty()
             }
 
+            fn annotation_count(&self) -> usize {
+                self.$member_name.len()
+            }
+
             fn annotations(&self) -> boxit!(for <dyn Iterator<Item = &$crate::annotations::Annotation> + '_>) {
                 boxit!(new (self.$member_name.iter()))
             }
@@ -55,6 +115,14 @@ macro_rules! impl_has_annotations {
                     }
                }
 
+                fn annotation_count(&self) -> usize {
+                    match self {
+                    $(
+                        Self::$var_name(v) => v.annotation_count(),
+                    )+
+                    }
+                }
+
                fn annotations(&self) -> boxit!(for <dyn Iterator<Item = &$crate::annotations::Annotation> + '_>) {
                     match self {
                     $(
@@ -74,6 +142,23 @@ macro_rules! impl_has_annotations {
                }
            }
        };
+}
+
+// ------------------------------------------------------------------------------------------------
+// Macros ❯ HasBuilder
+// ------------------------------------------------------------------------------------------------
+
+macro_rules! impl_has_builder {
+    ($type_name:ident, $builder_name:ident) => {
+        impl $crate::builders::HasBuilder for $type_name {
+            type Output = Self;
+            type Builder = $builder_name;
+
+            fn builder() -> Self::Builder {
+                $builder_name::default()
+            }
+        }
+    };
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -220,6 +305,11 @@ macro_rules! impl_from_for_variant {
         impl_from_for_variant!($enum_name, $variant_and_type_name($variant_and_type_name));
     };
     ($enum_name:ident, $variant_name:ident ( from $from_type_name:ident )) => {
+        impl From<&$from_type_name> for $enum_name {
+            fn from(value: &$from_type_name) -> Self {
+                Self::$variant_name($variant_name::from(value.clone()))
+            }
+        }
         impl From<$from_type_name> for $enum_name {
             fn from(value: $from_type_name) -> Self {
                 Self::$variant_name($variant_name::from(value))
@@ -227,6 +317,11 @@ macro_rules! impl_from_for_variant {
         }
     };
     ($enum_name:ident, $variant_name:ident ( $variant_type_name:ident )) => {
+        impl From<&$variant_type_name> for $enum_name {
+            fn from(value: &$variant_type_name) -> Self {
+                Self::$variant_name(value.clone())
+            }
+        }
         impl From<$variant_type_name> for $enum_name {
             fn from(value: $variant_type_name) -> Self {
                 Self::$variant_name(value)
@@ -241,6 +336,15 @@ macro_rules! impl_from_for_variant {
 
 macro_rules! make_iri_function {
     ($fn_name:ident => $vocab_name:ident : $type_name:ident) => {
+        pub fn $fn_name() -> ::rdftk_iri::Iri {
+            $vocab_name
+                .iri_as_iri()
+                .make_name(::rdftk_iri::Name::new_unchecked(stringify!($type_name)))
+                .unwrap()
+        }
+    };
+    ($fn_name:ident => $vocab_name:ident : $type_name:ident $doc_str:literal) => {
+        #[doc = $doc_str]
         pub fn $fn_name() -> ::rdftk_iri::Iri {
             $vocab_name
                 .iri_as_iri()
